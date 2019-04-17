@@ -108,7 +108,7 @@ export default Vue.extend({
   box-shadow: var(--bs-2);
   z-index: var(--z-3);
   height: 100vh;
-  transition: 0.2s width ease;
+  transition: 0.2s width ease, 0.2s min-width ease;
   overflow: hidden;
 }
 .nav.open {
@@ -159,6 +159,7 @@ export default Vue.extend({
   margin: 0 0 0 var(--s-3);
 }
 .link.nuxt-link-active {
+  color: var(--c-blue);
   background-color: var(--c-gray-1);
 }
 .link__content {

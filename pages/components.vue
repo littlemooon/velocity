@@ -11,7 +11,7 @@
     </Card>
     <Card>
       <Right>
-        <Button :onClick="noop" v-bind:variant="buttonVariants.PRIMARY">Primary</Button>
+        <Button :onClick="noop" v-bind:variant= "buttonVariants.PRIMARY">Primary</Button>
         <Button :onClick="noop" v-bind:variant="buttonVariants.SECONDARY">Secondary</Button>
         <Button :onClick="noop" v-bind:variant="buttonVariants.TRANSPARENT">Transparent</Button>
         <Button :onClick="noop" v-bind:variant="buttonVariants.ICON">I</Button>

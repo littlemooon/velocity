@@ -57,7 +57,7 @@
 }
 .button--icon:focus,
 .button--icon:active {
-  background-color: var(--c-gray-1);
+  color: var(--c-blue);
 }
 </style>
 

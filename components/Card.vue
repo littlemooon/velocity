@@ -10,6 +10,7 @@
   border-radius: var(--s-2);
   padding: var(--s-4);
   margin: 0 0 var(--s-4);
+  box-shadow: var(--bs-1);
 }
 </style>
 
