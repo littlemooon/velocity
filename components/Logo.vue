@@ -6,7 +6,7 @@
 
 <style scoped>
 h1 {
-  color: var(--c-black);
+  color: var(--c-pink-dark);
 }
 </style>
 

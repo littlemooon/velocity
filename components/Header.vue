@@ -15,11 +15,11 @@ header {
   display: flex;
   align-items: center;
   width: 100%;
-  height: var(--s-6);
-  min-height: var(--s-6);
+  height: var(--header-h);
+  min-height: var(--header-h);
   background-color: var(--c-white);
   box-shadow: var(--bs-1);
-  z-index: 50;
+  z-index: var(--z-2);
   padding: 0 var(--s-4);
 }
 </style>

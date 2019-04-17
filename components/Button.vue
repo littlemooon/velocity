@@ -9,13 +9,10 @@
   height: var(--s-5);
   border-radius: var(--s-1);
   padding: var(--s-2) var(--s-4);
-  background-color: var(--c-white);
-  margin: 0 0 0 var(--s-3);
+  transition: 0.1s color ease, 0.2s background-color ease;
 }
-.button:hover,
-.button:focus,
-.button:active {
-  background-color: var(--c-grey-light);
+.button + .button {
+  margin: 0 0 0 var(--s-3);
 }
 .button--primary {
   color: var(--c-white);
@@ -28,12 +25,39 @@
 }
 .button--secondary {
   color: var(--c-white);
-  background-color: var(--c-grey);
+  background-color: var(--c-gray-3);
 }
 .button--secondary:hover,
 .button--secondary:focus,
 .button--secondary:active {
-  background-color: var(--c-grey-dark);
+  background-color: var(--c-gray-4);
+}
+.button--transparent {
+  background-color: transparent;
+}
+.button--transparent:hover {
+  color: var(--c-blue);
+  background-color: var(--c-gray-1);
+}
+.button--transparent:focus,
+.button--transparent:active {
+  background-color: var(--c-gray-1);
+}
+.button--icon {
+  border-radius: 50%;
+  background-color: transparent;
+  min-width: var(--s-5);
+  width: var(--s-5);
+  height: var(--s-5);
+  padding: 0;
+}
+.button--icon:hover {
+  color: var(--c-blue);
+  background-color: var(--c-gray-1);
+}
+.button--icon:focus,
+.button--icon:active {
+  background-color: var(--c-gray-1);
 }
 </style>
 
@@ -44,6 +68,7 @@ export enum ButtonVariant {
   PRIMARY = 'PRIMARY',
   SECONDARY = 'SECONDARY',
   TRANSPARENT = 'TRANSPARENT',
+  ICON = 'ICON',
 }
 
 export default Vue.extend({
@@ -60,6 +85,8 @@ export default Vue.extend({
         button: true,
         'button--primary': this.variant === ButtonVariant.PRIMARY,
         'button--secondary': this.variant === ButtonVariant.SECONDARY,
+        'button--transparent': this.variant === ButtonVariant.TRANSPARENT,
+        'button--icon': this.variant === ButtonVariant.ICON,
       }
     },
   },

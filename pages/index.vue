@@ -50,6 +50,6 @@ table {
   padding: var(--s-2) 0;
 }
 .person:hover {
-  background-color: var(--c-grey-light);
+  background-color: var(--c-gray-2);
 }
 </style>

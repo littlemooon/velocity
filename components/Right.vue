@@ -15,5 +15,6 @@ export default Vue.extend({})
   display: flex;
   width: 100%;
   justify-content: flex-end;
+  overflow: hidden;
 }
 </style>

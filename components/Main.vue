@@ -17,6 +17,8 @@
 <style scoped>
 .column {
   width: 100%;
+  background-color: var(--c-gray-1);
+  min-height: 100vh;
 }
 .scroll {
   overflow-y: scroll;
@@ -24,9 +26,14 @@
 .title {
   font-size: var(--f-4);
 }
+@media only screen and (max-width: 480px) {
+  .title {
+    display: none;
+  }
+}
 main {
   width: 100%;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: var(--s-4);
 }

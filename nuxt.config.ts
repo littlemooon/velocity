@@ -18,6 +18,9 @@ const config: NuxtConfiguration = {
       ssr: false,
     },
   ],
+  // build: {
+  //   analyze: true,
+  // },
 }
 
 export default config

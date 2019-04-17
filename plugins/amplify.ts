@@ -4,7 +4,6 @@ import Vue from 'vue'
 // import aws_exports from '@/aws-exports'
 
 // Amplify.configure(aws_exports)
-
 Vue.use(AmplifyPlugin, AmplifyModules)
 
 // register components individually for further use
