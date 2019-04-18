@@ -5,7 +5,7 @@
         <Logo/>
       </div>
     </template>
-    <div class="center main">
+    <div class="center">
       <Nuxt/>
     </div>
   </Main>
@@ -16,9 +16,6 @@
   display: flex;
   justify-content: center;
   width: 100%;
-}
-.main {
-  margin: var(--s-5) 0;
 }
 </style>
 

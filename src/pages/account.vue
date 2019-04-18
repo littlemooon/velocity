@@ -4,23 +4,26 @@
       <Button :onClick="logout">Logout</Button>
     </template>
     <Grid v-bind:variant="gridVariant.HALF">
-      <Card>
-        <p>Username or something</p>
-      </Card>
+      <Card>{{JSON.stringify(user, 0, 2)}}</Card>
     </Grid>
   </Main>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, namespace } from 'nuxt-property-decorator'
 import Button from '../components/Button.vue'
 import Card from '../components/Card.vue'
 import Main from '../components/Main.vue'
 import Right from '../components/Right.vue'
 import Grid, { GridVariant } from '~/components/Grid.vue'
+import * as auth from '~/store/auth'
+
+let Auth = namespace(auth.name)
 
 @Component({ components: { Card, Right, Button, Main, Grid } })
 export default class AccountPage extends Vue {
+  @Auth.State user
+
   title = 'Account'
 
   get gridVariant() {
@@ -28,9 +31,7 @@ export default class AccountPage extends Vue {
   }
 
   logout() {
-    this.$router.push({
-      path: '/login',
-    })
+    this.$router.push('/auth/logout')
   }
 }
 </script>

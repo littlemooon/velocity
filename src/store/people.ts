@@ -1,19 +1,19 @@
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
-import { IState as IRootState } from '~/store/index'
+import { State as RootState } from '~/store/index'
 
-export const name = 'people'
+export let name = 'people'
 
-export const types = {
+export let types = {
   SELECT: 'SELECT',
   SET: 'SET',
 }
 
-export interface IPersonContact {
+export interface PersonContact {
   email: string
   phone: string
 }
 
-export interface IPersonAddress {
+export interface PersonAddress {
   city: string
   country: string
   postalCode: string
@@ -21,51 +21,51 @@ export interface IPersonAddress {
   street: string
 }
 
-export interface IPerson {
+export interface Person {
   id: number
   first_name: string
   last_name: string
-  contact: IPersonContact
+  contact: PersonContact
   gender: string
   ip_address: string
   avatar: string
-  address: IPersonAddress
+  address: PersonAddress
 }
 
-export interface IState {
+export interface State {
   selected: number
-  people: IPerson[]
+  people: Person[]
 }
 
-export const namespaced = true
+export let namespaced = true
 
-export const state = (): IState => ({
+export let state = (): State => ({
   selected: 1,
   people: [],
 })
 
-export const getters: GetterTree<IState, IRootState> = {
+export let getters: GetterTree<State, RootState> = {
   selectedPerson: s => {
-    const p = s.people.find(person => person.id === s.selected)
+    let p = s.people.find(person => person.id === s.selected)
     return p ? p : { first_name: 'Please,', last_name: 'select someone' }
   },
 }
 
-export interface IActions<S, R> extends ActionTree<S, R> {
+export interface Actions<S, R> extends ActionTree<S, R> {
   select(context: ActionContext<S, R>, id: number): void
 }
 
-export const actions: IActions<IState, IRootState> = {
+export let actions: Actions<State, RootState> = {
   select({ commit }, id: number) {
     commit(types.SELECT, id)
   },
 }
 
-export const mutations: MutationTree<IState> = {
+export let mutations: MutationTree<State> = {
   [types.SELECT](s, id: number) {
     s.selected = id
   },
-  [types.SET](s, people: IPerson[]) {
+  [types.SET](s, people: Person[]) {
     s.people = people
   },
 }

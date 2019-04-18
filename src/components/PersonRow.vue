@@ -14,7 +14,7 @@ import Button from '~/components/Button.vue'
 
 import * as people from '~/store/people'
 
-const People = namespace(people.name)
+let People = namespace(people.name)
 
 @Component({ components: { Button } })
 export default class PersonRow extends Vue {

@@ -44,7 +44,7 @@
           <Icon>
             <SettingsIcon/>
           </Icon>
-          <p v-show="isOpen" class="link__content">Name Goes Here</p>
+          <p v-show="isOpen" class="link__content">{{user.name}}</p>
         </nuxt-link>
       </li>
     </ul>
@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, namespace } from 'nuxt-property-decorator'
 import Logo from '~/components/Logo.vue'
 import Icon from '~/components/Icon.vue'
 import {
@@ -63,6 +63,9 @@ import {
   MenuIcon,
 } from 'vue-feather-icons'
 import Button, { ButtonVariant } from '../components/Button.vue'
+import * as auth from '~/store/auth'
+
+let Auth = namespace(auth.name)
 
 @Component({
   components: {
@@ -78,6 +81,8 @@ import Button, { ButtonVariant } from '../components/Button.vue'
 })
 export default class Nav extends Vue {
   isOpen = false
+
+  @Auth.State user
 
   get buttonVariants() {
     return ButtonVariant

@@ -1,7 +1,8 @@
 <template>
   <Main :title="title">
     <Grid>
-      <Card>
+      <Card>{{JSON.stringify(user, 0, 2)}}</Card>
+      <!-- <Card>
         <p>Selected Person: {{ selectedPerson.first_name }} {{ selectedPerson.last_name }}</p>
         <p>{{ selected }}</p>
       </Card>
@@ -13,7 +14,7 @@
             </tr>
           </tbody>
         </table>
-      </Card>
+      </Card>-->
     </Grid>
   </Main>
 </template>
@@ -24,10 +25,11 @@ import PersonRow from '~/components/PersonRow.vue'
 import Card from '~/components/Card.vue'
 import Main from '~/components/Main.vue'
 import Grid from '~/components/Grid.vue'
-
 import * as people from '~/store/people'
+import * as auth from '~/store/auth'
 
-const People = namespace(people.name)
+let People = namespace(people.name)
+let Auth = namespace(auth.name)
 
 @Component({
   components: {
@@ -40,6 +42,7 @@ const People = namespace(people.name)
 export default class IndexPage extends Vue {
   title = 'Home'
 
+  @Auth.State user
   @People.State selected
   @People.State people
   @People.Getter selectedPerson
