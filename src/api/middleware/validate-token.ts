@@ -40,16 +40,11 @@ function getTokenFromRequest(
   })
 }
 
-async function addUserToRequest(idToken: string, req: Request, res: Response) {
-  try {
-    let user = await AdminApp.auth().verifyIdToken(idToken)
+async function addUserToRequest(idToken: string, req: Request) {
+  let user = await AdminApp.auth().verifyIdToken(idToken)
 
-    if (req.session) {
-      req.session.user = user
-    }
-  } catch (error) {
-    console.error('Error while verifying Firebase ID token:', error)
-    res.clearCookie('__session')
+  if (req.session) {
+    req.session.user = user
   }
 }
 
@@ -59,15 +54,16 @@ let validateToken: RequestHandler = async (req, res, next) => {
   try {
     let token = await getTokenFromRequest(req, res)
 
-    if (user) {
-      if (!token) {
-        req.session = undefined
-      }
-    } else {
-      if (token) {
-        await addUserToRequest(token, req, res)
-      }
+    if (token && !user) { // LOGIN
+      token && await addUserToRequest(token, req)
     }
+
+    if (user && !token) { // LOGOUT
+      req.session = undefined
+    }
+  } catch (e) {
+    console.error('validateToken:', e)
+    req.session = undefined
   } finally {
     next()
   }

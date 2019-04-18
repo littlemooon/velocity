@@ -1,20 +1,17 @@
 <template>
-  <Main :title="title">
-    <Card>
-      <Spinner/>
-    </Card>
-  </Main>
+  <AuthCard>
+    <h2>Waiting for google...</h2>
+    <Spinner/>
+  </AuthCard>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
 import Spinner from '~/components/Spinner.vue'
-import Card from '~/components/Card.vue'
+import AuthCard from '~/components/AuthCard.vue'
 
-@Component({ components: { Spinner, Card } })
+@Component({ components: { Spinner, AuthCard } })
 export default class LogoutPage extends Vue {
-  title = 'Waiting for google authentication'
-
   layout() {
     return 'auth'
   }
