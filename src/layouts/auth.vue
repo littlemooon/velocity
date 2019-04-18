@@ -5,7 +5,7 @@
         <Logo/>
       </div>
     </template>
-    <div class="center">
+    <div class="center auth-main">
       <Nuxt/>
     </div>
   </Main>
@@ -16,6 +16,9 @@
   display: flex;
   justify-content: center;
   width: 100%;
+}
+.auth-main {
+  margin-top: 8vh;
 }
 </style>
 

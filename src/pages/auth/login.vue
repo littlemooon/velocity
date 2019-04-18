@@ -1,6 +1,6 @@
 <template>
   <AuthCard>
-    <h2>Lets get started!</h2>
+    <h2>Lets get growing!</h2>
     <button @click="login" class="button">
       <svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <title>Google icon</title>
@@ -42,7 +42,7 @@ export default class LoginPage extends Vue {
   border-radius: var(--s-5);
   background-color: var(--c-white);
   box-shadow: var(--bs-1);
-  margin: var(--s-4) 0 0;
+  margin: var(--s-4) 0;
   max-width: 240px;
   width: 100%;
 }

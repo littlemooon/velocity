@@ -1,11 +1,11 @@
 <template>
-  <Card class="auth">
+  <Card class="auth-card">
     <slot></slot>
   </Card>
 </template>
 
 <style scoped>
-.auth {
+.auth-card {
   display: flex;
   align-items: center;
   flex-direction: column;
