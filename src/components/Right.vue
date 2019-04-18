@@ -5,10 +5,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({})
-</script>
+import { Vue, Component } from 'nuxt-property-decorator'
 
+@Component
+export default class Right extends Vue {}
+</script>
 
 <style scoped>
 .right {
@@ -16,5 +17,6 @@ export default Vue.extend({})
   width: 100%;
   justify-content: flex-end;
   overflow: hidden;
+  flex-wrap: wrap;
 }
 </style>

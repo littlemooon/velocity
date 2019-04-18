@@ -1,6 +1,6 @@
 <template>
   <nuxt-link exact to="/">
-    <h1>Unvanity</h1>
+    <h1>Velocity</h1>
   </nuxt-link>
 </template>
 
@@ -10,7 +10,9 @@ h1 {
 }
 </style>
 
-
 <script lang="ts">
-export default {}
+import { Vue, Component } from 'nuxt-property-decorator'
+
+@Component
+export default class Logo extends Vue {}
 </script>

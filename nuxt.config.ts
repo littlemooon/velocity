@@ -17,15 +17,6 @@ const config: NuxtConfiguration = {
   },
   loading: { color: '#dc46be' },
   css: ['sanitize.css/sanitize.css', '~/assets/css/global.css'],
-  plugins: [
-    {
-      src: '~/plugins/amplify.ts',
-      ssr: false,
-    },
-  ],
-  // build: {
-  //   analyze: true,
-  // },
 }
 
 export default config

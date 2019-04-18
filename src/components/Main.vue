@@ -1,13 +1,13 @@
 <template>
-  <div class="column">
+  <div class="main__wrapper">
     <Header>
-      <h1 class="title">{{title}}</h1>
+      <h1 class="main__title">{{title}}</h1>
       <Right>
         <slot name="header"></slot>
       </Right>
     </Header>
-    <div class="scroll">
-      <main>
+    <div class="main__scroll">
+      <main class="main">
         <slot></slot>
       </main>
     </div>
@@ -15,29 +15,32 @@
 </template>
 
 <style scoped>
-.column {
+.main__wrapper {
   width: 100%;
   background-color: var(--c-gray-1);
   min-height: 100vh;
 }
-.scroll {
+.main__scroll {
+  overflow-x: hidden;
   overflow-y: scroll;
+  height: calc(100vh - var(--header-h));
 }
-.title {
+.main__title {
   font-size: var(--f-4);
 }
 @media only screen and (max-width: 480px) {
-  .title {
+  .main__title {
     display: none;
   }
 }
-main {
+.main {
   width: 100%;
   max-width: 1200px;
+  min-width: 320px;
   margin: 0 auto;
   padding: var(--s-4);
 }
-.header {
+.main__header {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -46,12 +49,13 @@ main {
 </style>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
 import Header from '../components/Header.vue'
 import Right from '../components/Right.vue'
 
-export default Vue.extend({
-  props: { title: String },
-  components: { Header, Right },
-})
+@Component({ components: { Header, Right } })
+export default class Main extends Vue {
+  @Prop(String)
+  readonly title!: string
+}
 </script>

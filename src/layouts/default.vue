@@ -14,11 +14,10 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Vue, Component } from 'nuxt-property-decorator'
 import Nav from '../components/Nav.vue'
 
-export default Vue.extend({
-  components: { Nav },
-})
+@Component({ components: { Nav } })
+export default class DefaultLayout extends Vue {}
 </script>
 

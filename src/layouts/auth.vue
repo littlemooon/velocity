@@ -23,9 +23,10 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Vue, Component } from 'nuxt-property-decorator'
 import Main from '~/components/Main.vue'
 import Logo from '~/components/Logo.vue'
 
-export default Vue.extend({ components: { Main, Logo } })
+@Component({ components: { Main, Logo } })
+export default class AuthLayout extends Vue {}
 </script>

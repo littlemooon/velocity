@@ -4,6 +4,36 @@
   </button>
 </template>
 
+<script lang="ts">
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+
+export enum ButtonVariant {
+  PRIMARY = 'PRIMARY',
+  SECONDARY = 'SECONDARY',
+  TRANSPARENT = 'TRANSPARENT',
+  ICON = 'ICON',
+}
+
+@Component
+export default class Button extends Vue {
+  @Prop({ type: String, default: ButtonVariant.PRIMARY })
+  readonly variant!: ButtonVariant
+
+  @Prop({ type: Function, required: true })
+  readonly onClick
+
+  get classes() {
+    return {
+      button: true,
+      'button--primary': this.variant === ButtonVariant.PRIMARY,
+      'button--secondary': this.variant === ButtonVariant.SECONDARY,
+      'button--transparent': this.variant === ButtonVariant.TRANSPARENT,
+      'button--icon': this.variant === ButtonVariant.ICON,
+    }
+  }
+}
+</script>
+
 <style scoped>
 .button {
   height: var(--s-5);
@@ -60,35 +90,3 @@
   color: var(--c-blue);
 }
 </style>
-
-<script lang="ts">
-import Vue from 'vue'
-
-export enum ButtonVariant {
-  PRIMARY = 'PRIMARY',
-  SECONDARY = 'SECONDARY',
-  TRANSPARENT = 'TRANSPARENT',
-  ICON = 'ICON',
-}
-
-export default Vue.extend({
-  props: {
-    variant: { type: String, default: ButtonVariant.PRIMARY },
-    onClick: {
-      type: [Function, Promise],
-      required: true,
-    },
-  },
-  computed: {
-    classes() {
-      return {
-        button: true,
-        'button--primary': this.variant === ButtonVariant.PRIMARY,
-        'button--secondary': this.variant === ButtonVariant.SECONDARY,
-        'button--transparent': this.variant === ButtonVariant.TRANSPARENT,
-        'button--icon': this.variant === ButtonVariant.ICON,
-      }
-    },
-  },
-})
-</script>

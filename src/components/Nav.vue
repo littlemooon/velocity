@@ -23,7 +23,7 @@
         <li class="item">
           <nuxt-link class="link" exact to="/">
             <Icon>
-              <HomeIcon/>
+              <ActivityIcon/>
             </Icon>
             <p v-show="isOpen" class="link__content">Home</p>
           </nuxt-link>
@@ -52,11 +52,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import Logo from '~/components/Logo.vue'
 import Icon from '~/components/Icon.vue'
 import {
-  HomeIcon,
+  ActivityIcon,
   CodeIcon,
   SettingsIcon,
   ArrowLeftIcon,
@@ -64,36 +64,32 @@ import {
 } from 'vue-feather-icons'
 import Button, { ButtonVariant } from '../components/Button.vue'
 
-export default Vue.extend({
+@Component({
   components: {
     Button,
     Logo,
     Icon,
-    HomeIcon,
+    ActivityIcon,
     CodeIcon,
     SettingsIcon,
     ArrowLeftIcon,
     MenuIcon,
   },
-  data() {
-    return {
-      isOpen: false,
-    }
-  },
-  computed: {
-    buttonVariants() {
-      return ButtonVariant
-    },
-  },
-  methods: {
-    open() {
-      this.isOpen = true
-    },
-    close() {
-      this.isOpen = false
-    },
-  },
 })
+export default class Nav extends Vue {
+  isOpen = false
+
+  get buttonVariants() {
+    return ButtonVariant
+  }
+
+  open() {
+    this.isOpen = true
+  }
+  close() {
+    this.isOpen = false
+  }
+}
 </script>
 
 
@@ -124,7 +120,7 @@ export default Vue.extend({
 .header {
   display: flex;
   align-items: center;
-  height: calc(var(--header-h) + 1px);
+  height: var(--header-h);
   padding: var(--s-4);
   justify-content: space-between;
   border-bottom: 1px solid var(--c-gray-3);
@@ -150,6 +146,7 @@ export default Vue.extend({
   background-color: var(--c-white);
   color: var(--c-black);
   transition: 0.1s color ease, 0.2s background-color ease;
+  overflow: hidden;
 }
 .link:hover {
   color: var(--c-blue);

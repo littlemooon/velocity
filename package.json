@@ -9,8 +9,6 @@
     "lint": "npx tslint --fix -p ."
   },
   "dependencies": {
-    "aws-amplify": "^1.1.26",
-    "aws-amplify-vue": "^0.2.9",
     "axios": "^0.18.0",
     "nuxt": "^2.6.2",
     "nuxt-property-decorator": "^2.1.3",

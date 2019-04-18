@@ -5,8 +5,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({})
+import { Vue, Component } from 'nuxt-property-decorator'
+
+@Component
+export default class Header extends Vue {}
 </script>
 
 
@@ -21,5 +23,6 @@ header {
   box-shadow: var(--bs-1);
   z-index: var(--z-2);
   padding: 0 var(--s-4);
+  border-bottom: 1px solid var(--c-gray-3);
 }
 </style>
