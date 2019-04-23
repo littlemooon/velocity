@@ -1,0 +1,19 @@
+{
+  "extends": "../tsconfig.json",
+
+  "include": ["./**/*.ts", "./**/*.vue"],
+
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["esnext", "esnext.asynciterable", "dom"],
+    "esModuleInterop": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"]
+    }
+  }
+}

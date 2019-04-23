@@ -2,3 +2,8 @@ node_modules/
 .nuxt/
 dist/
 .env
+
+.firebase
+.firebaserc
+server/functions/lib/
+server/public

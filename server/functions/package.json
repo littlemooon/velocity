@@ -1,0 +1,24 @@
+{
+  "name": "velocity-functions",
+  "engines": {
+    "node": "8"
+  },
+  "main": "lib/src/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "serve": "npm run build && npx firebase serve --only functions,hosting",
+    "shell": "npm run build && npx firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "npx firebase deploy --only functions,hosting",
+    "logs": "npx firebase functions:log"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "firebase-admin": "^7.3.0",
+    "firebase-functions": "^2.2.0",
+    "nuxt": "^2.6.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.2.2"
+  }
+}

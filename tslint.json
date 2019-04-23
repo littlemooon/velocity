@@ -14,10 +14,13 @@
     "object-literal-sort-keys": false,
     "no-empty-interface": false,
     "no-submodule-imports": false,
-    "no-implicit-dependencies": false
+    "no-implicit-dependencies": false,
+    "no-console": false,
+    "no-var-requires": false
   },
   "rulesDirectory": [],
   "linterOptions": {
+    "format": "stylish",
     "exclude": ["node_modules"]
   }
 }

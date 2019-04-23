@@ -1,29 +1,30 @@
 {
-  "include": ["./**/*.ts", "./**/*.vue"],
-  "exclude": ["node_modules"],
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
 
   "compilerOptions": {
-    "experimentalDecorators": true,
+    "module": "commonjs",
+    "outDir": "lib",
+    "sourceMap": true,
+    "target": "es2015",
 
-    "paths": {
-      "~/*": ["./client/*"],
-      "@/*": ["./client/*"]
-    },
-
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "composite": true,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "noImplicitAny": false,
+    "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "preserveConstEnums": true,
     "pretty": true,
     "removeComments": false,
     "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true
+    "strict": true,
   }
 }
