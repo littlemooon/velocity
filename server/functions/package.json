@@ -6,11 +6,10 @@
   "main": "lib/src/index.js",
   "scripts": {
     "build": "npx tsc",
-    "serve": "npm run build && npx firebase serve --only functions,hosting",
+    "logs": "npx firebase functions:log",
+    "serve": "npm run build && npx firebase serve --only functions",
     "shell": "npm run build && npx firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "npx firebase deploy --only functions,hosting",
-    "logs": "npx firebase functions:log"
+    "start": "npm run serve"
   },
   "dependencies": {
     "express": "^4.16.4",
@@ -19,6 +18,7 @@
     "nuxt": "^2.6.2"
   },
   "devDependencies": {
+    "@nuxt/config": "^2.6.2",
     "typescript": "^3.2.2"
   }
 }

@@ -6,4 +6,5 @@ dist/
 .firebase
 .firebaserc
 server/functions/lib/
+server/functions/.nuxt/
 server/public

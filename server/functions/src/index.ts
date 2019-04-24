@@ -1,11 +1,11 @@
+import NuxtConfiguration from '@nuxt/config'
+import * as express from 'express'
 import * as functions from 'firebase-functions'
 import { Nuxt } from 'nuxt'
 
-const express = require('express')
-
-const config = {
+const config: NuxtConfiguration = {
   dev: false,
-  buildDir: '../nuxt',
+  buildDir: '.nuxt',
   build: {
     publicPath: '/assets/',
   },
@@ -13,19 +13,18 @@ const config = {
 
 const nuxt = new Nuxt(config)
 
-const app = express()
+const app: express.Application = require('express')()
 
 app.use((req, res) => {
   // res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
-
-  return new Promise((resolve, reject) => {
-    nuxt.render(req, res, (promise: Promise<any>) => {
-      promise.then(resolve).catch(err => {
-        console.error(err)
-        reject(err)
-      })
-    })
-  })
+  return nuxt.render(req, res)
 })
 
-export let nuxtSsr = functions.https.onRequest(app)
+export let nuxtSsr = functions.https.onRequest((req, res) => {
+  try {
+    return app(req, res)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send({ error: error.message })
+  }
+})
