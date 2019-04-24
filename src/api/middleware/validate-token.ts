@@ -1,22 +1,10 @@
 import cookieParser from 'cookie-parser'
 import { Request, RequestHandler, Response } from 'express'
-import admin from 'firebase-admin'
 import * as xml from 'xmlhttprequest'
+import * as firebase from '../services/firebase'
 
 // @ts-ignore
 global.XMLHttpRequest = xml.XMLHttpRequest
-
-const AdminApp = admin.initializeApp({
-  credential: admin.credential.cert({
-    clientEmail: process.env.FIREBASE_SERVER_CLIENT_EMAIL,
-    privateKey: (process.env.FIREBASE_SERVER_PRIVATE_KEY || 'xxx').replace(
-      /\\n/g,
-      '\n'
-    ),
-    projectId: process.env.FIREBASE_SERVER_PROJECT_ID,
-  }),
-  databaseURL: process.env.FIREBASE_SERVER_DATABASE_URL,
-})
 
 function getTokenFromRequest(
   req: Request,
@@ -41,7 +29,7 @@ function getTokenFromRequest(
 }
 
 async function addUserToRequest(idToken: string, req: Request) {
-  const user = await AdminApp.auth().verifyIdToken(idToken)
+  const user = await firebase.auth.verifyIdToken(idToken)
 
   if (req.session) {
     req.session.user = user

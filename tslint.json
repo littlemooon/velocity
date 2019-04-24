@@ -19,7 +19,8 @@
     "no-empty-interface": false,
     "no-submodule-imports": false,
     "no-implicit-dependencies": false,
-    "no-console": false
+    "no-console": false,
+    "no-var-requires": false
   },
   "rulesDirectory": [],
   "linterOptions": {

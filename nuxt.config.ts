@@ -28,9 +28,12 @@ const config: NuxtConfiguration = {
     { src: '~/services/firebase.ts', ssr: false },
     { src: '~/plugins/auth-cookie.ts', ssr: false },
   ],
-  serverMiddleware: [cookieParser(), '~/api/middleware/validate-token.ts'],
+  serverMiddleware: [
+    '~/api/middleware/session.ts',
+    cookieParser(),
+    '~/api/middleware/validate-token.ts',
+  ],
   vendor: ['firebase'],
-  modules: ['nuxt-session'],
   env: {
     FIREBASE_CLIENT_API_KEY: process.env.FIREBASE_CLIENT_API_KEY || 'x',
     FIREBASE_CLIENT_AUTH_DOMAIN: process.env.FIREBASE_CLIENT_AUTH_DOMAIN || 'x',
