@@ -9,17 +9,16 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, namespace } from 'nuxt-property-decorator'
-import Button from '~/components/Button.vue'
+import { Component, namespace, Prop, Vue } from 'nuxt-property-decorator'
+import * as people from '../store/people'
+import Button from './Button.vue'
 
-import * as people from '~/store/people'
-
-let People = namespace(people.name)
+const People = namespace(people.name)
 
 @Component({ components: { Button } })
 export default class PersonRow extends Vue {
-  @Prop() person
-  @People.Action select
+  @Prop() public person
+  @People.Action public select
 }
 </script>
 

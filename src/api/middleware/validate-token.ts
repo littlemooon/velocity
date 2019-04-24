@@ -1,12 +1,12 @@
 import cookieParser from 'cookie-parser'
+import { Request, RequestHandler, Response } from 'express'
 import admin from 'firebase-admin'
 import * as xml from 'xmlhttprequest'
-import { RequestHandler, Request, Response } from 'express'
 
 // @ts-ignore
 global.XMLHttpRequest = xml.XMLHttpRequest
 
-let AdminApp = admin.initializeApp({
+const AdminApp = admin.initializeApp({
   credential: admin.credential.cert({
     clientEmail: process.env.FIREBASE_SERVER_CLIENT_EMAIL,
     privateKey: (process.env.FIREBASE_SERVER_PRIVATE_KEY || 'xxx').replace(
@@ -41,24 +41,26 @@ function getTokenFromRequest(
 }
 
 async function addUserToRequest(idToken: string, req: Request) {
-  let user = await AdminApp.auth().verifyIdToken(idToken)
+  const user = await AdminApp.auth().verifyIdToken(idToken)
 
   if (req.session) {
     req.session.user = user
   }
 }
 
-let validateToken: RequestHandler = async (req, res, next) => {
-  let user = req.session && req.session.user
+const validateToken: RequestHandler = async (req, res, next) => {
+  const user = req.session && req.session.user
 
   try {
-    let token = await getTokenFromRequest(req, res)
+    const token = await getTokenFromRequest(req, res)
 
-    if (token && !user) { // LOGIN
-      token && await addUserToRequest(token, req)
+    if (token && !user) {
+      // LOGIN
+      await addUserToRequest(token, req)
     }
 
-    if (user && !token) { // LOGOUT
+    if (user && !token) {
+      // LOGOUT
       req.session = undefined
     }
   } catch (e) {

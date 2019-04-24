@@ -1,10 +1,10 @@
 import NuxtConfiguration from '@nuxt/config'
-import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
+import dotenv from 'dotenv'
 
 dotenv.config()
 
-let config: NuxtConfiguration = {
+const config: NuxtConfiguration = {
   srcDir: './src',
   head: {
     title: 'Unvanity',

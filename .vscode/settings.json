@@ -1,7 +1,8 @@
 {
-  "tslint.typeCheck": true,
   "tslint.autoFixOnSave": true,
-  "editor.formatOnSave": true,
+  "tslint.jsEnable": true,
+  "tslint.run": "onSave",
+  "editor.formatOnSave": false,
   "workbench.colorCustomizations": {
     "sideBar.border": "#5266d9"
   }

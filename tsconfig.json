@@ -1,8 +1,6 @@
 {
   "include": ["./**/*.ts", "./**/*.vue"],
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
 
   "compilerOptions": {
     "target": "esnext",
@@ -11,6 +9,7 @@
     "lib": ["esnext", "esnext.asynciterable", "dom"],
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "noEmit": true,
 
     "baseUrl": ".",
     "paths": {
@@ -20,12 +19,10 @@
 
     // "typeRoots": ["./@types/*", "./node_modules/@types/*"],
 
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "composite": true,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -34,6 +31,6 @@
     "removeComments": false,
     "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true,
+    "strict": true
   }
 }

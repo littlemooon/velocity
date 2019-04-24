@@ -1,13 +1,13 @@
 import { Middleware } from '../types'
-import { startsWith } from '~/utils/string'
+import { startsWith } from '../utils/string'
 
-let authenticateRoute: Middleware = ({ store, redirect, route }) => {
-  let { auth } = store.state
-  let isValidRoute = Boolean(route.matched.length)
+const authenticateRoute: Middleware = ({ store, redirect, route }) => {
+  const { auth } = store.state
+  const isValidRoute = Boolean(route.matched.length)
 
   if (isValidRoute) {
-    let isLogin = route.path === '/auth/login'
-    let isAuthRoute = route.matched.some(m => startsWith(m.path, '/auth'))
+    const isLogin = route.path === '/auth/login'
+    const isAuthRoute = route.matched.some(m => startsWith(m.path, '/auth'))
 
     if (auth.user && isLogin) {
       redirect('/')

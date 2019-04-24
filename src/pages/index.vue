@@ -20,16 +20,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, namespace } from 'nuxt-property-decorator'
-import PersonRow from '~/components/PersonRow.vue'
-import Card from '~/components/Card.vue'
-import Main from '~/components/Main.vue'
-import Grid from '~/components/Grid.vue'
-import * as people from '~/store/people'
-import * as auth from '~/store/auth'
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
+import Card from '../components/Card.vue'
+import Grid from '../components/Grid.vue'
+import Main from '../components/Main.vue'
+import PersonRow from '../components/PersonRow.vue'
+import * as auth from '../store/auth'
+import * as people from '../store/people'
 
-let People = namespace(people.name)
-let Auth = namespace(auth.name)
+const People = namespace(people.name)
+const Auth = namespace(auth.name)
 
 @Component({
   components: {
@@ -40,12 +40,12 @@ let Auth = namespace(auth.name)
   },
 })
 export default class IndexPage extends Vue {
-  title = 'Home'
+  public title = 'Home'
 
-  @Auth.State user
-  @People.State selected
-  @People.State people
-  @People.Getter selectedPerson
+  @Auth.State public user
+  @People.State public selected
+  @People.State public people
+  @People.Getter public selectedPerson
 }
 </script>
 

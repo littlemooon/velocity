@@ -1,6 +1,10 @@
 {
   "defaultSeverity": "warning",
-  "extends": ["tslint:latest", "tslint-plugin-prettier", "tslint-config-prettier"],
+  "extends": [
+    "tslint:latest",
+    "tslint-plugin-prettier",
+    "tslint-config-prettier"
+  ],
   "jsRules": {},
   "rules": {
     "prettier": [
@@ -14,10 +18,12 @@
     "object-literal-sort-keys": false,
     "no-empty-interface": false,
     "no-submodule-imports": false,
-    "no-implicit-dependencies": false
+    "no-implicit-dependencies": false,
+    "no-console": false
   },
   "rulesDirectory": [],
   "linterOptions": {
+    "format": "stylish",
     "exclude": ["node_modules"]
   }
 }

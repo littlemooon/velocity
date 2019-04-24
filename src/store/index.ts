@@ -1,30 +1,33 @@
 import * as Vuex from 'vuex'
 // import axios from 'axios'
-import { GetterTree, MutationTree, ActionContext, ActionTree } from 'vuex'
-import * as people from '~/store/people'
-import * as auth from '~/store/auth'
+import * as auth from './auth'
+import * as people from './people'
 
-export type State = {}
+export interface IState {}
 
-export interface Actions<S, R> extends ActionTree<S, R> {
+export interface IActions<S, R> extends Vuex.ActionTree<S, R> {
   nuxtServerInit(
-    context: ActionContext<S, R>,
-    serverContext: { req: Express.Request & { session?: { user?: { name?: string, email?: string } } } }
+    context: Vuex.ActionContext<S, R>,
+    serverContext: {
+      req: Express.Request & {
+        session?: { user?: { name?: string; email?: string } }
+      }
+    }
   ): void
 }
 
 export type Store = Vuex.Store<{
-  auth: auth.State
-  people: people.State
+  auth: auth.IState
+  people: people.IState
 }>
 
 export let types = {}
 
-export let state = (): State => ({})
+export let state = (): IState => ({})
 
-export let getters: GetterTree<State, State> = {}
+export let getters: Vuex.GetterTree<IState, IState> = {}
 
-export let actions: Actions<State, State> = {
+export let actions: IActions<IState, IState> = {
   async nuxtServerInit({ dispatch }, { req }) {
     // let response = await axios.get('/random-data.json', {
     //   proxy: { host: '127.0.0.1', port: 3000 },
@@ -38,4 +41,4 @@ export let actions: Actions<State, State> = {
   },
 }
 
-export let mutations: MutationTree<State> = {}
+export let mutations: Vuex.MutationTree<IState> = {}

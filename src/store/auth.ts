@@ -1,7 +1,7 @@
-import { ActionTree, GetterTree, MutationTree, ActionContext } from 'vuex'
-import { State as RootState } from '~/store/index'
-import * as firebase from '~/services/firebase'
 import { User as FirebaseUser } from 'firebase'
+import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
+import * as firebase from '../services/firebase'
+import { IState as IRootState } from './index'
 
 export let name = 'auth'
 
@@ -10,29 +10,32 @@ export let types = {
   CLEAR_USER: 'CLEAR_USER',
 }
 
-export interface User {
+export interface IUser {
   name?: string
   email?: string
 }
 
-export interface State {
-  user?: User
+export interface IState {
+  user?: IUser
 }
 
 export let namespaced = true
 
-export let state = (): State => ({})
+export let state = (): IState => ({})
 
-export let getters: GetterTree<State, RootState> = {}
+export let getters: GetterTree<IState, IRootState> = {}
 
-export interface Actions<S, R> extends ActionTree<S, R> {
+export interface IActions<S, R> extends ActionTree<S, R> {
   setUserFromFirebase(context: ActionContext<S, R>, user: FirebaseUser): void
-  setUserFromServer(context: ActionContext<S, R>, user: { name?: string, email?: string }): void
+  setUserFromServer(
+    context: ActionContext<S, R>,
+    user: { name?: string; email?: string }
+  ): void
   login(context: ActionContext<S, R>): void
   logout(context: ActionContext<S, R>): void
 }
 
-export let actions: Actions<State, RootState> = {
+export let actions: IActions<IState, IRootState> = {
   async setUserFromFirebase({ commit }, user) {
     commit(types.SET_USER, {
       name: user.displayName,
@@ -45,7 +48,6 @@ export let actions: Actions<State, RootState> = {
       email: user.email,
     })
   },
-
 
   async login() {
     await firebase.auth.signInWithRedirect(firebase.GoogleProvider)
@@ -75,8 +77,8 @@ export let actions: Actions<State, RootState> = {
   },
 }
 
-export let mutations: MutationTree<State> = {
-  [types.SET_USER](s, user: User) {
+export let mutations: MutationTree<IState> = {
+  [types.SET_USER](s, user: IUser) {
     s.user = user
   },
   [types.CLEAR_USER](s) {

@@ -23,9 +23,9 @@
 </style>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
-import Main from '~/components/Main.vue'
-import Logo from '~/components/Logo.vue'
+import { Component, Vue } from 'nuxt-property-decorator'
+import Logo from '../components/Logo.vue'
+import Main from '../components/Main.vue'
 
 @Component({ components: { Main, Logo } })
 export default class AuthLayout extends Vue {}

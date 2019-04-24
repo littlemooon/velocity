@@ -1,5 +1,5 @@
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
-import { State as RootState } from '~/store/index'
+import { IState as IRootState } from './index'
 
 export let name = 'people'
 
@@ -8,12 +8,12 @@ export let types = {
   SET: 'SET',
 }
 
-export interface PersonContact {
+export interface IPersonContact {
   email: string
   phone: string
 }
 
-export interface PersonAddress {
+export interface IPersonAddress {
   city: string
   country: string
   postalCode: string
@@ -21,51 +21,51 @@ export interface PersonAddress {
   street: string
 }
 
-export interface Person {
+export interface IPerson {
   id: number
   first_name: string
   last_name: string
-  contact: PersonContact
+  contact: IPersonContact
   gender: string
   ip_address: string
   avatar: string
-  address: PersonAddress
+  address: IPersonAddress
 }
 
-export interface State {
+export interface IState {
   selected: number
-  people: Person[]
+  people: IPerson[]
 }
 
 export let namespaced = true
 
-export let state = (): State => ({
+export let state = (): IState => ({
   selected: 1,
   people: [],
 })
 
-export let getters: GetterTree<State, RootState> = {
+export let getters: GetterTree<IState, IRootState> = {
   selectedPerson: s => {
-    let p = s.people.find(person => person.id === s.selected)
+    const p = s.people.find(person => person.id === s.selected)
     return p ? p : { first_name: 'Please,', last_name: 'select someone' }
   },
 }
 
-export interface Actions<S, R> extends ActionTree<S, R> {
+export interface IActions<S, R> extends ActionTree<S, R> {
   select(context: ActionContext<S, R>, id: number): void
 }
 
-export let actions: Actions<State, RootState> = {
+export let actions: IActions<IState, IRootState> = {
   select({ commit }, id: number) {
     commit(types.SELECT, id)
   },
 }
 
-export let mutations: MutationTree<State> = {
+export let mutations: MutationTree<IState> = {
   [types.SELECT](s, id: number) {
     s.selected = id
   },
-  [types.SET](s, people: Person[]) {
+  [types.SET](s, people: IPerson[]) {
     s.people = people
   },
 }

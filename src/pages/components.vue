@@ -53,21 +53,21 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
-import Card from '~/components/Card.vue'
-import Main from '~/components/Main.vue'
-import Right from '~/components/Right.vue'
-import Icon from '~/components/Icon.vue'
-import Spinner from '~/components/Spinner.vue'
-import Tooltip from '~/components/Tooltip.vue'
-import Grid, { GridVariant } from '~/components/Grid.vue'
+import { Component, Vue } from 'nuxt-property-decorator'
 import Button, { ButtonVariant } from '../components/Button.vue'
+import Card from '../components/Card.vue'
+import Grid, { GridVariant } from '../components/Grid.vue'
+import Icon from '../components/Icon.vue'
+import Main from '../components/Main.vue'
+import Right from '../components/Right.vue'
+import Spinner from '../components/Spinner.vue'
+import Tooltip from '../components/Tooltip.vue'
 
 @Component({
   components: { Card, Button, Right, Icon, Main, Spinner, Tooltip, Grid },
 })
 export default class ComponentsPage extends Vue {
-  title = 'Components'
+  public title = 'Components'
 
   get buttonVariant() {
     return ButtonVariant
@@ -77,7 +77,9 @@ export default class ComponentsPage extends Vue {
     return GridVariant
   }
 
-  noop() {}
+  public noop() {
+    alert('hit')
+  }
 }
 </script>
 

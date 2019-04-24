@@ -6,17 +6,17 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
-import Spinner from '~/components/Spinner.vue'
-import AuthCard from '~/components/AuthCard.vue'
+import { Component, Vue } from 'nuxt-property-decorator'
+import AuthCard from '../../components/AuthCard.vue'
+import Spinner from '../../components/Spinner.vue'
 
 @Component({ components: { Spinner, AuthCard } })
 export default class LogoutPage extends Vue {
-  layout() {
+  public layout() {
     return 'auth'
   }
 
-  async mounted() {
+  public async mounted() {
     try {
       const redirect = await this.$store.dispatch('auth/checkForRedirect')
       if (redirect) {

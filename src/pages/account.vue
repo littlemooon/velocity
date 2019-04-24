@@ -10,27 +10,27 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, namespace } from 'nuxt-property-decorator'
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import Button from '../components/Button.vue'
 import Card from '../components/Card.vue'
+import Grid, { GridVariant } from '../components/Grid.vue'
 import Main from '../components/Main.vue'
 import Right from '../components/Right.vue'
-import Grid, { GridVariant } from '~/components/Grid.vue'
-import * as auth from '~/store/auth'
+import * as auth from '../store/auth'
 
-let Auth = namespace(auth.name)
+const Auth = namespace(auth.name)
 
 @Component({ components: { Card, Right, Button, Main, Grid } })
 export default class AccountPage extends Vue {
-  @Auth.State user
+  @Auth.State public user
 
-  title = 'Account'
+  public title = 'Account'
 
   get gridVariant() {
     return GridVariant
   }
 
-  logout() {
+  public logout() {
     this.$router.push('/auth/logout')
   }
 }

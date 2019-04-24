@@ -52,20 +52,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, namespace } from 'nuxt-property-decorator'
-import Logo from '~/components/Logo.vue'
-import Icon from '~/components/Icon.vue'
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import {
   ActivityIcon,
-  CodeIcon,
-  SettingsIcon,
   ArrowLeftIcon,
+  CodeIcon,
   MenuIcon,
+  SettingsIcon,
 } from 'vue-feather-icons'
-import Button, { ButtonVariant } from '../components/Button.vue'
-import * as auth from '~/store/auth'
+import * as auth from '../store/auth'
+import Button, { ButtonVariant } from './Button.vue'
+import Icon from './Icon.vue'
+import Logo from './Logo.vue'
 
-let Auth = namespace(auth.name)
+const Auth = namespace(auth.name)
 
 @Component({
   components: {
@@ -80,18 +80,18 @@ let Auth = namespace(auth.name)
   },
 })
 export default class Nav extends Vue {
-  isOpen = false
+  public isOpen = false
 
-  @Auth.State user
+  @Auth.State public user
 
   get buttonVariants() {
     return ButtonVariant
   }
 
-  open() {
+  public open() {
     this.isOpen = true
   }
-  close() {
+  public close() {
     this.isOpen = false
   }
 }

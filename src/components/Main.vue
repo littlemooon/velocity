@@ -49,13 +49,13 @@
 </style>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'nuxt-property-decorator'
-import Header from '../components/Header.vue'
-import Right from '../components/Right.vue'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import Header from './Header.vue'
+import Right from './Right.vue'
 
 @Component({ components: { Header, Right } })
 export default class Main extends Vue {
   @Prop(String)
-  readonly title!: string
+  public readonly title!: string
 }
 </script>
