@@ -1,19 +1,14 @@
+import { Datastore } from '@google-cloud/datastore'
 import session from 'express-session'
 
-const MemStore = require('connect-memjs')(session)
-
-function getStore() {
-  if (process.env.USE_GAE_MEMCACHE) {
-    return new MemStore({
-      servers: [
-        `${process.env.GAE_MEMCACHE_HOST}:${process.env.GAE_MEMCACHE_PORT}`,
-      ],
-    })
-  }
-}
+const DatastoreStore = require('@google-cloud/connect-datastore')(session)
 
 const expressSession = session({
-  store: getStore(),
+  store: new DatastoreStore({
+    dataset: new Datastore({
+      namespace: 'express-sessions',
+    }),
+  }),
   name: 'session-id',
   secret: process.env.SESSION_SECRET || 'x',
   cookie: {

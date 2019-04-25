@@ -9,13 +9,15 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
+    "test": "echo 'testing'",
     "lint": "npx tslint --fix -p .",
     "deploy": "npm run build && gcloud app deploy"
   },
   "dependencies": {
+    "@google-cloud/connect-datastore": "^2.0.2",
+    "@google-cloud/datastore": "^3.1.2",
     "@nuxt/typescript": "^2.6.2",
     "axios": "^0.18.0",
-    "connect-memjs": "^0.2.1",
     "cookie-parser": "^1.4.4",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",

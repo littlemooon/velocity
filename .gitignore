@@ -1,4 +1,7 @@
 node_modules/
+
 .nuxt/
 dist/
+
 .env
+gcloud_key.json
