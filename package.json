@@ -10,10 +10,14 @@
     "dev": "nuxt",
     "generate": "nuxt generate",
     "lint": "npx tslint --fix -p .",
-    "pre-commit": "npm run lint",
-    "pre-push": "npm run test",
     "start": "nuxt start",
     "test": "echo 'testing'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run test"
+    }
   },
   "dependencies": {
     "@google-cloud/connect-datastore": "^2.0.2",
