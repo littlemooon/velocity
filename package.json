@@ -6,7 +6,7 @@
   "main": ".nuxt/server.js",
   "scripts": {
     "build": "nuxt build",
-    "deploy": "npm run build && gcloud app deploy",
+    "deploy": "npm-p lint test build && gcloud app deploy",
     "dev": "nuxt",
     "generate": "nuxt generate",
     "lint": "npx tslint --fix -p .",
