@@ -1,11 +1,8 @@
 import NuxtConfiguration from '@nuxt/config'
-import cookieParser from 'cookie-parser'
-import dotenv from 'dotenv'
-
-dotenv.config()
+import './env'
 
 const config: NuxtConfiguration = {
-  srcDir: './src',
+  srcDir: './',
   head: {
     title: 'Unvanity',
     meta: [
@@ -24,27 +21,16 @@ const config: NuxtConfiguration = {
   router: {
     middleware: 'authenticate-route',
   },
-  plugins: [
-    { src: '~/services/firebase.ts', ssr: false },
-    { src: '~/plugins/auth-cookie.ts', ssr: false },
-  ],
+  // plugins: [
+  //   { src: '~/services/firebase.ts', ssr: false },
+  //   { src: '~/plugins/auth-cookie.ts', ssr: false },
+  // ],
   serverMiddleware: [
-    '~/api/middleware/session.ts',
-    cookieParser(),
-    '~/api/middleware/validate-token.ts',
+    '~/api/index.ts',
+    { path: '/api/auth', handler: '~/api/routes/auth.ts' },
   ],
   vendor: ['firebase'],
-  env: {
-    FIREBASE_CLIENT_API_KEY: process.env.FIREBASE_CLIENT_API_KEY || 'x',
-    FIREBASE_CLIENT_AUTH_DOMAIN: process.env.FIREBASE_CLIENT_AUTH_DOMAIN || 'x',
-    FIREBASE_CLIENT_DATABASE_URL:
-      process.env.FIREBASE_CLIENT_DATABASE_URL || 'x',
-    FIREBASE_CLIENT_PROJECT_ID: process.env.FIREBASE_CLIENT_PROJECT_ID || 'x',
-    FIREBASE_CLIENT_STORAGE_BUCKET:
-      process.env.FIREBASE_CLIENT_STORAGE_BUCKET || 'x',
-    FIREBASE_CLIENT_MESSAGING_SENDER_ID:
-      process.env.FIREBASE_CLIENT_MESSAGING_SENDER_ID || 'x',
-  },
+  env: {},
 }
 
 export default config
