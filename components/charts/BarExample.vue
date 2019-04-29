@@ -1,15 +1,20 @@
 <template>
-  <div>
-    <BarChart class='chart' v-if="chartData" :chart-data="chartData" :options="chartOptions"></BarChart>
-    <Button :onClick="fillData">Randomize</Button>
-  </div>
+  <Card>
+    <BarChart class="chart" v-if="chartData" :chart-data="chartData" :options="chartOptions"></BarChart>
+    <template v-slot:footer>
+      <CardFooter>
+        <Button :onClick="fillData">Randomize</Button>
+      </CardFooter>
+    </template>
+  </Card>
 </template>
 
 <script  lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { colors } from '../../utils/styles'
+import { colorsLight } from '../../utils/styles'
 import Button from '../Button.vue'
-import BarChart from './BarChart.vue'
+import Card from '../Card.vue'
+import CardFooter from '../CardFooter.vue'
 
 export interface IChartData {
   labels: Array<string | number>
@@ -21,7 +26,12 @@ export interface IChartData {
 }
 
 @Component({
-  components: { BarChart, Button },
+  components: {
+    BarChart: () => import('./BarChart.vue'),
+    Button,
+    Card,
+    CardFooter,
+  },
   data() {
     return { chartData: undefined }
   },
@@ -71,9 +81,9 @@ export default class LineExample extends Vue {
   }
 
   public getRandomColor() {
-    const keys = Object.keys(colors)
+    const keys = Object.keys(colorsLight)
     // tslint:disable-next-line
-    return colors[keys[(keys.length * Math.random()) << 0]]
+    return colorsLight[keys[(keys.length * Math.random()) << 0]]
   }
 }
 </script>

@@ -1,5 +1,5 @@
 import * as Vuex from 'vuex'
-import { ISession } from '../types';
+import { ISession } from '../types'
 // import axios from 'axios'
 import * as auth from './auth'
 import * as people from './people'

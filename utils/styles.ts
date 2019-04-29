@@ -1,27 +1,30 @@
 export const greys = {
-  black: '#464646',
-  gray4: '#646464',
-  gray3: '#969696',
-  gray2: '#c8c8c8',
-  gray1: '#e1e1e1',
+  black: 'rgb(45,52,54)',
+  gray3: 'rgb(99,110,114)',
+  gray2: 'rgb(178,190,195)',
+  gray1: 'rgb(223,230,233)',
   gray0: '#f5f5f5',
   white: '#ffffff',
 }
 
-export const colors = {
-  yellow: '#ffbe00',
-  orange: '#ff821e',
-  redLight: '#ff776f',
-  red: '#ff5a50',
-  pink: '#ff82d2',
-  pinkDark: '#dc46be',
-  purple: '#b937ff',
-  blueDark: '#2980b9',
-  blue: '#3498db',
-  blueSteel: '#87a0ff',
-  blueLight: '#64c8ff',
-  blueGreen: '#5ab4b4',
-  greenDark: '#00af5a',
-  green: '#00d282',
-  greenLight: '#8cdc64',
+export const colorsDark = {
+  blue: 'rgb(9,132,227)',
+  green: 'rgb(0,184,148)',
+  orange: 'rgb(225,112,85)',
+  pink: 'rgb(232,67,147)',
+  purple: 'rgb(108,92,231)',
+  red: 'rgb(214,48,49)',
+  turqouise: 'rgb(0,206,201)',
+  yellow: 'rgb(253,203,110)',
+}
+
+export const colorsLight = {
+  blueLight: 'rgb(116,185,255)',
+  greenLight: 'rgb(85,239,196)',
+  orangeLight: 'rgb(250,177,160)',
+  pinkLight: 'rgb(253,121,168)',
+  purpleLight: 'rgb(162,155,254)',
+  redLight: 'rgb(255,118,117)',
+  turqouiseLight: 'rgb(129,236,236)',
+  yellowLight: 'rgb(255,234,167)',
 }

@@ -1,8 +1,8 @@
 <template>
   <Main :title="title">
     <Grid>
-      <Card><LineExample/></Card>
-      <Card><BarExample/></Card>
+      <LineExample/>
+      <BarExample/>
       <Card>{{JSON.stringify(user, 0, 2)}}</Card>
       <!-- <Card>
         <p>Selected Person: {{ selectedPerson.first_name }} {{ selectedPerson.last_name }}</p>

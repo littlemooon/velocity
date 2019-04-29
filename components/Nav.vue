@@ -154,15 +154,15 @@ export default class Nav extends Vue {
   overflow: hidden;
 }
 .link:hover {
-  color: var(--c-blue);
+  color: var(--c-primary-3);
 }
 .link:hover .link__content::after {
   content: '>';
   margin: 0 0 0 var(--s-3);
 }
 .link.nuxt-link-active {
-  color: var(--c-blue);
-  background-color: var(--c-gray-1);
+  color: var(--c-primary-3);
+  background-color: var(--c-primary-0);
 }
 .link__content {
   margin: 0 0 0 var(--s-4);

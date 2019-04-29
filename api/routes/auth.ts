@@ -1,8 +1,10 @@
 import * as express from 'express'
 import env from '../../env'
-import logger from '../logger'
+import createLogger from '../logger'
 import { clearAuthUser, oauthClient, setAuthUser } from '../utils/auth-utils'
 import { getSession, setSession } from '../utils/session-utils'
+
+const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
 
 const router = express.Router()
 const baseUrl = env.baseUrl
@@ -27,11 +29,11 @@ router.get('/google', async (req, res) => {
       scope: env.authScopes,
     })
 
-    logger.info('/google: Redirecting to %s', url)
+    logger.info(`Redirecting to ${url}`)
 
     res.redirect(url)
   } catch (e) {
-    logger.error('/google:', e)
+    logger.error('/google', e)
     clearAuthUser(req)
     res.status(500).send({ status: 'unable_to_get_url', message: e.message })
   }
@@ -49,7 +51,7 @@ router.get('/google/callback', async (req, res) => {
 
     res.redirect(`${baseUrl}${redirect}`)
   } catch (e) {
-    logger.error('/google/callback:', e)
+    logger.error('/google/callback', e)
     clearAuthUser(req)
     res.status(500).send({ status: 'unable_to_login', message: e.message })
   }

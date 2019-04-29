@@ -17,7 +17,7 @@
 <style scoped>
 .main__wrapper {
   width: 100%;
-  background-color: var(--c-gray-1);
+  background-color: var(--c-gray-0);
   min-height: 100vh;
 }
 .main__scroll {

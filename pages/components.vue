@@ -2,56 +2,61 @@
   <Main :title="title">
     <Grid v-bind:variant="gridVariant.HALF">
       <Card>
-        <h1>H1 text</h1>
-        <h2>H2 text</h2>
-        <h3>H3 text</h3>
-        <h4>H4 text</h4>
-        <h5>H5 text</h5>
-        <h6>H6 text</h6>
-        <p>P text</p>
+        <h1>H1 text Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
+        <h2>H2 text Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
+        <h3>H3 text Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3>
+        <h4>H4 text Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h4>
+        <h5>H5 text Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h5>
+        <h6>H6 text Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h6>
+        <p>P text Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       </Card>
       <Card>
-        <Right>
+        <div class="swatch__row item">
+          <div class="swatch black"/>
+          <div class="swatch gray-2"/>
+          <div class="swatch gray-1"/>
+          <div class="swatch gray-0"/>
+          <div class="swatch blue-light"/>
+          <div class="swatch blue"/>
+          <div class="swatch green-light"/>
+          <div class="swatch green"/>
+          <div class="swatch orange-light"/>
+          <div class="swatch orange"/>
+          <div class="swatch pink-light"/>
+          <div class="swatch pink"/>
+          <div class="swatch purple-light"/>
+          <div class="swatch purple"/>
+          <div class="swatch red-light"/>
+          <div class="swatch red"/>
+          <div class="swatch turqouise-light"/>
+          <div class="swatch turqouise"/>
+          <div class="swatch yellow-light"/>
+          <div class="swatch yellow"/>
+        </div>
+        <div class="item">
+          <Spinner/>
+        </div>
+        <div class="item">
+          <Tooltip>Tooltip text goes in here somewhere</Tooltip>
+        </div>
+        <div class="item">
           <Button :onClick="noop" v-bind:variant="buttonVariant.PRIMARY">Primary</Button>
           <Button :onClick="noop" v-bind:variant="buttonVariant.SECONDARY">Secondary</Button>
           <Button :onClick="noop" v-bind:variant="buttonVariant.TRANSPARENT">Transparent</Button>
           <Button :onClick="noop" v-bind:variant="buttonVariant.ICON">I</Button>
-        </Right>
-      </Card>
-      <Card>
-        <div class="swatch__row">
-          <div class="swatch black"/>
-          <div class="swatch gray-3"/>
-          <div class="swatch gray-2"/>
-          <div class="swatch gray-1"/>
-          <div class="swatch gray-0"/>
-          <div class="swatch yellow"/>
-          <div class="swatch orange"/>
-          <div class="swatch red-light"/>
-          <div class="swatch red"/>
-          <div class="swatch pink"/>
-          <div class="swatch pink-dark"/>
-          <div class="swatch purple"/>
-          <div class="swatch blue-steel"/>
-          <div class="swatch blue-dark"/>
-          <div class="swatch blue"/>
-          <div class="swatch blue-light"/>
-          <div class="swatch blue-green"/>
-          <div class="swatch green-dark"/>
-          <div class="swatch green"/>
-          <div class="swatch green-light"/>
         </div>
+
+        <template v-slot:footer>
+          <CardFooter>
+            <Button :onClick="noop" v-bind:variant="buttonVariant.PRIMARY">Primary</Button>
+            <Button :onClick="noop" v-bind:variant="buttonVariant.SECONDARY">Secondary</Button>
+            <Button :onClick="noop" v-bind:variant="buttonVariant.TRANSPARENT">Transparent</Button>
+            <Button :onClick="noop" v-bind:variant="buttonVariant.ICON">I</Button>
+          </CardFooter>
+        </template>
       </Card>
-      <Card>
-        <Spinner/>
-      </Card>
-      <Card>
-        <LineExample/>
-        <BarExample/>
-      </Card>
-      <Card>
-        <Tooltip>Tooltip text goes in here somewhere</Tooltip>
-      </Card>
+      <LineExample/>
+      <BarExample/>
     </Grid>
   </Main>
 </template>
@@ -60,6 +65,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import Button, { ButtonVariant } from '../components/Button.vue'
 import Card from '../components/Card.vue'
+import CardFooter from '../components/CardFooter.vue'
 import BarExample from '../components/charts/BarExample.vue'
 import LineExample from '../components/charts/LineExample.vue'
 import Grid, { GridVariant } from '../components/Grid.vue'
@@ -78,6 +84,7 @@ import Tooltip from '../components/Tooltip.vue'
     Main,
     Spinner,
     Tooltip,
+    CardFooter,
     Grid,
     LineExample,
     BarExample,
@@ -104,7 +111,10 @@ export default class ComponentsPage extends Vue {
 }
 </script>
 
-<style local>
+<style scoped>
+.item + .item {
+  margin: var(--s-4) 0 0;
+}
 .swatch__row {
   display: grid;
   grid-gap: var(--s-4);
@@ -117,9 +127,6 @@ export default class ComponentsPage extends Vue {
 .black {
   background-color: var(--c-black);
 }
-.gray-3 {
-  background-color: var(--c-gray-4);
-}
 .gray-2 {
   background-color: var(--c-gray-3);
 }
@@ -129,11 +136,35 @@ export default class ComponentsPage extends Vue {
 .gray-0 {
   background-color: var(--c-gray-1);
 }
-.yellow {
-  background-color: var(--c-yellow);
+.blue-light {
+  background-color: var(--c-blue-light);
+}
+.blue {
+  background-color: var(--c-blue);
+}
+.green-light {
+  background-color: var(--c-green-light);
+}
+.green {
+  background-color: var(--c-green);
+}
+.orange-light {
+  background-color: var(--c-orange-light);
 }
 .orange {
   background-color: var(--c-orange);
+}
+.pink-light {
+  background-color: var(--c-pink-light);
+}
+.pink {
+  background-color: var(--c-pink);
+}
+.purple-light {
+  background-color: var(--c-purple-light);
+}
+.purple {
+  background-color: var(--c-purple);
 }
 .red-light {
   background-color: var(--c-red-light);
@@ -141,37 +172,16 @@ export default class ComponentsPage extends Vue {
 .red {
   background-color: var(--c-red);
 }
-.pink {
-  background-color: var(--c-pink);
+.turqouise-light {
+  background-color: var(--c-turqouise-light);
 }
-.pink-dark {
-  background-color: var(--c-pink-dark);
+.turqouise {
+  background-color: var(--c-turqouise);
 }
-.purple {
-  background-color: var(--c-purple);
+.yellow-light {
+  background-color: var(--c-yellow-light);
 }
-.blue-dark {
-  background-color: var(--c-blue-dark);
-}
-.blue-steel {
-  background-color: var(--c-blue-steel);
-}
-.blue-light {
-  background-color: var(--c-blue-light);
-}
-.blue {
-  background-color: var(--c-blue);
-}
-.blue-green {
-  background-color: var(--c-blue-green);
-}
-.green-dark {
-  background-color: var(--c-green-dark);
-}
-.green {
-  background-color: var(--c-green);
-}
-.green-light {
-  background-color: var(--c-green-light);
+.yellow {
+  background-color: var(--c-yellow);
 }
 </style>

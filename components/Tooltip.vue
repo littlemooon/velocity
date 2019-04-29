@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class Tooltip extends Vue {}
@@ -13,7 +13,7 @@ export default class Tooltip extends Vue {}
 
 <style scoped>
 .tooltip {
-  background-color: var(--c-gray-1);
+  background-color: var(--c-primary-0);
   padding: var(--s-3);
   border-radius: var(--s-2);
   box-shadow: var(--bs-1);

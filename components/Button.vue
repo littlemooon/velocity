@@ -55,32 +55,32 @@ export default class Button extends Vue {
 }
 .button--primary {
   color: var(--c-white);
-  background-color: var(--c-blue);
+  background-color: var(--c-primary-2);
 }
 .button--primary:hover,
 .button--primary:focus,
 .button--primary:active {
-  background-color: var(--c-blue-dark);
+  background-color: var(--c-primary-3);
 }
 .button--secondary {
   color: var(--c-white);
-  background-color: var(--c-gray-3);
+  background-color: var(--c-second-2);
 }
 .button--secondary:hover,
 .button--secondary:focus,
 .button--secondary:active {
-  background-color: var(--c-gray-4);
+  background-color: var(--c-second-3);
 }
 .button--transparent {
   background-color: transparent;
 }
 .button--transparent:hover {
-  color: var(--c-blue);
-  background-color: var(--c-gray-1);
+  color: var(--c-primary-3);
+  background-color: var(--c-primary-0);
 }
 .button--transparent:focus,
 .button--transparent:active {
-  background-color: var(--c-gray-1);
+  background-color: var(--c-primary-0);
 }
 .button--icon {
   border-radius: 50%;
@@ -91,11 +91,11 @@ export default class Button extends Vue {
   padding: 0;
 }
 .button--icon:hover {
-  color: var(--c-blue);
-  background-color: var(--c-gray-1);
+  color: var(--c-primary-3);
+  background-color: var(--c-primary-0);
 }
 .button--icon:focus,
 .button--icon:active {
-  color: var(--c-blue);
+  color: var(--c-primary-3);
 }
 </style>

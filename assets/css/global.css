@@ -20,7 +20,8 @@
   --c-white: #ecf0f1;
   --c-yellow-dark: #f39c12;
   --c-yellow: #f1c40f; */
-  --c-black: #464646;
+
+  /* --c-black: #464646;
   --c-gray-4: #646464;
   --c-gray-3: #969696;
   --c-gray-2: #c8c8c8;
@@ -41,7 +42,49 @@
   --c-blue-green: #5ab4b4;
   --c-green-dark: #00af5a;
   --c-green: #00d282;
-  --c-green-light: #8cdc64;
+  --c-green-light: #8cdc64; */
+
+  --c-black: rgb(45, 52, 54);
+  --c-gray-3: rgb(99, 110, 114);
+  --c-gray-2: rgb(178, 190, 195);
+  --c-gray-1: rgb(223, 230, 233);
+  --c-gray-0: #f5f5f5;
+  --c-white: #ffffff;
+
+  --c-primary-0: rgba(112, 98, 217, .1);
+  --c-primary-1: rgba(79, 61, 210, 1);
+  --c-primary-2: rgba(47, 25, 206, 1);
+  --c-primary-3: rgba(32, 14, 165, 1);
+  --c-primary-4: rgba(25, 10, 128, 1);
+
+  --c-second-0: rgba(177, 84, 213, 1);
+  --c-second-1: rgba(160, 45, 205, 1);
+  --c-second-2: rgba(147, 8, 201, 1);
+  --c-second-3: rgba(115, 4, 158, 1);
+  --c-second-4: rgba(89, 3, 123, 1);
+
+  --c-third-0: rgba(83, 168, 209, 1);
+  --c-third-1: rgba(45, 150, 201, 1);
+  --c-third-2: rgba(9, 135, 196, 1);
+  --c-third-3: rgba(5, 103, 150, 1);
+  --c-third-4: rgba(3, 80, 117, 1);
+
+  --c-blue-light: rgb(116, 185, 255);
+  --c-blue: rgb(9, 132, 227);
+  --c-green-light: rgb(85, 239, 196);
+  --c-green: rgb(0, 184, 148);
+  --c-orange-light: rgb(250, 177, 160);
+  --c-orange: rgb(225, 112, 85);
+  --c-pink-light: rgb(253, 121, 168);
+  --c-pink: rgb(232, 67, 147);
+  --c-purple-light: rgb(162, 155, 254);
+  --c-purple: rgb(108, 92, 231);
+  --c-red-light: rgb(255, 118, 117);
+  --c-red: rgb(214, 48, 49);
+  --c-turqouise-light: rgb(129, 236, 236);
+  --c-turqouise: rgb(0, 206, 201);
+  --c-yellow-light: rgb(255, 234, 167);
+  --c-yellow: rgb(253, 203, 110);
 
   /* spacing */
   --s-0: 0px;
@@ -67,8 +110,10 @@
 
   /* box-shadow */
   --bs-0: 0;
-  --bs-1: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
-  --bs-2: 0px 4px 20px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+  --bs-1: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+  --bs-2: 0px 4px 20px 0px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
 
   /* breakpoints */
   --bp-0: 480px;
@@ -123,4 +168,19 @@ button {
 .column {
   display: flex;
   flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--c-black);
+}
+h5,
+h6 {
+  color: var(--c-gray-4);
+}
+p {
+  color: var(--c-gray-3);
+  line-height: 1.5;
 }

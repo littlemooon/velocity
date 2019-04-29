@@ -1,21 +1,34 @@
 <template>
-  <section class="card">
-    <slot></slot>
-  </section>
+  <div class="card__wrapper">
+    <section class="card">
+      <slot name="header"></slot>
+      <div class="card__content">
+        <slot></slot>
+      </div>
+      <slot name="footer"></slot>
+    </section>
+  </div>
 </template>
 
-<style scoped>
-.card {
-  background-color: var(--c-white);
-  border-radius: var(--s-2);
-  padding: var(--s-4);
-  box-shadow: var(--bs-1);
-}
-</style>
-
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
+import Right from './Right.vue'
 
-@Component
+@Component({ components: { Right } })
 export default class Card extends Vue {}
 </script>
+
+<style scoped>
+.card__wrapper {
+  width: 100%;
+}
+.card {
+  width: 100%;
+  background-color: var(--c-white);
+  border-radius: var(--s-2);
+  box-shadow: var(--bs-1);
+}
+.card__content {
+  padding: var(--s-4);
+}
+</style>

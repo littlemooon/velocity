@@ -1,8 +1,10 @@
 import { setAuthUser } from 'api/utils/auth-utils'
 import * as express from 'express'
-import logger from '../logger'
+import createLogger from '../logger'
 import { oauthClient } from '../utils/auth-utils'
 import { getSession } from '../utils/session-utils'
+
+const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
 
 export async function validateQueryToken(
   req: express.Request,

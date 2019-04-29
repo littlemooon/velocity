@@ -62,7 +62,7 @@ export default class LoginPage extends Vue {
   border-radius: var(--s-5);
   background-color: var(--c-white);
   box-shadow: var(--bs-1);
-  margin: var(--s-4) 0;
+  margin: var(--s-4) auto;
   max-width: 240px;
   width: 100%;
   color: var(--c-black);

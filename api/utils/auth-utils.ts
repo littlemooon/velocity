@@ -2,9 +2,11 @@ import * as express from 'express'
 import { Credentials } from 'google-auth-library'
 import { google } from 'googleapis'
 import env from '../../env'
-import logger from '../logger'
-import User from '../models/user.model'
+import createLogger from '../logger'
+import * as User from '../services/user.service'
 import { clearSession, getSession, setSession } from './session-utils'
+
+const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
 
 export const oauthClient = new google.auth.OAuth2(
   env.googleClientId,
@@ -13,52 +15,60 @@ export const oauthClient = new google.auth.OAuth2(
 )
 
 export async function setAuthUser(req: express.Request, tokens: Credentials) {
-  logger.info('setAuthUser: Setting user', tokens.access_token)
-  oauthClient.setCredentials(tokens)
-
-  const plus = google.plus({
-    version: 'v1',
-    auth: oauthClient,
-  })
-  const me = await plus.people.get({ userId: 'me' })
-
-  if (!me.data) {
-    throw new Error('No data from google plus')
-  }
-
-  const { emails, id: googleId, displayName, image, language } = me.data
-
-  if (!googleId) {
-    throw new Error('No id from google plus')
-  }
-
-  const user = new User({
-    googleId,
-    email: (emails && emails.length && emails[0].value) || '',
-    name: displayName,
-    image: image && image.url,
-    language,
-    googleRefreshToken: tokens.refresh_token || undefined,
-    lastLogin: Date.now(),
-  })
-
   try {
-    const result = await User.findOne({ googleId })
-    const existingId = result && result.entityKey && result.entityKey.id
+    logger.info(`setAuthUser: Setting user ${tokens.access_token}`)
+    oauthClient.setCredentials(tokens)
 
-    logger.info('Updating existing user', existingId)
+    const plus = google.plus({
+      version: 'v1',
+      auth: oauthClient,
+    })
+    const me = await plus.people.get({ userId: 'me' })
 
-    // await User.update(existingId, user)
-  } catch (error) {
-    if (error.code === 'ERR_ENTITY_NOT_FOUND') {
-      logger.info('Creating new user', user.plain())
-      await user.save()
-    } else {
-      throw error
+    if (!me.data) {
+      throw new Error('No data from google plus')
     }
-  }
 
-  setSession(req, { user: user.plain() })
+    const { emails, id: googleId, displayName, image, language } = me.data
+
+    if (!googleId) {
+      throw new Error('No id from google plus')
+    }
+
+    const user = {
+      googleId,
+      email: (emails && emails.length && emails[0].value) || '',
+      name: displayName,
+      image: image && image.url,
+      language,
+      googleRefreshToken: tokens.refresh_token || undefined,
+      loginAt: new Date(),
+    }
+
+    const result = await User.db.where('googleId', '==', googleId).get()
+
+    if (result.empty) {
+      await User.create({
+        ...user,
+        loginCount: 1,
+        loginAt: new Date(),
+        createdAt: new Date(),
+      })
+    } else if (result.size > 1) {
+      throw new Error(`more than one user found with googleId: ${googleId}`)
+    } else {
+      const snap = result.docs[0]
+      await User.update(snap, {
+        ...user,
+        loginCount: snap.data().loginCount + 1,
+      })
+    }
+
+    setSession(req, { user })
+  } catch (error) {
+    clearAuthUser(req)
+    throw error
+  }
 }
 
 export function clearAuthUser(req: express.Request) {

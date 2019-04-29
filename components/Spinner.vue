@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class Spinner extends Vue {}
@@ -21,13 +21,13 @@ export default class Spinner extends Vue {}
 .spinner,
 .spinner:before,
 .spinner:after {
-  background: var(--c-pink-dark);
+  background: var(--c-primary-2);
   animation: load 1s infinite ease-in-out;
   width: var(--s-3);
   height: var(--s-2);
 }
 .spinner {
-  color: var(--c-pink-dark);
+  color: var(--c-primary-2);
   text-indent: -9999em;
   position: relative;
   top: 28px;

@@ -2,9 +2,6 @@ import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 import { expressLogger } from './logger'
 import session from './middleware/session'
-import * as datastore from './services/datastore'
-
-datastore.init()
 
 const app = require('express')()
 
