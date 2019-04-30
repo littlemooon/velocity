@@ -1,5 +1,4 @@
 {
-  "extends": "../tsconfig.json",
   "include": ["./**/*.ts", "./**/*.vue"],
   "exclude": ["node_modules"],
 
@@ -16,5 +15,22 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
+
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "pretty": true,
+    "removeComments": false,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true
   }
 }
+
+

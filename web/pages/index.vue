@@ -1,10 +1,12 @@
 <template>
   <Main :title="title">
+    <h1>Select a default project to get started</h1>
     <Grid>
       <div v-for="account in accounts.data" :key="account.id">
-        <Card>{{JSON.stringify(account, null, 2)}}</Card>
+        <nuxt-link :to="'/a/' + account.id">
+          <Card>{{JSON.stringify(account, null, 2)}}</Card>
+        </nuxt-link>
       </div>
-      <ErrorBox title="Failed to get analytics accounts" :error="error"/>
     </Grid>
   </Main>
 </template>
@@ -12,14 +14,10 @@
 <script lang="ts">
 import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import Card from '../components/Card.vue'
-import BarExample from '../components/charts/BarExample.vue'
-import LineExample from '../components/charts/LineExample.vue'
-import ErrorBox from '../components/ErrorBox.vue'
 import Grid from '../components/Grid.vue'
 import Main from '../components/Main.vue'
 import * as analytics from '../store/analytics'
 import * as auth from '../store/auth'
-import { FetchState } from '../types'
 
 const Auth = namespace(auth.name)
 const Analytics = namespace(analytics.name)
@@ -28,31 +26,17 @@ const Analytics = namespace(analytics.name)
   components: {
     Card,
     Main,
-    ErrorBox,
     Grid,
-    LineExample,
-    BarExample,
   },
 })
 export default class IndexPage extends Vue {
   public title = 'Home'
 
   @Analytics.State public accounts
-  @Analytics.Action public getAccounts
   @Auth.State public user
 
   public layout() {
     return 'app'
-  }
-
-  get error() {
-    return this.accounts.error
-  }
-
-  public mounted() {
-    if (this.accounts.state === FetchState.INIT) {
-      this.getAccounts()
-    }
   }
 }
 </script>

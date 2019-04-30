@@ -5,6 +5,10 @@ export interface IContext {
   store: Store
   redirect: (p: string) => void
   route: Route
+  req?: {
+    session?: ISession
+    cookies: object
+  }
 }
 
 export type Plugin = (c: IContext) => void | Promise<void>

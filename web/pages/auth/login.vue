@@ -46,7 +46,7 @@ import env from '../../env'
 export default class LoginPage extends Vue {
   get url() {
     const redirect = this.$route.query.redirect
-    return `${env.apiUrl}/auth/google?${qs.stringify({ redirect })}`
+    return `${env.webUrl}/api/auth/google?${qs.stringify({ redirect })}`
   }
 
   get error() {

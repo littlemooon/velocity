@@ -14,10 +14,23 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import Nav from '../components/Nav.vue'
+import * as analytics from '../store/analytics'
+import { FetchState } from '../types'
+
+const Analytics = namespace(analytics.name)
 
 @Component({ components: { Nav } })
-export default class AppLayout extends Vue {}
+export default class AppLayout extends Vue {
+  @Analytics.State public accounts
+  @Analytics.Action public getAccounts
+
+  public mounted() {
+    if (this.accounts.state === FetchState.INIT) {
+      this.getAccounts()
+    }
+  }
+}
 </script>
 

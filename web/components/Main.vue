@@ -8,11 +8,42 @@
     </Header>
     <div class="main__scroll">
       <main class="main">
-        <slot></slot>
+        <template v-if="showSpinner">
+          <Spinner/>
+        </template>
+        <template v-else>
+          <slot></slot>
+        </template>
       </main>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, namespace, Prop, Vue } from 'nuxt-property-decorator'
+import * as analytics from '../store/analytics'
+import { FetchState } from '../types'
+import Header from './Header.vue'
+import Right from './Right.vue'
+import Spinner from './Spinner.vue'
+
+const Analytics = namespace(analytics.name)
+
+@Component({ components: { Header, Right, Spinner } })
+export default class Main extends Vue {
+  @Prop(String)
+  public readonly title!: string
+
+  @Analytics.State public accounts
+
+  get showSpinner() {
+    return (
+      !this.accounts ||
+      [FetchState.INIT, FetchState.LOADING].includes(this.accounts.state)
+    )
+  }
+}
+</script>
 
 <style scoped>
 .main__wrapper {
@@ -48,15 +79,3 @@
   align-items: center;
 }
 </style>
-
-<script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import Header from './Header.vue'
-import Right from './Right.vue'
-
-@Component({ components: { Header, Right } })
-export default class Main extends Vue {
-  @Prop(String)
-  public readonly title!: string
-}
-</script>

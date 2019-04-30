@@ -39,7 +39,11 @@ export async function validateQueryToken(
   }
 }
 
-export async function requireAuth(req: express.Request, res: express.Response) {
+export async function requireAuth(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
   const isAuthed = getSession(req).tokens
 
   if (!isAuthed) {
@@ -47,4 +51,5 @@ export async function requireAuth(req: express.Request, res: express.Response) {
       .status(401)
       .send({ status: 'auth_required', message: 'You must be logged in' })
   }
+  next()
 }

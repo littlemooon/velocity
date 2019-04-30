@@ -1,3 +1,4 @@
+import pTimeout from 'p-timeout'
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
 import { IFetchResult } from '../types'
 import {
@@ -38,14 +39,21 @@ export const state = (): IState => ({ authenticated: false })
 export const getters: GetterTree<IState, IRootState> = {}
 
 export const actions: IActions<IState, IRootState> = {
-  async getUser({ commit }) {
+  async getUser({ commit, dispatch }) {
     commit(types.USER_SET_LOADING)
     const result = await fetchApi<IUser>('/auth')
     commit(types.USER_SET, result)
 
     if (result.data && result.data.email) {
       commit(types.AUTHENTICATED_SET, true)
-      // await dispatch('analytics/getAccounts', null, { root: true })
+
+      await pTimeout(
+        dispatch('analytics/getAccounts', null, { root: true }),
+        1000,
+        () => {
+          console.warn('auth.store:getUser: getAccounts timeout')
+        }
+      )
     } else {
       commit(types.AUTHENTICATED_SET, false)
     }

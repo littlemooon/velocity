@@ -22,7 +22,7 @@ export default class Spinner extends Vue {}
 .spinner:before,
 .spinner:after {
   background: var(--c-primary-2);
-  animation: load 1s infinite ease-in-out;
+  animation: load 1s infinite ease-in-out, fadeIn 5s ease-in;
   width: var(--s-3);
   height: var(--s-2);
 }
@@ -57,6 +57,17 @@ export default class Spinner extends Vue {}
   40% {
     box-shadow: 0 -16px;
     height: 24px;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>

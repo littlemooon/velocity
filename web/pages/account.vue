@@ -16,8 +16,8 @@ import Card from '../components/Card.vue'
 import Grid, { GridVariant } from '../components/Grid.vue'
 import Main from '../components/Main.vue'
 import Right from '../components/Right.vue'
-import * as auth from '../store/auth'
 import env from '../env'
+import * as auth from '../store/auth'
 
 const Auth = namespace(auth.name)
 
@@ -28,7 +28,7 @@ export default class AccountPage extends Vue {
   }
 
   get logoutUrl() {
-    return `${env.apiUrl}/auth/logout`
+    return `${env.webUrl}/api/auth/logout`
   }
 
   @Auth.State public user

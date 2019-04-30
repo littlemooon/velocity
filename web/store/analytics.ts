@@ -40,7 +40,18 @@ export const initial = {
 
 export const state = (): IState => initial
 
-export const getters: GetterTree<IState, IRootState> = {}
+export const getters: GetterTree<IState, IRootState> = {
+  account: (s, _, root) => {
+    const accounts = s.accounts.data
+    const accountId = root.route.params.account_id
+
+    console.log('-------------------- analytics --> ', { s, root })
+
+    if (accounts) {
+      return accounts.find(account => account.id === accountId)
+    }
+  },
+}
 
 export const actions: IActions<IState, IRootState> = {
   async getAccounts({ commit }) {

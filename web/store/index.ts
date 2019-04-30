@@ -1,3 +1,4 @@
+import { Route } from 'vue-router';
 import * as Vuex from 'vuex'
 import { ISession } from '../types'
 import { setFetchCookies } from '../utils/fetch.util'
@@ -5,7 +6,12 @@ import * as analytics from './analytics'
 import * as auth from './auth'
 import * as ui from './ui'
 
-export interface IState {}
+export interface IState {
+  analytics: analytics.IState
+  auth: auth.IState
+  ui: ui.IState
+  route: Route
+}
 
 export interface IActions<S, R> extends Vuex.ActionTree<S, R> {
   nuxtServerInit(
@@ -19,15 +25,11 @@ export interface IActions<S, R> extends Vuex.ActionTree<S, R> {
   ): void
 }
 
-export type Store = Vuex.Store<{
-  analytics: analytics.IState
-  auth: auth.IState
-  ui: ui.IState
-}>
+export type Store = Vuex.Store<IState>
 
 export const types = {}
 
-export const state = (): IState => ({})
+export const state = () => ({})
 
 export const getters: Vuex.GetterTree<IState, IState> = {}
 
