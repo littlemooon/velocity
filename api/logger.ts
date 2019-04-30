@@ -36,26 +36,38 @@ export const expressLogger = expressWinston.logger(expressConfig)
 
 export default function createLogger(filename: string) {
   const fname = chalk.blue(filename)
-  const s = (o?: object) => (o ? JSON.stringify(o) : undefined)
 
   return {
-    info(text: string, obj?: object) {
-      logger.info(`${fname} - ${chalk.cyan(text)} `, s(obj))
+    info(text: string, ...rest: any[]) {
+      logger.info(`${fname} - ${chalk.cyan(text)} `, ...rest)
     },
-    warn(text: string, obj?: object) {
-      logger.warn(`${fname} - ${chalk.cyan(text)} `, s(obj))
+    warn(text: string, ...rest: any[]) {
+      logger.warn(`${fname} - ${chalk.cyan(text)} `, ...rest)
     },
-    error(textOrError: string | Error, error?: Error) {
-      const j = (a: string[]) => a.filter(Boolean).join(' ')
-      const ename = (e?: string | Error) =>
-        e instanceof Error ? chalk.cyan(`${j([e.name, e.message])}: `) : e
-      const estack = (e?: Error) => (e && e.stack ? e.stack : undefined)
-
-      if (textOrError instanceof Error) {
-        logger.error(`${fname} - ${ename(textOrError)}`, estack(textOrError))
-      } else {
-        logger.error(`${fname} - ${ename(textOrError)}`, estack(error))
-      }
+    error(text: string, ...rest: any[]) {
+      logger.error(`${fname} - ${chalk.cyan(text)} `, ...rest)
     },
   }
+
+  // const s = (o?: object) => (o ? JSON.stringify(o) : undefined)
+  // return {
+  //   info(text: string, obj?: object) {
+  //     logger.info(`${fname} - ${chalk.cyan(text)} `, s(obj))
+  //   },
+  //   warn(text: string, obj?: object) {
+  //     logger.warn(`${fname} - ${chalk.cyan(text)} `, s(obj))
+  //   },
+  //   error(textOrError: string | Error, error?: Error) {
+  //     const j = (a: string[]) => a.filter(Boolean).join(' ')
+  //     const ename = (e?: string | Error) =>
+  //       e instanceof Error ? chalk.cyan(`${j([e.name, e.message])}: `) : e
+  //     // const estack = (e?: Error) => (e && e.stack ? e.stack : undefined)
+
+  //     if (textOrError instanceof Error) {
+  //       logger.error(`${fname} - ${ename(textOrError)}`, textOrError)
+  //     } else {
+  //       logger.error(`${fname} - ${ename(error)}`, error)
+  //     }
+  //   },
+  // }
 }

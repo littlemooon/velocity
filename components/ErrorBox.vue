@@ -12,14 +12,15 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { AlertTriangleIcon } from 'vue-feather-icons'
+import { FetchError } from '../types'
 
 @Component({ components: { AlertTriangleIcon } })
 export default class ErrorBox extends Vue {
   @Prop({ type: String })
   public title?: string
 
-  @Prop({ type: [String, Error] })
-  public error?: any
+  @Prop({ type: [String, Error, Object] })
+  public error?: string | FetchError
 
   get show() {
     const slot = this.$slots.default && this.$slots.default[0]
@@ -27,11 +28,15 @@ export default class ErrorBox extends Vue {
   }
 
   get formattedError() {
-    const message =
-      this.error &&
-      (this.error.message ||
-        (this.error.response && this.error.response.message))
-    return message || this.error
+    const e = this.error
+
+    if (typeof e === 'string') {
+      return e
+    } else if (e instanceof Error) {
+      return e.message
+    } else if (e) {
+      return [e.statusText, e.message].join(': ')
+    }
   }
 }
 </script>

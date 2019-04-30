@@ -15,7 +15,11 @@ function getAnalyticsV3(req: express.Request) {
 
 export async function getAccounts(req: express.Request) {
   logger.info('Getting analytics accounts')
-  console.log('-------------------- analytics.service --> ', getSession(req))
+  console.log(
+    '-------------------- analytics.service --> session',
+    getSession(req)
+  )
+  console.log('-------------------- analytics.service --> cookies', req.cookies)
   const analyticsV3 = getAnalyticsV3(req)
   const response = await analyticsV3.management.accounts.list()
 

@@ -20,6 +20,7 @@ import Card from '../../components/Card.vue'
 import ErrorBox from '../../components/ErrorBox.vue'
 import Grid from '../../components/Grid.vue'
 import Main from '../../components/Main.vue'
+import { FetchError } from '../../types';
 
 @Component({
   components: {
@@ -32,7 +33,7 @@ import Main from '../../components/Main.vue'
 })
 export default class DevApiPage extends Vue {
   public result?: object
-  public error?: Error
+  public error?: FetchError
 
   public layout() {
     return 'app'

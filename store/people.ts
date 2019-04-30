@@ -1,7 +1,6 @@
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
 import { IState as IRootState } from './index'
 
-
 export interface IPersonContact {
   email: string
   phone: string

@@ -64,18 +64,13 @@ export default class IndexPage extends Vue {
   public layout() {
     return 'app'
   }
-  public created() {
-    console.log('-------------------- index --> created', this.accounts)
-  }
 
   get error() {
-    console.log('-------------------- index --> error', this.accounts)
     return this.accounts.error
   }
 
   public mounted() {
     if (this.accounts.state === FetchState.INIT) {
-      console.log('-------------------- index --> mounted', this.accounts)
       this.getAccounts()
     }
   }

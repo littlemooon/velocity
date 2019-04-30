@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from 'axios'
+import fetch from 'isomorphic-fetch'
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
-import { FetchState, IFetchResult } from '../types'
+import env from '../env'
+import { FetchError, FetchState, IFetchResult } from '../types'
 import { IState as IRootState } from './index'
 
 export type AnalyticPermissions =
@@ -45,29 +46,35 @@ export let getters: GetterTree<IState, IRootState> = {}
 
 export let actions: IActions<IState, IRootState> = {
   async getAccounts({ commit }) {
-    console.log('-------------------- analytics --> ', 'getaccounts')
     try {
-      const result = await axios.get('/api/analytics/account', {
-        proxy: { host: '127.0.0.1', port: 3000 },
-        withCredentials: true,
+      const response = await fetch(`${env.baseUrl}/api/analytics/account`, {
+        method: 'GET',
+        credentials: 'include',
       })
-      console.log('-------------------- analytics --> result', result)
-      if (result) {
-        commit(types.SET_ACCOUNTS, result)
+      const json = await response.json()
+      if (response.ok) {
+        commit(types.SET_ACCOUNTS, json)
+      } else {
+        const error: FetchError = {
+          status: response.status,
+          statusText: response.statusText,
+          message: json.message,
+        }
+
+        commit(types.SET_ACCOUNTS_ERROR, error)
       }
     } catch (error) {
-      console.log('-------------------- analytics --> error', error)
       commit(types.SET_ACCOUNTS_ERROR, error)
     }
   },
 }
 
 export let mutations: MutationTree<IState> = {
-  [types.SET_ACCOUNTS](s, accounts: AxiosResponse<IAnalyticAccount[]>) {
+  [types.SET_ACCOUNTS](s, accounts: IAnalyticAccount[]) {
     s.accounts = {
       state: FetchState.SUCCESS,
       error: undefined,
-      data: accounts.data.map(
+      data: accounts.map(
         (account): IAnalyticAccount => ({
           id: account.id,
           name: account.name,
@@ -78,12 +85,7 @@ export let mutations: MutationTree<IState> = {
       ),
     }
   },
-  [types.SET_ACCOUNTS_ERROR](s, error: Error) {
-    console.log('-------------------- analytics --> SET_ACCOUNTS_ERROR', {
-      state: FetchState.ERROR,
-      error,
-      data: [],
-    })
+  [types.SET_ACCOUNTS_ERROR](s, error: FetchError) {
     s.accounts = {
       state: FetchState.ERROR,
       error,

@@ -53,8 +53,12 @@ export enum FetchState {
   ERROR = 'ERROR',
 }
 
+export type FetchError =
+  | { status: number; statusText: string; message?: string }
+  | Error
+
 export interface IFetchResult<T> {
-  error?: Error
+  error?: FetchError
   state: FetchState
   data: T
 }

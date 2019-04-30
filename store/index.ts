@@ -40,11 +40,11 @@ export let actions: IActions<IState, IState> = {
     // let staticPeople = response.data.slice(0, 10)
     // commit(`${people.name}/${people.types.SET}`, staticPeople, { root: true })
     if (req.session && req.session.user) {
-      dispatch('auth/setUser', req.session.user)
-      dispatch('analytics/getAccounts')
+      await dispatch(`${[auth.name]}/setUser`, req.session.user)
+      await dispatch(`${[analytics.name]}/getAccounts`)
     }
     if (req.cookies[ui.cookies.navClosed]) {
-      dispatch('ui/setNavOpen', false)
+      await dispatch(`${[ui.name]}/setNavOpen`, false)
     }
   },
 }

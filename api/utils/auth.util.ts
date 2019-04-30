@@ -91,7 +91,11 @@ export function clearAuthUser(req: express.Request) {
 
   if (session.user) {
     logger.info('Clearing auth user', session.user)
-    oauthClient.revokeCredentials()
+    try {
+      oauthClient.revokeCredentials()
+    } catch (e) {
+      logger.error('Error clearing auth user', e)
+    }
     clearSession(req)
   }
 }
