@@ -9,7 +9,7 @@
     "build": "run-p build:api build:web",
     "deploy:api": "npm run --prefix api deploy",
     "deploy:web": "npm run --prefix web deploy",
-    "deploy": "run-p lint test build && run-p deploy:api deploy:web",
+    "deploy": "run-p lint test build && run-s deploy:api deploy:web",
     "dev:api": "npm run --prefix api dev",
     "dev:web": "npm run --prefix web dev",
     "install:api": "npm install --prefix api",
