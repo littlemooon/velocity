@@ -1,5 +1,5 @@
 import { QueryDocumentSnapshot, Timestamp } from '@google-cloud/firestore'
-import Joi, { ValidationResult } from '@hapi/joi'
+import * as Joi from '@hapi/joi'
 import createLogger from '../logger'
 import firestore from '../services/firestore'
 
@@ -40,7 +40,7 @@ const schema = Joi.object().keys({
   createdAt: JoiTimestamp.required(),
 })
 
-export function validate(user: IUser): ValidationResult<IUser> {
+export function validate(user: IUser): Joi.ValidationResult<IUser> {
   return Joi.validate(user, schema)
 }
 

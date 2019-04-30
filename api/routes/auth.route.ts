@@ -1,5 +1,5 @@
 import * as express from 'express'
-import env from '../../env'
+import env from '../env'
 import createLogger from '../logger'
 import { clearAuthUser, oauthClient, setAuthUser } from '../utils/auth.util'
 import { getSession, setSession } from '../utils/session.util'
@@ -7,14 +7,23 @@ import { getSession, setSession } from '../utils/session.util'
 const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
 
 const router = express.Router()
-const baseUrl = env.baseUrl
+const webUrl = env.webUrl
 
 router.get('/', async (req, res) => {
-  const { user, tokens } = getSession(req)
-  res.send({
-    user: user || {},
-    token: tokens ? tokens.access_token : undefined,
-  })
+  const { user } = getSession(req)
+
+  res.send(
+    user
+      ? {
+          email: user.email,
+          googleId: user.googleId,
+          image: user.image,
+          language: user.language,
+          name: user.name,
+          lastLogin: user.lastLogin,
+        }
+      : {}
+  )
 })
 
 router.get('/google', async (req, res) => {
@@ -35,7 +44,7 @@ router.get('/google', async (req, res) => {
   } catch (e) {
     logger.error('Error when generating google url', e)
     clearAuthUser(req)
-    res.redirect(`${baseUrl}/auth/login?error=${e.message}`)
+    res.redirect(`${webUrl}/auth/login?error=${e.name}: ${e.message}`)
   }
 })
 
@@ -48,12 +57,11 @@ router.get('/google/callback', async (req, res) => {
     const { tokens } = await oauthClient.getToken(code)
 
     await setAuthUser(req, tokens)
-
-    res.redirect(`${baseUrl}${redirect}`)
+    res.redirect(`${webUrl}${redirect}`)
   } catch (e) {
     logger.error('Error when getting google token', e)
     clearAuthUser(req)
-    res.redirect(`${baseUrl}/auth/login?error=${e.message}`)
+    res.redirect(`${webUrl}/auth/login?error=${e.name}: ${e.message}`)
   }
 })
 
@@ -61,7 +69,7 @@ router.get('/logout', async (req, res) => {
   logger.info('Logging out')
   clearAuthUser(req)
 
-  res.redirect(`${baseUrl}/`)
+  res.redirect(`${webUrl}/`)
 })
 
 export default router

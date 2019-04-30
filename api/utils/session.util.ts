@@ -1,4 +1,4 @@
-import { ISession } from '../../types'
+import { ISession } from '../types'
 
 export function getSession(req: any) {
   return (req.session || {}) as ISession

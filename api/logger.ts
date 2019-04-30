@@ -1,8 +1,8 @@
 import { LoggingWinston } from '@google-cloud/logging-winston'
 import chalk from 'chalk'
 import * as expressWinston from 'express-winston'
-import winston from 'winston'
-import env from '../env'
+import * as winston from 'winston'
+import env from './env'
 
 const loggingWinston = new LoggingWinston()
 
@@ -33,6 +33,8 @@ const expressConfig = {
 const logger = winston.createLogger(loggerConfig)
 
 export const expressLogger = expressWinston.logger(expressConfig)
+
+export const expressErrorLogger = expressWinston.errorLogger(expressConfig)
 
 export default function createLogger(filename: string) {
   const fname = chalk.blue(filename)

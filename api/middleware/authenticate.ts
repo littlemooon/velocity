@@ -1,7 +1,6 @@
-import { setAuthUser } from 'api/utils/auth.util'
 import * as express from 'express'
 import createLogger from '../logger'
-import { oauthClient } from '../utils/auth.util'
+import { oauthClient, setAuthUser } from '../utils/auth.util'
 import { getSession } from '../utils/session.util'
 
 const logger = createLogger(__filename.replace(process.env.PWD || '', ''))

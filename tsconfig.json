@@ -3,25 +3,10 @@
   "exclude": ["node_modules"],
 
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "lib": ["esnext", "esnext.asynciterable", "dom"],
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "noEmit": true,
-
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
-    },
-
-    "typeRoots": ["./@types/*", "./node_modules/@types/*"],
-
     "allowSyntheticDefaultImports": true,
     "composite": true,
     "declaration": true,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
