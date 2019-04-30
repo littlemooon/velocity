@@ -79,6 +79,7 @@
   --c-pink: rgb(232, 67, 147);
   --c-purple-light: rgb(162, 155, 254);
   --c-purple: rgb(108, 92, 231);
+  --c-red-faded: rgba(255, 118, 117, .2);
   --c-red-light: rgb(255, 118, 117);
   --c-red: rgb(214, 48, 49);
   --c-turqouise-light: rgb(129, 236, 236);
@@ -163,6 +164,7 @@ button {
 
 .row {
   display: flex;
+  align-items: center;
 }
 
 .column {
@@ -183,4 +185,8 @@ h6 {
 p {
   color: var(--c-gray-3);
   line-height: 1.5;
+}
+
+code {
+  font-size: var(--f-0);
 }

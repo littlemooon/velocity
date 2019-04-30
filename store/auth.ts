@@ -2,13 +2,6 @@ import axios from 'axios'
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
 import { IState as IRootState } from './index'
 
-export let name = 'auth'
-
-export let types = {
-  SET_USER: 'SET_USER',
-  CLEAR_USER: 'CLEAR_USER',
-}
-
 export interface IUser {
   name?: string
   email?: string
@@ -18,12 +11,6 @@ export interface IState {
   user?: IUser
 }
 
-export let namespaced = true
-
-export let state = (): IState => ({})
-
-export let getters: GetterTree<IState, IRootState> = {}
-
 export interface IActions<S, R> extends ActionTree<S, R> {
   setUser(
     context: ActionContext<S, R>,
@@ -31,6 +18,18 @@ export interface IActions<S, R> extends ActionTree<S, R> {
   ): void
   logout(context: ActionContext<S, R>): void
 }
+
+export let name = 'auth'
+export let namespaced = true
+
+export let types = {
+  SET_USER: 'SET_USER',
+  CLEAR_USER: 'CLEAR_USER',
+}
+
+export let state = (): IState => ({})
+
+export let getters: GetterTree<IState, IRootState> = {}
 
 export let actions: IActions<IState, IRootState> = {
   async setUser({ commit }, user) {

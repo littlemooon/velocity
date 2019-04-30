@@ -1,8 +1,8 @@
-import { setAuthUser } from 'api/utils/auth-utils'
+import { setAuthUser } from 'api/utils/auth.util'
 import * as express from 'express'
 import createLogger from '../logger'
-import { oauthClient } from '../utils/auth-utils'
-import { getSession } from '../utils/session-utils'
+import { oauthClient } from '../utils/auth.util'
+import { getSession } from '../utils/session.util'
 
 const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
 
@@ -14,15 +14,15 @@ export async function validateQueryToken(
 
   if (queryToken) {
     try {
-      logger.info('authenticate: verifying query token', queryToken)
+      logger.info('Verifying query token', queryToken)
 
       const info = await oauthClient.getTokenInfo(queryToken)
       if (info.user_id) {
-        logger.info('authenticate: found user for query token', info)
+        logger.info('Found user for query token', info)
 
         await setAuthUser(req, { access_token: queryToken })
       } else {
-        logger.warn('authenticate: failed to validate query token', {
+        logger.warn('Failed to validate query token', {
           queryToken,
           info,
         })
@@ -31,7 +31,7 @@ export async function validateQueryToken(
           .send({ status: 'auth_required', message: 'You must be logged in' })
       }
     } catch (e) {
-      logger.error('authenticate: error when validating query token', e)
+      logger.error('Error when validating query token', e)
       return res.status(500).send({
         status: 'unable_to_verify_token',
         message: e.message,

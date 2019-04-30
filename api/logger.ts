@@ -35,19 +35,26 @@ const logger = winston.createLogger(loggerConfig)
 export const expressLogger = expressWinston.logger(expressConfig)
 
 export default function createLogger(filename: string) {
-  const name = chalk.blue(filename)
+  const fname = chalk.blue(filename)
+  const s = (o?: object) => (o ? JSON.stringify(o) : undefined)
+
   return {
     info(text: string, obj?: object) {
-      logger.info(`${name}:${text}`, obj ? JSON.stringify(obj) : undefined)
+      logger.info(`${fname} - ${chalk.cyan(text)} `, s(obj))
     },
     warn(text: string, obj?: object) {
-      logger.warn(`${name}:${text}`, obj ? JSON.stringify(obj) : undefined)
+      logger.warn(`${fname} - ${chalk.cyan(text)} `, s(obj))
     },
     error(textOrError: string | Error, error?: Error) {
+      const j = (a: string[]) => a.filter(Boolean).join(' ')
+      const ename = (e?: string | Error) =>
+        e instanceof Error ? chalk.cyan(`${j([e.name, e.message])}: `) : e
+      const estack = (e?: Error) => (e && e.stack ? e.stack : undefined)
+
       if (textOrError instanceof Error) {
-        logger.error(`${name}:`, textOrError)
+        logger.error(`${fname} - ${ename(textOrError)}`, estack(textOrError))
       } else {
-        logger.error(`${name}:${textOrError}`, error)
+        logger.error(`${fname} - ${ename(textOrError)}`, estack(error))
       }
     },
   }

@@ -45,3 +45,16 @@ export interface ICookies {
 }
 
 export type Entity<T> = T & { key: () => string }
+
+export enum FetchState {
+  INIT = 'INIT',
+  LOADING = 'LOADING',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+}
+
+export interface IFetchResult<T> {
+  error?: Error
+  state: FetchState
+  data: T
+}

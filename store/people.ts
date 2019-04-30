@@ -1,12 +1,6 @@
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
 import { IState as IRootState } from './index'
 
-export let name = 'people'
-
-export let types = {
-  SELECT: 'SELECT',
-  SET: 'SET',
-}
 
 export interface IPersonContact {
   email: string
@@ -37,7 +31,17 @@ export interface IState {
   people: IPerson[]
 }
 
+export interface IActions<S, R> extends ActionTree<S, R> {
+  select(context: ActionContext<S, R>, id: number): void
+}
+
+export let name = 'people'
 export let namespaced = true
+
+export let types = {
+  SELECT: 'SELECT',
+  SET: 'SET',
+}
 
 export let state = (): IState => ({
   selected: 1,
@@ -49,10 +53,6 @@ export let getters: GetterTree<IState, IRootState> = {
     const p = s.people.find(person => person.id === s.selected)
     return p ? p : { first_name: 'Please,', last_name: 'select someone' }
   },
-}
-
-export interface IActions<S, R> extends ActionTree<S, R> {
-  select(context: ActionContext<S, R>, id: number): void
 }
 
 export let actions: IActions<IState, IRootState> = {

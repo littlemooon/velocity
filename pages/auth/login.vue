@@ -1,7 +1,7 @@
 <template>
   <AuthCard>
     <h2>Lets get growing!</h2>
-    <a :href="loginUrl" class="button">
+    <a :href="url" class="button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -31,7 +31,7 @@
       </svg>
       Sign in with Google
     </a>
-    <p v-if="errorMessage">errorMessage: {{ errorMessage }}</p>
+    <ErrorBox v-if="error" title="Failed to login" :error="error"/>
   </AuthCard>
 </template>n
 
@@ -39,15 +39,16 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import * as qs from 'query-string'
 import AuthCard from '../../components/AuthCard.vue'
+import ErrorBox from '../../components/ErrorBox.vue'
 
-@Component({ components: { AuthCard } })
+@Component({ components: { AuthCard, ErrorBox } })
 export default class LoginPage extends Vue {
-  get loginUrl() {
+  get url() {
     const redirect = this.$route.query.redirect
     return `/api/auth/google?${qs.stringify({ redirect })}`
   }
 
-  get errorMessage() {
+  get error() {
     return this.$route.query.error
   }
 }

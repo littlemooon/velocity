@@ -1,10 +1,11 @@
+import { Timestamp } from '@google-cloud/firestore'
 import * as express from 'express'
 import { Credentials } from 'google-auth-library'
 import { google } from 'googleapis'
 import env from '../../env'
 import createLogger from '../logger'
 import * as User from '../services/user.service'
-import { clearSession, getSession, setSession } from './session-utils'
+import { clearSession, getSession, setSession } from './session.util'
 
 const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
 
@@ -14,14 +15,27 @@ export const oauthClient = new google.auth.OAuth2(
   env.googleRedirectUrl
 )
 
+export function getOauthClient(
+  req: express.Request,
+  maybeTokens?: Credentials
+) {
+  const tokens = getSession(req).tokens || maybeTokens
+
+  if (tokens) {
+    oauthClient.setCredentials(tokens)
+  } else {
+    oauthClient.revokeCredentials()
+  }
+  return oauthClient
+}
+
 export async function setAuthUser(req: express.Request, tokens: Credentials) {
   try {
-    logger.info(`setAuthUser: Setting user ${tokens.access_token}`)
-    oauthClient.setCredentials(tokens)
+    logger.info(`Setting user ${tokens.access_token}`)
 
     const plus = google.plus({
       version: 'v1',
-      auth: oauthClient,
+      auth: getOauthClient(req, tokens),
     })
     const me = await plus.people.get({ userId: 'me' })
 
@@ -42,7 +56,6 @@ export async function setAuthUser(req: express.Request, tokens: Credentials) {
       image: image && image.url,
       language,
       googleRefreshToken: tokens.refresh_token || undefined,
-      loginAt: new Date(),
     }
 
     const result = await User.db.where('googleId', '==', googleId).get()
@@ -51,20 +64,22 @@ export async function setAuthUser(req: express.Request, tokens: Credentials) {
       await User.create({
         ...user,
         loginCount: 1,
-        loginAt: new Date(),
-        createdAt: new Date(),
+        loginAt: Timestamp.now(),
+        createdAt: Timestamp.now(),
       })
     } else if (result.size > 1) {
       throw new Error(`more than one user found with googleId: ${googleId}`)
     } else {
       const snap = result.docs[0]
+
       await User.update(snap, {
         ...user,
         loginCount: snap.data().loginCount + 1,
+        loginAt: Timestamp.now(),
       })
     }
 
-    setSession(req, { user })
+    setSession(req, { user, tokens })
   } catch (error) {
     clearAuthUser(req)
     throw error
@@ -75,7 +90,7 @@ export function clearAuthUser(req: express.Request) {
   const session = getSession(req)
 
   if (session.user) {
-    logger.info('clearAuthUser: Clearing auth user', session.user)
+    logger.info('Clearing auth user', session.user)
     oauthClient.revokeCredentials()
     clearSession(req)
   }

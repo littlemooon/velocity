@@ -1,4 +1,4 @@
-import { QueryDocumentSnapshot } from '@google-cloud/firestore'
+import { QueryDocumentSnapshot, Timestamp } from '@google-cloud/firestore'
 import Joi, { ValidationResult } from '@hapi/joi'
 import createLogger from '../logger'
 import firestore from '../services/firestore'
@@ -15,9 +15,14 @@ export interface IUser {
   language?: string
   name?: string
   loginCount: number
-  loginAt: Date
-  createdAt: Date
+  loginAt: Timestamp
+  createdAt: Timestamp
 }
+
+const JoiTimestamp = Joi.object({
+  _seconds: Joi.number(),
+  _nanoseconds: Joi.number(),
+})
 
 const schema = Joi.object().keys({
   email: Joi.string()
@@ -31,8 +36,8 @@ const schema = Joi.object().keys({
   loginCount: Joi.number()
     .integer()
     .required(),
-  loginAt: Joi.date().required(),
-  createdAt: Joi.date().required(),
+  loginAt: JoiTimestamp.required(),
+  createdAt: JoiTimestamp.required(),
 })
 
 export function validate(user: IUser): ValidationResult<IUser> {

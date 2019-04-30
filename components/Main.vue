@@ -27,6 +27,7 @@
 }
 .main__title {
   font-size: var(--f-4);
+  white-space: nowrap;
 }
 @media only screen and (max-width: 480px) {
   .main__title {

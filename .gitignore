@@ -2,6 +2,10 @@ node_modules/
 
 .nuxt/
 dist/
+scratch/
 
 .env
+.env.dev
+.env.prod
+
 gcloud_key.json

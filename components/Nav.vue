@@ -28,14 +28,24 @@
             <p v-show="isOpen" class="link__content">Home</p>
           </nuxt-link>
         </li>
-        <li class="item">
-          <nuxt-link class="link" to="/components">
-            <Icon>
-              <CodeIcon/>
-            </Icon>
-            <p v-show="isOpen" class="link__content">Components</p>
-          </nuxt-link>
-        </li>
+        <div v-if="dev">
+          <li class="item">
+            <nuxt-link class="link" to="/dev/components">
+              <Icon>
+                <CodeIcon/>
+              </Icon>
+              <p v-show="isOpen" class="link__content">Components</p>
+            </nuxt-link>
+          </li>
+          <li class="item">
+            <nuxt-link class="link" to="/dev/api">
+              <Icon>
+                <CodeIcon/>
+              </Icon>
+              <p v-show="isOpen" class="link__content">API</p>
+            </nuxt-link>
+          </li>
+        </div>
       </ul>
     </div>
     <ul class="footer">
@@ -60,12 +70,15 @@ import {
   MenuIcon,
   SettingsIcon,
 } from 'vue-feather-icons'
+import env from '../env'
 import * as auth from '../store/auth'
+import * as ui from '../store/ui'
 import Button, { ButtonVariant } from './Button.vue'
 import Icon from './Icon.vue'
 import Logo from './Logo.vue'
 
 const Auth = namespace(auth.name)
+const Ui = namespace(ui.name)
 
 @Component({
   components: {
@@ -80,19 +93,29 @@ const Auth = namespace(auth.name)
   },
 })
 export default class Nav extends Vue {
-  public isOpen = false
-
   @Auth.State public user
+  @Ui.State public nav
+
+  @Ui.Action public setNavOpen
 
   get buttonVariants() {
     return ButtonVariant
   }
 
-  public open() {
-    this.isOpen = true
+  get dev() {
+    return env.dev
   }
+
+  get isOpen() {
+    return this.nav.open
+  }
+
+  public open() {
+    this.setNavOpen(true)
+  }
+
   public close() {
-    this.isOpen = false
+    this.setNavOpen(false)
   }
 }
 </script>

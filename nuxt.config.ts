@@ -1,7 +1,7 @@
 import NuxtConfiguration from '@nuxt/config'
 import './env'
 
-const config: NuxtConfiguration = {
+const nuxtConfig: NuxtConfiguration = {
   srcDir: './',
   head: {
     title: 'Unvanity',
@@ -27,10 +27,17 @@ const config: NuxtConfiguration = {
   // ],
   serverMiddleware: [
     '~/api/index.ts',
-    { path: '/api/auth', handler: '~/api/routes/auth.ts' },
+    { path: '/api/auth', handler: '~/api/routes/auth.route.ts' },
+    { path: '/api/analytics', handler: '~/api/routes/analytics.route.ts' },
   ],
-  vendor: ['firebase'],
   env: {},
+  build: {
+    extend(config) {
+      config.node = {
+        fs: 'empty',
+      }
+    },
+  },
 }
 
-export default config
+export default nuxtConfig

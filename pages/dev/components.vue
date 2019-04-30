@@ -63,17 +63,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import Button, { ButtonVariant } from '../components/Button.vue'
-import Card from '../components/Card.vue'
-import CardFooter from '../components/CardFooter.vue'
-import BarExample from '../components/charts/BarExample.vue'
-import LineExample from '../components/charts/LineExample.vue'
-import Grid, { GridVariant } from '../components/Grid.vue'
-import Icon from '../components/Icon.vue'
-import Main from '../components/Main.vue'
-import Right from '../components/Right.vue'
-import Spinner from '../components/Spinner.vue'
-import Tooltip from '../components/Tooltip.vue'
+import Button, { ButtonVariant } from '../../components/Button.vue'
+import Card from '../../components/Card.vue'
+import CardFooter from '../../components/CardFooter.vue'
+import BarExample from '../../components/charts/BarExample.vue'
+import LineExample from '../../components/charts/LineExample.vue'
+import Grid, { GridVariant } from '../../components/Grid.vue'
+import Icon from '../../components/Icon.vue'
+import Main from '../../components/Main.vue'
+import Right from '../../components/Right.vue'
+import Spinner from '../../components/Spinner.vue'
+import Tooltip from '../../components/Tooltip.vue'
 
 @Component({
   components: {
