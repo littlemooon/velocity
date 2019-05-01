@@ -9,6 +9,7 @@ import {
 import * as Joi from '@hapi/joi'
 import createLogger from '../logger'
 import { Db } from '../types'
+import { filterObj } from '../utils/filter.util'
 import { JoiTimestamp } from '../utils/joi.util'
 
 const firestore = new GFirestore()
@@ -56,7 +57,7 @@ export default class Firestore<T extends object> {
   public async create(data: T) {
     try {
       logger.info(`Creating ${this.key}`, data)
-      data = { ...data, createdAt: Timestamp.now() }
+      data = filterObj({ ...data, createdAt: Timestamp.now() })
       data = await this.validate(data)
       const result = await this.db.add(data)
       return result
@@ -71,7 +72,7 @@ export default class Firestore<T extends object> {
         const prev = await this.data(snap)
 
         logger.info(`Updating ${this.key}: ${snap.id}`, { prev, next: data })
-        data = { ...data, updatedAt: Timestamp.now() }
+        data = filterObj({ ...data, updatedAt: Timestamp.now() })
         delete prev.id
         data = await this.validate({ ...prev, ...data })
 

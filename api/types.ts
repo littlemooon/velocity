@@ -23,22 +23,54 @@ export interface User {
   loginAt: Timestamp
 }
 
-export type AnalyticPermissions =
-  | 'COLLABORATE'
-  | 'EDIT'
-  | 'MANAGE_USERS'
-  | 'READ_AND_ANALYZE'
+export interface AnalyticPermissions {
+  effective?: Array<
+    | 'COLLABORATE'
+    | 'EDIT'
+    | 'MANAGE_USERS'
+    | 'READ_AND_ANALYZE'
+    | string
+    | undefined
+  >
+}
+
+export interface AccountProfile {
+  providerId: string
+  name?: string
+  currency?: string
+  timezone?: string
+  websiteUrl?: string
+  type?: string
+  permissions?: AnalyticPermissions
+  providerCreated?: Timestamp
+  providerUpdated?: Timestamp
+  eCommerceTracking?: boolean
+  enhancedECommerceTracking?: boolean
+  botFilteringEnabled?: boolean
+}
+
+export interface AccountProperty {
+  providerId: string
+  name?: string
+  websiteUrl?: string
+  level?: string
+  profileCount?: number
+  industryVertical?: string
+  permissions?: AnalyticPermissions
+  providerCreated?: Timestamp
+  providerUpdated?: Timestamp
+  profiles: AccountProfile[]
+}
 
 export interface Account {
   provider: Provider
   providerId: string
   name?: string
-  permissions?: {
-    effective?: Array<AnalyticPermissions | string | undefined>
-  }
+  permissions?: AnalyticPermissions
   providerCreated?: Timestamp
   providerUpdated?: Timestamp
   syncedAt: Timestamp
+  properties: AccountProperty[]
 }
 
 export interface Session {

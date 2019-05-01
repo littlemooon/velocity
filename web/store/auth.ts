@@ -7,11 +7,14 @@ import {
   setFetchLoading,
   setFetchResult,
 } from '../utils/fetch.util'
+import * as account from './account'
 import { State as RootState } from './index'
+
+export type User = Api.Db<Api.User>
 
 export interface State {
   authenticated: boolean
-  user?: Fetch.Result<Api.User>
+  user?: Fetch.Result<User>
 }
 
 export interface Actions<S, R> extends ActionTree<S, R> {
@@ -36,14 +39,14 @@ export const getters: GetterTree<State, RootState> = {}
 export const actions: Actions<State, RootState> = {
   async getUser({ commit, dispatch }) {
     commit(types.USER_SET_LOADING)
-    const result = await fetchApi<Api.User>('/auth')
+    const result = await fetchApi<User>('/auth')
     commit(types.USER_SET, result)
 
     if (result.data && result.data.email) {
       commit(types.AUTHENTICATED_SET, true)
 
       await pTimeout(
-        dispatch('analytics/getAccounts', null, { root: true }),
+        dispatch(`${account.name}/getAccounts`, null, { root: true }),
         1000,
         () => {
           console.warn('auth.store:getUser: getAccounts timeout')
@@ -65,6 +68,6 @@ export const mutations: MutationTree<State> = {
     s.authenticated = authenticated
   },
   [types.USER_SET_LOADING]: setFetchLoading<State>('user'),
-  [types.USER_SET]: setFetchResult<State, Api.User>('user'),
+  [types.USER_SET]: setFetchResult<State, User>('user'),
   [types.USER_CLEAR]: setFetchInit<State>('user'),
 }

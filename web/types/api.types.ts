@@ -24,22 +24,38 @@ export namespace Api {
     loginAt: Timestamp
   }
 
-  export type AnalyticPermissions =
-    | 'COLLABORATE'
-    | 'EDIT'
-    | 'MANAGE_USERS'
-    | 'READ_AND_ANALYZE'
+  export interface AnalyticPermissions {
+    effective?: Array<
+      | 'COLLABORATE'
+      | 'EDIT'
+      | 'MANAGE_USERS'
+      | 'READ_AND_ANALYZE'
+      | string
+      | undefined
+    >
+  }
+
+  export interface AccountProperty {
+    providerId: string
+    name?: string
+    websiteUrl?: string
+    level?: string
+    profileCount?: number
+    industryVertical?: string
+    permissions?: AnalyticPermissions
+    providerCreated?: Timestamp
+    providerUpdated?: Timestamp
+  }
 
   export interface Account {
     provider: Provider
     providerId: string
     name?: string
-    permissions?: {
-      effective?: Array<AnalyticPermissions | string | undefined>
-    }
+    permissions?: AnalyticPermissions
     providerCreated?: Timestamp
     providerUpdated?: Timestamp
     syncedAt: Timestamp
+    properties: AccountProperty[]
   }
 
   export interface Session {

@@ -4,7 +4,7 @@ import { Credentials } from 'google-auth-library'
 import { google } from 'googleapis'
 import env from '../env'
 import createLogger from '../logger'
-import * as AccountSync from '../services/account.sync.service'
+import * as AccountSync from '../services/account.google.service'
 import * as User from '../services/user.service'
 import { Provider } from '../types'
 import { clearSession, getSession, setSession } from './session.util'
@@ -88,11 +88,7 @@ export async function setAuthUser(req: express.Request, tokens: Credentials) {
 
     setSession(req, { user, tokens })
 
-    const updatedUser = await AccountSync.sync(
-      req,
-      user.provider,
-      user.providerId
-    )
+    const updatedUser = await AccountSync.sync(req)
 
     if (updatedUser) {
       setSession(req, { user: updatedUser })

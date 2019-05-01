@@ -4,7 +4,9 @@
       <Button :href="logoutUrl">Logout</Button>
     </template>
     <Grid v-bind:variant="gridVariant.HALF">
-      <Card>{{JSON.stringify(user, null, 2)}}</Card>
+      <Card>
+        <Json :object="user.data"/>
+      </Card>
     </Grid>
   </Main>
 </template>
@@ -14,6 +16,7 @@ import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import Button from '../components/Button.vue'
 import Card from '../components/Card.vue'
 import Grid, { GridVariant } from '../components/Grid.vue'
+import Json from '../components/Json.vue'
 import Main from '../components/Main.vue'
 import Right from '../components/Right.vue'
 import env from '../env'
@@ -21,7 +24,7 @@ import * as auth from '../store/auth'
 
 const Auth = namespace(auth.name)
 
-@Component({ components: { Card, Right, Button, Main, Grid } })
+@Component({ components: { Card, Right, Button, Main, Grid, Json } })
 export default class AccountPage extends Vue {
   get gridVariant() {
     return GridVariant

@@ -22,20 +22,20 @@
 <script lang="ts">
 import { Component, namespace, Prop, Vue } from 'nuxt-property-decorator'
 import { requiresAuth } from '../middleware/authenticate-route'
-import * as analytics from '../store/analytics'
+import * as account from '../store/account'
 import { Fetch } from '../types'
 import Header from './Header.vue'
 import Right from './Right.vue'
 import Spinner from './Spinner.vue'
 
-const Analytics = namespace(analytics.name)
+const Account = namespace(account.name)
 
 @Component({ components: { Header, Right, Spinner } })
 export default class Main extends Vue {
   @Prop(String)
   public readonly title!: string
 
-  @Analytics.State public accounts
+  @Account.State public accounts
 
   get showSpinner() {
     const requiresAccount = requiresAuth(this.$route)

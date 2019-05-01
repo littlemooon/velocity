@@ -8,18 +8,53 @@ import Firestore from './firestore.service'
 
 const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
 
+const JoiPermissions = Joi.object({
+  effective: Joi.array().items(Joi.string()),
+})
+
 export const fs = new Firestore<Account>(
   'account',
   Joi.object().keys({
     provider: Joi.string(),
     providerId: Joi.string(),
     name: Joi.string(),
-    permissions: Joi.object({
-      effective: Joi.array().items(Joi.string()),
-    }),
+    permissions: JoiPermissions,
     providerCreated: JoiTimestamp,
     providerUpdated: JoiTimestamp,
     syncedAt: JoiTimestamp.required(),
+    properties: Joi.array()
+      .items(
+        Joi.object({
+          providerId: Joi.string().required(),
+          name: Joi.string(),
+          websiteUrl: Joi.string(),
+          level: Joi.string(),
+          profileCount: Joi.number(),
+          industryVertical: Joi.string(),
+          permissions: JoiPermissions,
+          providerCreated: JoiTimestamp,
+          providerUpdated: JoiTimestamp,
+          profiles: Joi.array()
+            .items(
+              Joi.object({
+                providerId: Joi.string().required(),
+                name: Joi.string(),
+                providerCreated: JoiTimestamp,
+                providerUpdated: JoiTimestamp,
+                currency: Joi.string(),
+                timezone: Joi.string(),
+                websiteUrl: Joi.string(),
+                type: Joi.string(),
+                permissions: JoiPermissions,
+                eCommerceTracking: Joi.boolean(),
+                enhancedECommerceTracking: Joi.boolean(),
+                botFilteringEnabled: Joi.boolean(),
+              })
+            )
+            .required(),
+        })
+      )
+      .required(),
   })
 )
 

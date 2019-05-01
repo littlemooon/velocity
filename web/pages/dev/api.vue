@@ -3,6 +3,8 @@
     <Grid>
       <Card>
         <Button :onClick="getAccounts">GET /account</Button>
+        <Button :onClick="getAccount">GET /account/:id</Button>
+        <Button :onClick="getAccountSync">GET /account/sync</Button>
         <Button :onClick="getAuth">GET /auth</Button>
       </Card>
       <Card>
@@ -55,6 +57,16 @@ export default class DevApiPage extends Vue {
 
   public async getAccounts() {
     const result = await fetchApi('/account')
+    this.result = result
+  }
+
+  public async getAccount() {
+    const result = await fetchApi('/account/36kLqenFOPZkMqBOQgAV')
+    this.result = result
+  }
+
+  public async getAccountSync() {
+    const result = await fetchApi('/account/sync')
     this.result = result
   }
 }

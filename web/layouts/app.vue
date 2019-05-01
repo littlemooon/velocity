@@ -16,15 +16,15 @@
 <script lang="ts">
 import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import Nav from '../components/Nav.vue'
-import * as analytics from '../store/analytics'
+import * as account from '../store/account'
 import { Fetch } from '../types'
 
-const Analytics = namespace(analytics.name)
+const Account = namespace(account.name)
 
 @Component({ components: { Nav } })
 export default class AppLayout extends Vue {
-  @Analytics.State public accounts
-  @Analytics.Action public getAccounts
+  @Account.State public accounts
+  @Account.Action public getAccounts
 
   public mounted() {
     if (this.accounts.state === Fetch.State.INIT) {

@@ -1,7 +1,9 @@
 <template>
   <Main :title="title">
     <Grid>
-      <Card>{{JSON.stringify(account, null, 2)}}</Card>
+      <Card>
+        <Json :object="account"/>
+      </Card>
     </Grid>
   </Main>
 </template>
@@ -10,21 +12,23 @@
 import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import Card from '../../../components/Card.vue'
 import Grid from '../../../components/Grid.vue'
+import Json from '../../../components/Json.vue'
 import Main from '../../../components/Main.vue'
-import * as analytics from '../../../store/analytics'
+import * as account from '../../../store/account'
 
-const Analytics = namespace(analytics.name)
+const Account = namespace(account.name)
 
 @Component({
   components: {
     Card,
     Main,
     Grid,
+    Json,
   },
 })
 export default class AccountIndexPage extends Vue {
   public title = 'asd'
-  @Analytics.Getter public account
+  @Account.Getter public account
 
   public layout() {
     return 'app'

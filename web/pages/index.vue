@@ -4,7 +4,9 @@
     <Grid>
       <div v-for="account in accounts.data" :key="account.id">
         <nuxt-link :to="'/a/' + account.id">
-          <Card>{{JSON.stringify(account, null, 2)}}</Card>
+          <Card>
+            <Json :object="account"/>
+          </Card>
         </nuxt-link>
       </div>
     </Grid>
@@ -15,24 +17,26 @@
 import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import Card from '../components/Card.vue'
 import Grid from '../components/Grid.vue'
+import Json from '../components/Json.vue'
 import Main from '../components/Main.vue'
-import * as analytics from '../store/analytics'
+import * as account from '../store/account'
 import * as auth from '../store/auth'
 
 const Auth = namespace(auth.name)
-const Analytics = namespace(analytics.name)
+const Account = namespace(account.name)
 
 @Component({
   components: {
     Card,
     Main,
     Grid,
+    Json,
   },
 })
 export default class IndexPage extends Vue {
   public title = 'Home'
 
-  @Analytics.State public accounts
+  @Account.State public accounts
   @Auth.State public user
 
   public layout() {

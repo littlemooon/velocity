@@ -2,12 +2,12 @@ import { Route } from 'vue-router'
 import * as Vuex from 'vuex'
 import { Api } from '../types'
 import { setFetchCookies } from '../utils/fetch.util'
-import * as analytics from './analytics'
+import * as account from './account'
 import * as auth from './auth'
 import * as ui from './ui'
 
 export interface State {
-  analytics: analytics.State
+  account: account.State
   auth: auth.State
   ui: ui.State
   route: Route
