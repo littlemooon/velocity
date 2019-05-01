@@ -1,8 +1,8 @@
 <template>
   <div class="card__wrapper">
-    <section class="card">
+    <section class="card column">
       <slot name="header"></slot>
-      <div class="card__content">
+      <div class="card__content" :style="{ backgroundColor }">
         <slot></slot>
       </div>
       <slot name="footer"></slot>
@@ -11,11 +11,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
-import Right from './Right.vue'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
-@Component({ components: { Right } })
-export default class Card extends Vue {}
+@Component
+export default class Card extends Vue {
+  @Prop(String)
+  public backgroundColor
+}
 </script>
 
 <style scoped>

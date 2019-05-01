@@ -21,7 +21,7 @@ const nuxtConfig: NuxtConfiguration = {
   router: {
     middleware: 'authenticate-route',
   },
-  modules: ['nuxt-vuex-router-sync'],
+  modules: ['nuxt-vuex-router-sync', 'portal-vue/nuxt'],
   serverMiddleware: ['~/api/index.ts'],
   env: {
     WEB_URL: process.env.WEB_URL || '',

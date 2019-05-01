@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import Right from './Right.vue'
+import Right from '../Right.vue'
 
 @Component({ components: { Right } })
 export default class CardFooter extends Vue {}

@@ -71,8 +71,10 @@
 
   --c-blue-light: rgb(116, 185, 255);
   --c-blue: rgb(9, 132, 227);
+  --c-green-faded: rgba(85, 239, 196, .2);
   --c-green-light: rgb(85, 239, 196);
   --c-green: rgb(0, 184, 148);
+  --c-orange-faded: rgb(250, 177, 160, .2);
   --c-orange-light: rgb(250, 177, 160);
   --c-orange: rgb(225, 112, 85);
   --c-pink-light: rgb(253, 121, 168);
@@ -84,6 +86,7 @@
   --c-red: rgb(214, 48, 49);
   --c-turqouise-light: rgb(129, 236, 236);
   --c-turqouise: rgb(0, 206, 201);
+  --c-yellow-faded: rgba(255, 234, 167, .2);
   --c-yellow-light: rgb(255, 234, 167);
   --c-yellow: rgb(253, 203, 110);
 
@@ -126,11 +129,18 @@
   --z-1: 100;
   --z-2: 200;
   --z-3: 300;
+  --z-4: 400;
+  --z-5: 500;
 
   /* components */
   --header-h: 64px;
   --nav-w: 256px;
   --nav-footer-h: 64px;
+
+  --bg-color: {
+    color: red;
+    background-color:green;
+  }
 }
 
 html {
@@ -189,4 +199,7 @@ p {
 
 code {
   font-size: var(--f-0);
+}
+ul, ol {
+  list-style: none;
 }

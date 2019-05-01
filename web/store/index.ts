@@ -40,7 +40,7 @@ export const actions: Actions<State, State> = {
     await dispatch(`${[auth.name]}/getUser`)
 
     if (req.cookies && req.cookies[ui.cookies.navClosed]) {
-      await dispatch(`${[ui.name]}/setNavOpen`, false)
+      await dispatch(`${[ui.name]}/setNav`, false)
     }
   },
 }

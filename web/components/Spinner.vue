@@ -1,14 +1,21 @@
 <template>
   <div class="spinner__wrapper">
-    <div class="spinner">Loading...</div>
+    <div :class='classes'>Loading...</div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class Spinner extends Vue {}
+export default class Spinner extends Vue {
+  @Prop(Boolean)
+  public immediate
+
+  get classes() {
+    return { spinner: true, 'spinner--fade': !this.immediate }
+  }
+}
 </script>
 
 <style scoped>
@@ -16,15 +23,17 @@ export default class Spinner extends Vue {}
   display: flex;
   justify-content: center;
   height: var(--s-6);
-  width: 100%;
 }
 .spinner,
 .spinner:before,
 .spinner:after {
   background: var(--c-primary-2);
-  animation: load 1s infinite ease-in-out, fadeIn 5s ease-in;
+  animation: load 1s infinite ease-in-out;
   width: var(--s-3);
   height: var(--s-2);
+}
+.spinner--fade {
+  animation: load 1s infinite ease-in-out, fadeIn 5s ease-in;
 }
 .spinner {
   color: var(--c-primary-2);

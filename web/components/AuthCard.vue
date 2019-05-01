@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import Card from './Card.vue'
+import Card from './card/Card.vue'
 
 @Component({ components: { Card } })
 export default class AuthCard extends Vue {}

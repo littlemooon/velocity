@@ -9,6 +9,7 @@ import {
 } from '../utils/fetch.util'
 import * as account from './account'
 import { State as RootState } from './index'
+import * as ui from './ui'
 
 export type User = Api.Db<Api.User>
 
@@ -42,14 +43,23 @@ export const actions: Actions<State, RootState> = {
     const result = await fetchApi<User>('/auth')
     commit(types.USER_SET, result)
 
+    if (result.error) {
+      dispatch(`${ui.name}/addNotification`, {
+        level: 'error',
+        text: 'Failed to get User',
+        error: result.error,
+      })
+    }
+
     if (result.data && result.data.email) {
       commit(types.AUTHENTICATED_SET, true)
 
       await pTimeout(
         dispatch(`${account.name}/getAccounts`, null, { root: true }),
-        1000,
+        600,
         () => {
           console.warn('auth.store:getUser: getAccounts timeout')
+          dispatch(`${ui.name}/addLoading`, 'getAccounts', { root: true })
         }
       )
     } else {

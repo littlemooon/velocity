@@ -19,7 +19,7 @@ function getAnalyticsV3(req: express.Request) {
 }
 
 function timestampFromString(s?: string): Timestamp | undefined {
-  return s ? Timestamp.fromMillis(parseInt(s, 10)) : undefined
+  return s ? Timestamp.fromDate(new Date(s)) : undefined
 }
 
 export async function sync(req: express.Request) {

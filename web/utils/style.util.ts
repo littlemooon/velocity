@@ -28,3 +28,21 @@ export const colorsLight = {
   turqouiseLight: 'rgb(129,236,236)',
   yellowLight: 'rgb(255,234,167)',
 }
+
+export const colorsFaded = {
+  blueFaded: 'rgba(116,185,255,.2)',
+  greenFaded: 'rgba(85,239,196,.2)',
+  orangeFaded: 'rgba(250,177,160,.2)',
+  pinkFaded: 'rgba(253,121,168,.2)',
+  purpleFaded: 'rgba(162,155,254,.2)',
+  redFaded: 'rgba(255,118,117,.2)',
+  turqouiseFaded: 'rgba(129,236,236,.2)',
+  yellowFaded: 'rgba(255,234,167,.2)',
+}
+
+export const colors = {
+  ...greys,
+  ...colorsDark,
+  ...colorsLight,
+  ...colorsFaded,
+}

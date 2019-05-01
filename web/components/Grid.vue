@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="classes">
+  <div :class="classes">
     <slot></slot>
   </div>
 </template>
@@ -8,22 +8,22 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
 export enum GridVariant {
-  FULL = 'FULL',
-  HALF = 'HALF',
-  WRAP = 'WRAP',
+  SMALL = 'SMALL',
+  MID = 'MID',
+  BIG = 'BIG',
 }
 
 @Component
 export default class Grid extends Vue {
-  @Prop({ type: String, default: GridVariant.FULL })
-  readonly variant!: GridVariant
+  @Prop({ type: String, default: GridVariant.BIG })
+  public readonly variant!: GridVariant
 
   get classes() {
     return {
       grid: true,
-      'grid--full': this.variant === GridVariant.FULL,
-      'grid--half': this.variant === GridVariant.HALF,
-      'grid--wrap': this.variant === GridVariant.WRAP,
+      'grid--small': this.variant === GridVariant.SMALL,
+      'grid--mid': this.variant === GridVariant.MID,
+      'grid--big': this.variant === GridVariant.BIG,
     }
   }
 }
@@ -34,17 +34,17 @@ export default class Grid extends Vue {
   display: grid;
   grid-gap: var(--s-4);
 }
-.grid--full {
-  grid-template-columns: 1fr;
+.grid--small {
+ grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
 }
-.grid--half {
-  grid-template-columns: 1fr 1fr;
+.grid--mid {
+  grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
 }
-.grid--wrap {
-  grid-template-columns: repeat(auto-fill, var(--s-4));
+.grid--big {
+  grid-template-columns: repeat(auto-fill, minmax(860px, 1fr));
 }
-@media only screen and (max-width: 960px) {
-  .grid--half {
+@media only screen and (max-width: 480px) {
+  .grid {
     grid-template-columns: 1fr;
   }
 }

@@ -2,6 +2,7 @@ import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
 import { Api, Fetch } from '../types'
 import { fetchApi, setFetchResult } from '../utils/fetch.util'
 import { State as RootState } from './index'
+import * as ui from './ui'
 
 export type Account = Api.Db<Api.Account>
 
@@ -38,9 +39,19 @@ export const getters: GetterTree<State, RootState> = {
 }
 
 export const actions: Actions<State, RootState> = {
-  async getAccounts({ commit }) {
+  async getAccounts({ commit, dispatch }) {
     const result = await fetchApi<Account[]>('/account')
     commit(types.ACCOUNTS_SET, result)
+
+    if (result.error) {
+      dispatch(`${ui.name}/addNotification`, {
+        level: 'error',
+        text: 'Failed to get Accounts',
+        error: result.error,
+      })
+    }
+
+    dispatch(`${ui.name}/removeLoading`, 'getAccounts', { root: true })
   },
 }
 

@@ -1,6 +1,6 @@
 <template>
   <Main :title="title">
-    <Grid v-bind:variant="gridVariant.HALF">
+    <Grid :variant="gridVariant.MID">
       <Card>
         <h1>H1 text Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
         <h2>H2 text Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
@@ -34,46 +34,69 @@
           <div class="swatch yellow"/>
         </div>
         <div class="item">
-          <Spinner/>
-        </div>
-        <div class="item">
           <Tooltip>Tooltip text goes in here somewhere</Tooltip>
         </div>
         <div class="item">
-          <Button :onClick="noop" v-bind:variant="buttonVariant.PRIMARY">Primary</Button>
-          <Button :onClick="noop" v-bind:variant="buttonVariant.SECONDARY">Secondary</Button>
-          <Button :onClick="noop" v-bind:variant="buttonVariant.TRANSPARENT">Transparent</Button>
-          <Button :onClick="noop" v-bind:variant="buttonVariant.ICON">I</Button>
+          <Button :onClick="noop" :variant="buttonVariant.PRIMARY">Primary</Button>
+          <Button :onClick="noop" :variant="buttonVariant.SECONDARY">Secondary</Button>
+          <Button :onClick="noop" :variant="buttonVariant.TRANSPARENT">Transparent</Button>
+          <Button :onClick="noop" :variant="buttonVariant.ICON">I</Button>
         </div>
 
         <template v-slot:footer>
           <CardFooter>
-            <Button :onClick="noop" v-bind:variant="buttonVariant.PRIMARY">Primary</Button>
-            <Button :onClick="noop" v-bind:variant="buttonVariant.SECONDARY">Secondary</Button>
-            <Button :onClick="noop" v-bind:variant="buttonVariant.TRANSPARENT">Transparent</Button>
-            <Button :onClick="noop" v-bind:variant="buttonVariant.ICON">I</Button>
+            <Button :onClick="noop" :variant="buttonVariant.PRIMARY">Primary</Button>
+            <Button :onClick="noop" :variant="buttonVariant.SECONDARY">Secondary</Button>
+            <Button :onClick="noop" :variant="buttonVariant.TRANSPARENT">Transparent</Button>
+            <Button :onClick="noop" :variant="buttonVariant.ICON">I</Button>
           </CardFooter>
         </template>
       </Card>
       <LineExample/>
       <BarExample/>
+      <Card>
+        <div v-for="notification in notifications" :key="notification.id">
+          <Notification :notification="notification"/>
+        </div>
+        <Button :onClick="addNotifications">Trigger notifications</Button>
+      </Card>
+      <Card>
+        <CardAvatar>
+          <GoogleAnalyticsLogo/>
+        </CardAvatar>
+        <CardTitle>Some card title is really long thing yeah kinda like this</CardTitle>
+        <CardSubtitle>Another long subtitle what what what what what. Another long subtitle what what what what what</CardSubtitle>
+      </Card>
+      <Card>
+        <Spinner/>
+        <Spinner immediate/>
+        <Button :onClick="toggleLoading">Toggle loading</Button>
+      </Card>
     </Grid>
   </Main>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import Button, { ButtonVariant } from '../../components/Button.vue'
-import Card from '../../components/Card.vue'
-import CardFooter from '../../components/CardFooter.vue'
+import Card from '../../components/card/Card.vue'
+import CardAvatar from '../../components/card/CardAvatar.vue'
+import CardFooter from '../../components/card/CardFooter.vue'
+import CardSubtitle from '../../components/card/CardSubtitle.vue'
+import CardTitle from '../../components/card/CardTitle.vue'
 import BarExample from '../../components/charts/BarExample.vue'
 import LineExample from '../../components/charts/LineExample.vue'
 import Grid, { GridVariant } from '../../components/Grid.vue'
 import Icon from '../../components/Icon.vue'
+import GoogleAnalyticsLogo from '../../components/icons/GoogleAnalyticsLogo.vue'
 import Main from '../../components/Main.vue'
+import Notification from '../../components/Notification.vue'
 import Right from '../../components/Right.vue'
 import Spinner from '../../components/Spinner.vue'
 import Tooltip from '../../components/Tooltip.vue'
+import * as ui from '../../store/ui'
+
+const Ui = namespace(ui.name)
 
 @Component({
   components: {
@@ -88,9 +111,17 @@ import Tooltip from '../../components/Tooltip.vue'
     Grid,
     LineExample,
     BarExample,
+    Notification,
+    CardAvatar,
+    CardTitle,
+    CardSubtitle,
+    GoogleAnalyticsLogo,
   },
 })
 export default class ComponentsPage extends Vue {
+  @Ui.Getter public loading
+  @Ui.Action public addNotification
+
   get buttonVariant() {
     return ButtonVariant
   }
@@ -107,6 +138,42 @@ export default class ComponentsPage extends Vue {
 
   public noop() {
     alert('hit')
+  }
+
+  get notifications() {
+    return [
+      {
+        level: 'error',
+        title:
+          'This is a long error title. This is a long error title. This is a long error title.',
+        text: new Error('some weeor'),
+      },
+      {
+        level: 'warn',
+        title: 'Warn title',
+        text: new Error('some wanring'),
+      },
+      {
+        level: 'info',
+        title: 'Info title',
+        text:
+          'some really long secondary text that looks eomthign like this except quite a lot longer lolololol i dont know what to type anymore',
+      },
+    ]
+  }
+
+  public addNotifications() {
+    this.notifications.map(notification => {
+      this.$store.dispatch('ui/addNotification', notification)
+    })
+  }
+
+  public toggleLoading() {
+    if (this.loading) {
+      this.$store.dispatch('ui/removeLoading', 'test')
+    } else {
+      this.$store.dispatch('ui/addLoading', 'test')
+    }
   }
 }
 </script>

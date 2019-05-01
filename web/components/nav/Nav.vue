@@ -1,11 +1,11 @@
 <template>
-  <nav v-bind:class="{ open: isOpen, closed: !isOpen }" class="nav">
+  <nav :class="{ open: isOpen, closed: !isOpen }" class="nav">
     <div>
       <div class="header">
         <Logo v-show="isOpen"/>
         <Button
           v-if="isOpen"
-          v-bind:variant="buttonVariants.ICON"
+          :variant="buttonVariants.ICON"
           :onClick="close"
           class="header__button"
         >
@@ -13,50 +13,40 @@
             <ArrowLeftIcon/>
           </Icon>
         </Button>
-        <Button v-else v-bind:variant="buttonVariants.ICON" :onClick="open" class="header__button">
+        <Button v-else :variant="buttonVariants.ICON" :onClick="open" class="header__button">
           <Icon>
             <MenuIcon/>
           </Icon>
         </Button>
       </div>
       <ul class="nav__scroll">
-        <li class="item">
-          <nuxt-link class="link" exact to="/">
-            <Icon>
-              <ActivityIcon/>
-            </Icon>
-            <p v-show="isOpen" class="link__content">Home</p>
-          </nuxt-link>
-        </li>
-        <div v-if="dev">
-          <li class="item">
-            <nuxt-link class="link" to="/dev/components">
-              <Icon>
-                <CodeIcon/>
-              </Icon>
-              <p v-show="isOpen" class="link__content">Components</p>
-            </nuxt-link>
-          </li>
-          <li class="item">
-            <nuxt-link class="link" to="/dev/api">
-              <Icon>
-                <CodeIcon/>
-              </Icon>
-              <p v-show="isOpen" class="link__content">API</p>
-            </nuxt-link>
-          </li>
-        </div>
+        <NavItem :navOpen="isOpen" exact to="/">
+          <template v-slot:icon>
+            <ActivityIcon/>
+          </template>
+          Home
+        </NavItem>
+        <NavItem :navOpen="isOpen" v-if="dev" to="/dev/components">
+          <template v-slot:icon>
+            <CodeIcon/>
+          </template>
+          Components
+        </NavItem>
+        <NavItem :navOpen="isOpen" v-if="dev" to="/dev/api">
+          <template v-slot:icon>
+            <CodeIcon/>
+          </template>
+          Api
+        </NavItem>
       </ul>
     </div>
     <ul class="footer">
-      <li class="item">
-        <nuxt-link class="link" to="/account">
-          <Icon>
-            <SettingsIcon/>
-          </Icon>
-          <p v-show="isOpen" class="link__content">{{username}}</p>
-        </nuxt-link>
-      </li>
+      <NavItem :navOpen="isOpen" to="/account">
+        <template v-slot:icon>
+          <SettingsIcon/>
+        </template>
+        {{username}}
+      </NavItem>
     </ul>
   </nav>
 </template>
@@ -70,12 +60,13 @@ import {
   MenuIcon,
   SettingsIcon,
 } from 'vue-feather-icons'
-import env from '../env'
-import * as auth from '../store/auth'
-import * as ui from '../store/ui'
-import Button, { ButtonVariant } from './Button.vue'
-import Icon from './Icon.vue'
-import Logo from './Logo.vue'
+import env from '../../env'
+import * as auth from '../../store/auth'
+import * as ui from '../../store/ui'
+import Button, { ButtonVariant } from '../Button.vue'
+import Icon from '../Icon.vue'
+import Logo from '../Logo.vue'
+import NavItem from './NavItem.vue'
 
 const Auth = namespace(auth.name)
 const Ui = namespace(ui.name)
@@ -90,13 +81,14 @@ const Ui = namespace(ui.name)
     SettingsIcon,
     ArrowLeftIcon,
     MenuIcon,
+    NavItem,
   },
 })
 export default class Nav extends Vue {
   @Auth.State public user
   @Ui.State public nav
 
-  @Ui.Action public setNavOpen
+  @Ui.Action public setNav
 
   get buttonVariants() {
     return ButtonVariant
@@ -115,11 +107,11 @@ export default class Nav extends Vue {
   }
 
   public open() {
-    this.setNavOpen(true)
+    this.setNav(true)
   }
 
   public close() {
-    this.setNavOpen(false)
+    this.setNav(false)
   }
 }
 </script>
@@ -204,6 +196,11 @@ export default class Nav extends Vue {
   .nav {
     min-width: 0;
     width: 0;
+  }
+  .nav.open {
+    position: absolute;
+    min-width: 100%;
+    width: 100%;
   }
   .nav.closed .header__button {
     position: absolute;

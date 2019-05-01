@@ -1,7 +1,7 @@
 <template>
   <AuthCard>
     <h2>Lets get growing!</h2>
-    <ErrorBox v-if="error" title="Failed to login" :error="error"/>
+    <Notification :notification="notification"/>
     <a :href="url" class="button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,7 @@
           ></path>
         </g>
       </svg>
-      {{error ? 'Maybe try again?' : 'Sign in with Google'}}
+      {{notification ? 'Maybe try again?' : 'Sign in with Google'}}
     </a>
   </AuthCard>
 </template>n
@@ -49,8 +49,12 @@ export default class LoginPage extends Vue {
     return `${env.webUrl}/api/auth/google?${qs.stringify({ redirect })}`
   }
 
-  get error() {
-    return this.$route.query.error
+  get notification() {
+    return {
+      level: 'error',
+      title: 'Failed to login',
+      text: this.$route.query.error,
+    }
   }
 }
 </script>

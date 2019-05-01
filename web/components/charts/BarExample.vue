@@ -13,8 +13,8 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { colorsLight } from '../../utils/style.util'
 import Button from '../Button.vue'
-import Card from '../Card.vue'
-import CardFooter from '../CardFooter.vue'
+import Card from '../card/Card.vue'
+import CardFooter from '../card/CardFooter.vue'
 
 export interface ChartData {
   labels: Array<string | number>

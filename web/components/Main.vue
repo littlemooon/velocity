@@ -8,12 +8,17 @@
     </Header>
     <div class="main__scroll">
       <main class="main">
-        <template v-if="showSpinner">
-          <Spinner/>
+        <ul v-if="notifications.length" class="main__notifications">
+          <li v-for="notification in notifications" :key="notification.id">
+            <Notification :notification="notification"/>
+          </li>
+        </ul>
+        <template v-if="loading">
+          <Spinner class='main__spinner' immediate/>
         </template>
-        <template v-else>
+        <div :class="loading ? 'main--loading':''">
           <slot></slot>
-        </template>
+        </div>
       </main>
     </div>
   </div>
@@ -21,30 +26,24 @@
 
 <script lang="ts">
 import { Component, namespace, Prop, Vue } from 'nuxt-property-decorator'
-import { requiresAuth } from '../middleware/authenticate-route'
 import * as account from '../store/account'
-import { Fetch } from '../types'
+import * as ui from '../store/ui'
 import Header from './Header.vue'
+import Notification from './Notification.vue'
 import Right from './Right.vue'
 import Spinner from './Spinner.vue'
 
 const Account = namespace(account.name)
+const Ui = namespace(ui.name)
 
-@Component({ components: { Header, Right, Spinner } })
+@Component({ components: { Header, Right, Spinner, Notification } })
 export default class Main extends Vue {
   @Prop(String)
   public readonly title!: string
 
   @Account.State public accounts
-
-  get showSpinner() {
-    const requiresAccount = requiresAuth(this.$route)
-    const accountsLoading =
-      !this.accounts ||
-      [Fetch.State.INIT, Fetch.State.LOADING].includes(this.accounts.state)
-
-    return requiresAccount && accountsLoading
-  }
+  @Ui.Getter public loading
+  @Ui.State public notifications
 }
 </script>
 
@@ -71,7 +70,6 @@ export default class Main extends Vue {
 .main {
   width: 100%;
   max-width: 1200px;
-  min-width: 320px;
   margin: 0 auto;
   padding: var(--s-4);
 }
@@ -80,5 +78,27 @@ export default class Main extends Vue {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.main__notifications {
+  position: absolute;
+  bottom: 0;
+  right: var(--s-4);
+  z-index: var(--z-4);
+}
+.main--loading {
+  opacity: 0.5;
+}
+.main__spinner {
+  background: var(--c-white);
+  border-radius: 50%;
+  padding: var(--s-5);
+  position: absolute;
+  box-shadow: var(--bs-2);
+  height: var(--s-7);
+  width: var(--s-7);
+  top: 30%;
+  left: calc(50% - var(--s-4));
+  z-index: var(--z-3);
+
 }
 </style>

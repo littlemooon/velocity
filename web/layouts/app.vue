@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Component, namespace, Vue } from 'nuxt-property-decorator'
-import Nav from '../components/Nav.vue'
+import Nav from '../components/nav/Nav.vue'
 import * as account from '../store/account'
 import { Fetch } from '../types'
 
