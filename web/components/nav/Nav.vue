@@ -1,19 +1,21 @@
 <template>
   <nav :class="{ open: isOpen, closed: !isOpen }" class="nav">
     <div>
-      <div class="header">
-        <Logo v-show="isOpen"/>
+      <div class="nav__header">
+        <div class="center">
+          <Logo v-show="isOpen"/>
+        </div>
         <Button
           v-if="isOpen"
           :variant="buttonVariants.ICON"
           :onClick="close"
-          class="header__button"
+          class="nav__header__button"
         >
           <Icon>
             <ArrowLeftIcon/>
           </Icon>
         </Button>
-        <Button v-else :variant="buttonVariants.ICON" :onClick="open" class="header__button">
+        <Button v-else :variant="buttonVariants.ICON" :onClick="open" class="nav__header__button">
           <Icon>
             <MenuIcon/>
           </Icon>
@@ -40,7 +42,7 @@
         </NavItem>
       </ul>
     </div>
-    <ul class="footer">
+    <ul class="nav__footer">
       <NavItem :navOpen="isOpen" to="/account">
         <template v-slot:icon>
           <SettingsIcon/>
@@ -141,15 +143,15 @@ export default class Nav extends Vue {
   max-height: calc(100vh - var(--header-h) - var(--nav-footer-h));
 }
 
-.header {
+.nav__header {
   display: flex;
   align-items: center;
   height: var(--header-h);
-  padding: var(--s-4);
+  padding: 0 var(--s-4);
   justify-content: space-between;
   border-bottom: 1px solid var(--c-gray-3);
 }
-.header__button {
+.nav__header__button {
   min-width: var(--s-5);
   width: var(--s-5);
   height: var(--s-5);
@@ -157,37 +159,7 @@ export default class Nav extends Vue {
   margin: 0;
 }
 
-.item {
-  display: flex;
-  align-items: center;
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: var(--s-4);
-  background-color: var(--c-white);
-  color: var(--c-black);
-  transition: 0.1s color ease, 0.2s background-color ease;
-  overflow: hidden;
-}
-.link:hover {
-  color: var(--c-primary-3);
-}
-.link:hover .link__content::after {
-  content: '>';
-  margin: 0 0 0 var(--s-3);
-}
-.link.nuxt-link-active {
-  color: var(--c-primary-3);
-  background-color: var(--c-primary-0);
-}
-.link__content {
-  margin: 0 0 0 var(--s-4);
-}
-
-.footer {
+.nav__footer {
   border-top: 1px solid var(--c-gray-3);
   height: var(--nav-footer-h);
 }

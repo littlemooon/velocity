@@ -16,3 +16,9 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component
 export default class Logo extends Vue {}
 </script>
+
+<style scoped>
+h1 {
+  margin: 0;
+}
+</style>

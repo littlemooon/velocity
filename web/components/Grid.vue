@@ -32,7 +32,7 @@ export default class Grid extends Vue {
 <style scoped>
 .grid {
   display: grid;
-  grid-gap: var(--s-4);
+  grid-gap: var(--s-5);
 }
 .grid--small {
  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 

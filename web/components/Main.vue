@@ -71,7 +71,7 @@ export default class Main extends Vue {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--s-4);
+  padding: var(--s-5);
 }
 .main__header {
   width: 100%;

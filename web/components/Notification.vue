@@ -2,7 +2,7 @@
   <Card v-if="notification" :class="classes" :backgroundColor='backgroundColor'>
     <div class="row">
       <Icon class="notification__icon">
-        <AlertTriangleIcon/>
+        <component :is='icon'/>
       </Icon>
       <div class="column notification__content">
         <h4>{{notification.title}}</h4>
@@ -19,7 +19,12 @@
 
 <script lang="ts">
 import { Component, namespace, Prop, Vue } from 'nuxt-property-decorator'
-import { AlertTriangleIcon, XIcon } from 'vue-feather-icons'
+import {
+  AlertCircleIcon,
+  AlertTriangleIcon,
+  InfoIcon,
+  XIcon,
+} from 'vue-feather-icons'
 import * as ui from '../store/ui'
 import { Ui } from '../types'
 import { colors } from '../utils/style.util'
@@ -67,13 +72,24 @@ export default class Notification extends Vue {
   }
 
   get backgroundColor() {
-    const n = this.notification
-    if (n && n.level === 'error') {
-      return colors.redFaded
-    } else if (n && n.level === 'warn') {
-      return colors.yellowFaded
-    } else {
-      return colors.greenFaded
+    switch (this.notification && this.notification.level) {
+      case 'error':
+        return colors.redFaded
+      case 'warn':
+        return colors.yellowFaded
+      default:
+        return colors.greenFaded
+    }
+  }
+
+  get icon() {
+    switch (this.notification && this.notification.level) {
+      case 'error':
+        return AlertTriangleIcon
+      case 'warn':
+        return AlertCircleIcon
+      default:
+        return InfoIcon
     }
   }
 }
@@ -90,15 +106,12 @@ export default class Notification extends Vue {
   box-shadow: var(--bs-2);
 }
 .notification--error {
-  background-color: var(--c-red-faded);
   border: 2px solid var(--c-red);
 }
 .notification--warn {
-  background-color: var(--c-orange-faded);
   border: 2px solid var(--c-orange);
 }
 .notification--info {
-  background-color: var(--c-green-faded);
   border: 2px solid var(--c-green);
 }
 .notification__content {
