@@ -21,8 +21,9 @@
 
 <script lang="ts">
 import { Component, namespace, Prop, Vue } from 'nuxt-property-decorator'
+import { requiresAuth } from '../middleware/authenticate-route'
 import * as analytics from '../store/analytics'
-import { FetchState } from '../types'
+import { Fetch } from '../types'
 import Header from './Header.vue'
 import Right from './Right.vue'
 import Spinner from './Spinner.vue'
@@ -37,10 +38,12 @@ export default class Main extends Vue {
   @Analytics.State public accounts
 
   get showSpinner() {
-    return (
+    const requiresAccount = requiresAuth(this.$route)
+    const accountsLoading =
       !this.accounts ||
-      [FetchState.INIT, FetchState.LOADING].includes(this.accounts.state)
-    )
+      [Fetch.State.INIT, Fetch.State.LOADING].includes(this.accounts.state)
+
+    return requiresAccount && accountsLoading
   }
 }
 </script>

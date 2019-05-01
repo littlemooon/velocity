@@ -4,7 +4,9 @@ import { Credentials } from 'google-auth-library'
 import { google } from 'googleapis'
 import env from '../env'
 import createLogger from '../logger'
+import * as AccountSync from '../services/account.sync.service'
 import * as User from '../services/user.service'
+import { Provider } from '../types'
 import { clearSession, getSession, setSession } from './session.util'
 
 const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
@@ -49,39 +51,53 @@ export async function setAuthUser(req: express.Request, tokens: Credentials) {
       throw new Error('No id from google plus')
     }
 
-    const user = {
-      googleId,
+    const newUser = {
+      provider: Provider.GOOGLE,
+      providerId: googleId,
+      accountIds: [],
       email: (emails && emails.length && emails[0].value) || '',
       name: displayName,
       image: image && image.url,
       language,
-      googleRefreshToken: tokens.refresh_token || undefined,
+      refreshToken: tokens.refresh_token || undefined,
     }
 
-    const result = await User.db.where('googleId', '==', googleId).get()
-
-    if (result.empty) {
-      await User.create({
-        ...user,
+    const doc = await User.fs.createOrUpdate(
+      User.db.where('providerId', '==', googleId),
+      {
+        ...newUser,
         loginCount: 1,
         loginAt: Timestamp.now(),
-        createdAt: Timestamp.now(),
-      })
-    } else if (result.size > 1) {
-      throw new Error(`more than one user found with googleId: ${googleId}`)
-    } else {
-      const snap = result.docs[0]
-
-      await User.update(snap, {
-        ...user,
-        loginCount: snap.data().loginCount + 1,
+      },
+      existing => ({
+        ...newUser,
+        loginCount: existing.loginCount + 1,
         loginAt: Timestamp.now(),
       })
+    )
+
+    if (!doc) {
+      throw new Error('Failed to create account')
+    }
+
+    const user = await User.fs.dataFromDoc(doc)
+
+    if (!user) {
+      throw new Error('No user data')
     }
 
     setSession(req, { user, tokens })
+
+    const updatedUser = await AccountSync.sync(req, user.provider, user.providerId)
+
+    if (updatedUser) {
+      setSession(req, { user: updatedUser })
+    } else {
+      throw new Error('Failed to sync accounts')
+    }
   } catch (error) {
     clearAuthUser(req)
+    logger.error('Error setting auth user', error)
     throw error
   }
 }

@@ -1,7 +1,7 @@
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
-import { FetchState, IFetchResult } from '../types'
+import { Fetch } from '../types'
 import { fetchApi, setFetchResult } from '../utils/fetch.util'
-import { IState as IRootState } from './index'
+import { State as RootState } from './index'
 
 export type AnalyticPermissions =
   | 'COLLABORATE'
@@ -9,7 +9,7 @@ export type AnalyticPermissions =
   | 'MANAGE_USERS'
   | 'READ_AND_ANALYZE'
 
-export interface IAnalyticAccount {
+export interface AnalyticAccount {
   id: string
   name: string
   permissions: {
@@ -19,11 +19,11 @@ export interface IAnalyticAccount {
   updated: string
 }
 
-export interface IState {
-  accounts: IFetchResult<IAnalyticAccount[]>
+export interface State {
+  accounts: Fetch.Result<AnalyticAccount[]>
 }
 
-export interface IActions<S, R> extends ActionTree<S, R> {
+export interface Actions<S, R> extends ActionTree<S, R> {
   getAccounts(context: ActionContext<S, R>): void
 }
 
@@ -35,17 +35,15 @@ export const types = {
 }
 
 export const initial = {
-  accounts: { state: FetchState.INIT, data: [] },
+  accounts: { state: Fetch.State.INIT, data: [] },
 }
 
-export const state = (): IState => initial
+export const state = (): State => initial
 
-export const getters: GetterTree<IState, IRootState> = {
+export const getters: GetterTree<State, RootState> = {
   account: (s, _, root) => {
     const accounts = s.accounts.data
     const accountId = root.route.params.account_id
-
-    console.log('-------------------- analytics --> ', { s, root })
 
     if (accounts) {
       return accounts.find(account => account.id === accountId)
@@ -53,19 +51,19 @@ export const getters: GetterTree<IState, IRootState> = {
   },
 }
 
-export const actions: IActions<IState, IRootState> = {
+export const actions: Actions<State, RootState> = {
   async getAccounts({ commit }) {
-    const result = await fetchApi<IAnalyticAccount[]>('/analytics/account')
+    const result = await fetchApi<AnalyticAccount[]>('/account')
     commit(types.ACCOUNTS_SET, result)
   },
 }
 
-export const mutations: MutationTree<IState> = {
-  [types.ACCOUNTS_SET]: setFetchResult<IState, IAnalyticAccount[]>(
+export const mutations: MutationTree<State> = {
+  [types.ACCOUNTS_SET]: setFetchResult<State, AnalyticAccount[]>(
     'accounts',
     data =>
       data.map(
-        (account: any): IAnalyticAccount => ({
+        (account: any): AnalyticAccount => ({
           id: account.id,
           name: account.name,
           permissions: account.permissions,

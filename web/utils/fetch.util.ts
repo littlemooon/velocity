@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import env from '../env'
-import { FetchState, IFetchResult } from '../types'
+import { Fetch } from '../types'
 
 let ssrCookies: string | undefined
 
@@ -13,7 +13,7 @@ export function setFetchCookies(cookies: object) {
 export function setFetchInit<S>(key: string) {
   return (store: S) => {
     store[key] = {
-      state: FetchState.INIT,
+      state: Fetch.State.INIT,
     }
   }
 }
@@ -21,7 +21,7 @@ export function setFetchInit<S>(key: string) {
 export function setFetchLoading<S>(key: string) {
   return (store: S) => {
     store[key] = {
-      state: FetchState.LOADING,
+      state: Fetch.State.LOADING,
     }
   }
 }
@@ -30,7 +30,7 @@ export function setFetchResult<S, T>(
   key: string,
   dataTransform?: (data: any) => T
 ) {
-  return (store: S, result: IFetchResult<T>) => {
+  return (store: S, result: Fetch.Result<T>) => {
     const data = result.data
     store[key] = {
       ...result,
@@ -42,7 +42,7 @@ export function setFetchResult<S, T>(
 export async function fetchApi<T>(
   uri: string,
   options: RequestInit = {}
-): Promise<IFetchResult<T>> {
+): Promise<Fetch.Result<T>> {
   try {
     const headers = { cookie: ssrCookies, ...options.headers } as any
 
@@ -57,7 +57,7 @@ export async function fetchApi<T>(
 
     if (response.ok) {
       return {
-        state: FetchState.SUCCESS,
+        state: Fetch.State.SUCCESS,
         data: json,
       }
     } else {
@@ -68,15 +68,19 @@ export async function fetchApi<T>(
       }
       console.log('API ERROR', error)
       return {
-        state: FetchState.ERROR,
+        state: Fetch.State.ERROR,
         error,
       }
     }
   } catch (error) {
     console.log('API CATCH', error)
     return {
-      state: FetchState.ERROR,
-      error,
+      state: Fetch.State.ERROR,
+      error:{
+        status: undefined,
+        statusText: 'Client Error',
+        message: error && error.message,
+      },
     }
   }
 }

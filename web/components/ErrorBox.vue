@@ -12,7 +12,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { AlertTriangleIcon } from 'vue-feather-icons'
-import { FetchError } from '../types'
+import { Fetch } from '../types'
 
 @Component({ components: { AlertTriangleIcon } })
 export default class ErrorBox extends Vue {
@@ -20,7 +20,7 @@ export default class ErrorBox extends Vue {
   public title?: string
 
   @Prop({ type: [String, Error, Object] })
-  public error?: string | FetchError
+  public error?: string | Fetch.Error
 
   get show() {
     const slot = this.$slots.default && this.$slots.default[0]

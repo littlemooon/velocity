@@ -1,15 +1,15 @@
 import Cookies from 'js-cookie'
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
-import { IState as IRootState } from './index'
+import { State as RootState } from './index'
 
-export interface INav {
+export interface Nav {
   open: boolean
 }
 
-export interface IState {
-  nav: INav
+export interface State {
+  nav: Nav
 }
-export interface IActions<S, R> extends ActionTree<S, R> {
+export interface Actions<S, R> extends ActionTree<S, R> {
   setNavOpen(context: ActionContext<S, R>, open: boolean): void
 }
 
@@ -18,17 +18,17 @@ export const namespaced = true
 
 export const cookies = { navClosed: 'nav_closed' }
 
-export const initial: IState = { nav: { open: true } }
+export const initial: State = { nav: { open: true } }
 
-export const state = (): IState => initial
+export const state = (): State => initial
 
-export const getters: GetterTree<IState, IRootState> = {}
+export const getters: GetterTree<State, RootState> = {}
 
 export const types = {
   NAV_SET: 'NAV_SET',
 }
 
-export const actions: IActions<IState, IRootState> = {
+export const actions: Actions<State, RootState> = {
   async setNavOpen({ commit }, open) {
     if (open) {
       Cookies.remove(cookies.navClosed)
@@ -42,8 +42,8 @@ export const actions: IActions<IState, IRootState> = {
   },
 }
 
-export const mutations: MutationTree<IState> = {
-  [types.NAV_SET](s, nav: INav) {
+export const mutations: MutationTree<State> = {
+  [types.NAV_SET](s, nav: Nav) {
     s.nav = nav
   },
 }

@@ -5,7 +5,7 @@ import env from './env'
 import createLogger, { expressErrorLogger, expressLogger } from './logger'
 import { requireAuth } from './middleware/authenticate'
 import session from './middleware/session'
-import analytics from './routes/analytics.route'
+import account from './routes/account.route'
 import auth from './routes/auth.route'
 
 const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
@@ -24,7 +24,7 @@ app.use(cookieParser())
 app.set('trust proxy', 1)
 
 app.use('/auth', auth)
-app.use('/analytics', requireAuth, analytics)
+app.use('/account', requireAuth, account)
 
 app.use('*', (req, res) => {
   res.status(404).end(`bloop ${req.params[0]}`)

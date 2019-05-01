@@ -1,39 +1,39 @@
-import { Route } from 'vue-router';
+import { Route } from 'vue-router'
 import * as Vuex from 'vuex'
-import { ISession } from '../types'
+import { Api } from '../types'
 import { setFetchCookies } from '../utils/fetch.util'
 import * as analytics from './analytics'
 import * as auth from './auth'
 import * as ui from './ui'
 
-export interface IState {
-  analytics: analytics.IState
-  auth: auth.IState
-  ui: ui.IState
+export interface State {
+  analytics: analytics.State
+  auth: auth.State
+  ui: ui.State
   route: Route
 }
 
-export interface IActions<S, R> extends Vuex.ActionTree<S, R> {
+export interface Actions<S, R> extends Vuex.ActionTree<S, R> {
   nuxtServerInit(
     context: Vuex.ActionContext<S, R>,
     serverContext: {
       req: {
         cookies: { [x: string]: string }
-        session?: ISession
+        session?: Api.Session
       }
     }
   ): void
 }
 
-export type Store = Vuex.Store<IState>
+export type Store = Vuex.Store<State>
 
 export const types = {}
 
 export const state = () => ({})
 
-export const getters: Vuex.GetterTree<IState, IState> = {}
+export const getters: Vuex.GetterTree<State, State> = {}
 
-export const actions: IActions<IState, IState> = {
+export const actions: Actions<State, State> = {
   async nuxtServerInit({ dispatch }, { req }) {
     setFetchCookies(req.cookies)
 
@@ -45,4 +45,4 @@ export const actions: IActions<IState, IState> = {
   },
 }
 
-export const mutations: Vuex.MutationTree<IState> = {}
+export const mutations: Vuex.MutationTree<State> = {}

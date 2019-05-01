@@ -38,9 +38,9 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import * as qs from 'query-string'
-import AuthCard from '../../components/AuthCard.vue'
-import ErrorBox from '../../components/ErrorBox.vue'
-import env from '../../env'
+import AuthCard from '../components/AuthCard.vue'
+import ErrorBox from '../components/ErrorBox.vue'
+import env from '../env'
 
 @Component({ components: { AuthCard, ErrorBox } })
 export default class LoginPage extends Vue {

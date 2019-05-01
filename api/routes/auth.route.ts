@@ -12,18 +12,11 @@ const webUrl = env.webUrl
 router.get('/', async (req, res) => {
   const { user } = getSession(req)
 
-  res.send(
-    user
-      ? {
-          email: user.email,
-          googleId: user.googleId,
-          image: user.image,
-          language: user.language,
-          name: user.name,
-          lastLogin: user.lastLogin,
-        }
-      : {}
-  )
+  if (user) {
+    res.send({ ...user, refreshToken: undefined })
+  } else {
+    res.send({})
+  }
 })
 
 router.get('/google', async (req, res) => {
@@ -44,7 +37,7 @@ router.get('/google', async (req, res) => {
   } catch (e) {
     logger.error('Error when generating google url', e)
     clearAuthUser(req)
-    res.redirect(`${webUrl}/auth/login?error=${e.name}: ${e.message}`)
+    res.redirect(`${webUrl}/login?error=${e.name}: ${e.message}`)
   }
 })
 
@@ -61,7 +54,7 @@ router.get('/google/callback', async (req, res) => {
   } catch (e) {
     logger.error('Error when getting google token', e)
     clearAuthUser(req)
-    res.redirect(`${webUrl}/auth/login?error=${e.name}: ${e.message}`)
+    res.redirect(`${webUrl}/login?error=${e.name}: ${e.message}`)
   }
 })
 

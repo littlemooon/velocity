@@ -1,25 +1,20 @@
 import pTimeout from 'p-timeout'
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
-import { IFetchResult } from '../types'
+import { Fetch, Api } from '~/types'
 import {
   fetchApi,
   setFetchInit,
   setFetchLoading,
   setFetchResult,
 } from '../utils/fetch.util'
-import { IState as IRootState } from './index'
+import { State as RootState } from './index'
 
-export interface IUser {
-  name?: string
-  email?: string
-}
-
-export interface IState {
+export interface State {
   authenticated: boolean
-  user?: IFetchResult<IUser>
+  user?: Fetch.Result<Api.User>
 }
 
-export interface IActions<S, R> extends ActionTree<S, R> {
+export interface Actions<S, R> extends ActionTree<S, R> {
   getUser(context: ActionContext<S, R>): void
   logout(context: ActionContext<S, R>): void
 }
@@ -34,14 +29,14 @@ export const types = {
   AUTHENTICATED_SET: 'AUTHENTICATED_SET',
 }
 
-export const state = (): IState => ({ authenticated: false })
+export const state = (): State => ({ authenticated: false })
 
-export const getters: GetterTree<IState, IRootState> = {}
+export const getters: GetterTree<State, RootState> = {}
 
-export const actions: IActions<IState, IRootState> = {
+export const actions: Actions<State, RootState> = {
   async getUser({ commit, dispatch }) {
     commit(types.USER_SET_LOADING)
-    const result = await fetchApi<IUser>('/auth')
+    const result = await fetchApi<Api.User>('/auth')
     commit(types.USER_SET, result)
 
     if (result.data && result.data.email) {
@@ -65,11 +60,11 @@ export const actions: IActions<IState, IRootState> = {
   },
 }
 
-export const mutations: MutationTree<IState> = {
+export const mutations: MutationTree<State> = {
   [types.AUTHENTICATED_SET](s, authenticated: boolean) {
     s.authenticated = authenticated
   },
-  [types.USER_SET_LOADING]: setFetchLoading<IState>('user'),
-  [types.USER_SET]: setFetchResult<IState, IUser>('user'),
-  [types.USER_CLEAR]: setFetchInit<IState>('user'),
+  [types.USER_SET_LOADING]: setFetchLoading<State>('user'),
+  [types.USER_SET]: setFetchResult<State, Api.User>('user'),
+  [types.USER_CLEAR]: setFetchInit<State>('user'),
 }

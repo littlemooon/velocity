@@ -7,9 +7,9 @@
 
 <script lang="ts">
 import { Component, namespace, Vue } from 'nuxt-property-decorator'
-import AuthCard from '../../components/AuthCard.vue'
-import Spinner from '../../components/Spinner.vue'
-import * as auth from '../../store/auth'
+import AuthCard from '../components/AuthCard.vue'
+import Spinner from '../components/Spinner.vue'
+import * as auth from '../store/auth'
 
 const Auth = namespace(auth.name)
 
@@ -19,7 +19,7 @@ export default class LogoutPage extends Vue {
 
   public async mounted() {
     await this.logout()
-    this.$router.push('/')
+    this.$router.push('/login')
   }
 }
 </script>

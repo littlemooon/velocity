@@ -17,7 +17,7 @@
 import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import Nav from '../components/Nav.vue'
 import * as analytics from '../store/analytics'
-import { FetchState } from '../types'
+import { Fetch } from '../types'
 
 const Analytics = namespace(analytics.name)
 
@@ -27,7 +27,7 @@ export default class AppLayout extends Vue {
   @Analytics.Action public getAccounts
 
   public mounted() {
-    if (this.accounts.state === FetchState.INIT) {
+    if (this.accounts.state === Fetch.State.INIT) {
       this.getAccounts()
     }
   }

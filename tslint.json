@@ -20,7 +20,9 @@
     "no-submodule-imports": false,
     "no-implicit-dependencies": false,
     "no-console": false,
-    "no-var-requires": false
+    "no-var-requires": false,
+    "interface-name": false,
+    "no-namespace": false
   },
   "rulesDirectory": [],
   "linterOptions": {

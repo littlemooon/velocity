@@ -16,7 +16,7 @@ import Button from '../Button.vue'
 import Card from '../Card.vue'
 import CardFooter from '../CardFooter.vue'
 
-export interface IChartData {
+export interface ChartData {
   labels: Array<string | number>
   datasets: Array<{
     label: string
@@ -37,7 +37,7 @@ export interface IChartData {
   },
 })
 export default class LineExample extends Vue {
-  public chartData?: IChartData
+  public chartData?: ChartData
 
   public chartOptions = {
     responsive: true,

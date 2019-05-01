@@ -2,7 +2,7 @@
   <Main :title="title">
     <Grid>
       <Card>
-        <Button :onClick="getAccounts">GET /analytics/account</Button>
+        <Button :onClick="getAccounts">GET /account</Button>
         <Button :onClick="getAuth">GET /auth</Button>
       </Card>
       <Card>
@@ -21,7 +21,7 @@ import Card from '../../components/Card.vue'
 import ErrorBox from '../../components/ErrorBox.vue'
 import Grid from '../../components/Grid.vue'
 import Main from '../../components/Main.vue'
-import { FetchError, FetchState, IFetchResult } from '../../types'
+import { Fetch } from '../../types'
 import { fetchApi } from '../../utils/fetch.util'
 
 @Component({
@@ -34,8 +34,8 @@ import { fetchApi } from '../../utils/fetch.util'
   },
 })
 export default class DevApiPage extends Vue {
-  public result?: IFetchResult<any>
-  public error?: FetchError
+  public result?: Fetch.Result<any>
+  public error?: Fetch.Error
 
   public layout() {
     return 'app'
@@ -44,7 +44,7 @@ export default class DevApiPage extends Vue {
   public data() {
     return {
       title: 'Api test',
-      result: { state: FetchState.INIT },
+      result: { state: Fetch.State.INIT },
     }
   }
 
@@ -54,7 +54,7 @@ export default class DevApiPage extends Vue {
   }
 
   public async getAccounts() {
-    const result = await fetchApi('/analytics/account')
+    const result = await fetchApi('/account')
     this.result = result
   }
 }
