@@ -1,15 +1,15 @@
 import {
   CollectionReference,
   DocumentReference,
+  DocumentSnapshot,
   Firestore as GFirestore,
   Query,
-  DocumentSnapshot,
   Timestamp,
 } from '@google-cloud/firestore'
 import * as Joi from '@hapi/joi'
 import createLogger from '../logger'
 import { Db } from '../types'
-import { JoiTimestamp } from '../utils/joi.util';
+import { JoiTimestamp } from '../utils/joi.util'
 
 const firestore = new GFirestore()
 
@@ -40,10 +40,13 @@ export default class Firestore<T extends object> {
 
   public async validate(data: T) {
     try {
-      return Joi.validate(data, this.schema.append({
-        createdAt: JoiTimestamp.required(),
-        updatedAt: JoiTimestamp,
-      }))
+      return Joi.validate(
+        data,
+        this.schema.append({
+          createdAt: JoiTimestamp.required(),
+          updatedAt: JoiTimestamp,
+        })
+      )
     } catch (error) {
       logger.error(`Failed to validate ${this.key}`, error)
       throw new Error(error)

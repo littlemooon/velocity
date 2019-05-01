@@ -76,7 +76,7 @@ export async function fetchApi<T>(
     console.log('API CATCH', error)
     return {
       state: Fetch.State.ERROR,
-      error:{
+      error: {
         status: undefined,
         statusText: 'Client Error',
         message: error && error.message,

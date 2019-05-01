@@ -3,7 +3,9 @@ import { Route } from 'vue-router'
 import { Nuxt } from '../types'
 
 export function requiresAuth(route: Route) {
-  return !route.matched.some(m => Boolean(m.path.match(/^\/(login|logout|dev)/)))
+  return !route.matched.some(m => {
+    return Boolean(m.path.match(/^\/(login|logout|dev)/))
+  })
 }
 
 const authenticateRoute: Nuxt.Middleware = ({ store, redirect, route }) => {

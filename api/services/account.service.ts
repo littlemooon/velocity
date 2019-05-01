@@ -2,9 +2,9 @@ import * as Joi from '@hapi/joi'
 import * as express from 'express'
 import createLogger from '../logger'
 import { Account } from '../types'
+import { JoiTimestamp } from '../utils/joi.util'
+import { getSession } from '../utils/session.util'
 import Firestore from './firestore.service'
-import { JoiTimestamp } from '../utils/joi.util';
-import { getSession } from '../utils/session.util';
 
 const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
 

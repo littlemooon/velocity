@@ -88,7 +88,11 @@ export async function setAuthUser(req: express.Request, tokens: Credentials) {
 
     setSession(req, { user, tokens })
 
-    const updatedUser = await AccountSync.sync(req, user.provider, user.providerId)
+    const updatedUser = await AccountSync.sync(
+      req,
+      user.provider,
+      user.providerId
+    )
 
     if (updatedUser) {
       setSession(req, { user: updatedUser })

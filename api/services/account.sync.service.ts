@@ -33,22 +33,24 @@ export async function sync(
     const accounts = response.data.items
 
     if (accounts) {
-      const results = await Promise.all(accounts.map(account => {
-        return Account.fs.createOrUpdate(
-          Account.db
-            .where('provider', '==', Provider.GOOGLE)
-            .where('providerId', '==', account.id),
-          {
-            provider: Provider.GOOGLE,
-            providerId: account.id || 'xxx',
-            name: account.name,
-            permissions: account.permissions,
-            providerCreated: timestampFromString(account.created),
-            providerUpdated: timestampFromString(account.updated),
-            syncedAt: Timestamp.now(),
-          }
-        )
-      }))
+      const results = await Promise.all(
+        accounts.map(account => {
+          return Account.fs.createOrUpdate(
+            Account.db
+              .where('provider', '==', Provider.GOOGLE)
+              .where('providerId', '==', account.id),
+            {
+              provider: Provider.GOOGLE,
+              providerId: account.id || 'xxx',
+              name: account.name,
+              permissions: account.permissions,
+              providerCreated: timestampFromString(account.created),
+              providerUpdated: timestampFromString(account.updated),
+              syncedAt: Timestamp.now(),
+            }
+          )
+        })
+      )
 
       const accountIds = results.reduce((acc: string[], result) => {
         return result ? [...acc, result.id] : acc
@@ -57,7 +59,7 @@ export async function sync(
       if (accountIds.length) {
         const snap = await User.get(provider, providerId)
         const doc = await User.fs.update(snap, { accountIds })
-        return doc && await User.fs.dataFromDoc(doc)
+        return doc && (await User.fs.dataFromDoc(doc))
       }
     } else {
       logger.warn('No analytic accounts to update')

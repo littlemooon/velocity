@@ -1,10 +1,10 @@
 import * as Joi from '@hapi/joi'
 import * as express from 'express'
 import createLogger from '../logger'
-import { User, Provider, Db } from '../types';
-import { getSession, clearSession, setSession } from '../utils/session.util';
+import { Db, Provider, User } from '../types'
+import { JoiTimestamp } from '../utils/joi.util'
+import { clearSession, getSession, setSession } from '../utils/session.util'
 import Firestore from './firestore.service'
-import { JoiTimestamp } from '../utils/joi.util';
 
 const logger = createLogger(__filename.replace(process.env.PWD || '', ''))
 
@@ -16,7 +16,9 @@ export const fs = new Firestore<User>(
       .required(),
     provider: Joi.string().required(),
     providerId: Joi.string().required(),
-    accountIds: Joi.array().items(Joi.string()).required(),
+    accountIds: Joi.array()
+      .items(Joi.string())
+      .required(),
     refreshToken: Joi.string(),
     image: Joi.string(),
     language: Joi.string(),
@@ -53,7 +55,10 @@ export async function getCurrent(req: express.Request) {
   }
 }
 
-export async function updateCurrent(req: express.Request, data: Partial<Db<User>>) {
+export async function updateCurrent(
+  req: express.Request,
+  data: Partial<Db<User>>
+) {
   const session = getSession(req)
 
   if (session.user) {
@@ -62,7 +67,7 @@ export async function updateCurrent(req: express.Request, data: Partial<Db<User>
 
     if (doc) {
       const user = await fs.dataFromDoc(doc)
-      setSession(req, {user})
+      setSession(req, { user })
       return doc
     }
   } else {

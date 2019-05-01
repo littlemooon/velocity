@@ -1,6 +1,6 @@
 import pTimeout from 'p-timeout'
 import { ActionContext, ActionTree, GetterTree, MutationTree } from 'vuex'
-import { Fetch, Api } from '~/types'
+import { Api, Fetch } from '../types'
 import {
   fetchApi,
   setFetchInit,

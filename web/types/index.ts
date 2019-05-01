@@ -12,8 +12,11 @@ export namespace Fetch {
     ERROR = 'ERROR',
   }
 
-  export type Error =
-    | { status?: number; statusText: string; message?: string }
+  export interface Error {
+    status?: number
+    statusText: string
+    message?: string
+  }
 
   export interface Result<T> {
     state: State
