@@ -1,6 +1,6 @@
 <template>
   <Main class="background">
-    <template v-slot:header>
+    <template v-slot:head>
       <div class="center">
         <Logo/>
       </div>

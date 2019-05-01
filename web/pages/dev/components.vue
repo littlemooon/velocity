@@ -43,13 +43,13 @@
           <Button :onClick="noop" :variant="buttonVariant.ICON">I</Button>
         </div>
 
-        <template v-slot:footer>
-          <CardFooter>
+        <template v-slot:foot>
+          <CardFoot>
             <Button :onClick="noop" :variant="buttonVariant.PRIMARY">Primary</Button>
             <Button :onClick="noop" :variant="buttonVariant.SECONDARY">Secondary</Button>
             <Button :onClick="noop" :variant="buttonVariant.TRANSPARENT">Transparent</Button>
             <Button :onClick="noop" :variant="buttonVariant.ICON">I</Button>
-          </CardFooter>
+          </CardFoot>
         </template>
       </Card>
       <LineExample/>
@@ -58,7 +58,11 @@
         <div v-for="notification in notifications" :key="notification.id">
           <Notification :notification="notification"/>
         </div>
-        <Button :onClick="addNotifications">Trigger notifications</Button>
+        <template v-slot:foot>
+          <CardFoot>
+            <Button :onClick="addNotifications">Trigger notifications</Button>
+          </CardFoot>
+        </template>
       </Card>
       <Card>
         <CardAvatar>
@@ -70,7 +74,11 @@
       <Card>
         <Spinner/>
         <Spinner immediate/>
-        <Button :onClick="toggleLoading">Toggle loading</Button>
+        <template v-slot:foot>
+          <CardFoot>
+            <Button :onClick="toggleLoading">Toggle loading</Button>
+          </CardFoot>
+        </template>
       </Card>
     </Grid>
   </Main>
@@ -81,7 +89,7 @@ import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import Button, { ButtonVariant } from '../../components/Button.vue'
 import Card from '../../components/card/Card.vue'
 import CardAvatar from '../../components/card/CardAvatar.vue'
-import CardFooter from '../../components/card/CardFooter.vue'
+import CardFoot from '../../components/card/CardFoot.vue'
 import CardSubtitle from '../../components/card/CardSubtitle.vue'
 import CardTitle from '../../components/card/CardTitle.vue'
 import BarExample from '../../components/charts/BarExample.vue'
@@ -107,7 +115,7 @@ const Ui = namespace(ui.name)
     Main,
     Spinner,
     Tooltip,
-    CardFooter,
+    CardFoot,
     Grid,
     LineExample,
     BarExample,

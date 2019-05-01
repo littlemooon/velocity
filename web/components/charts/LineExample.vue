@@ -1,10 +1,10 @@
 <template>
   <Card>
     <LineChart class="chart" v-if="chartData" :chart-data="chartData" :options="chartOptions"></LineChart>
-    <template v-slot:footer>
-    <CardFooter>
+    <template v-slot:foot>
+    <CardFoot>
       <Button :onClick="fillData">Randomize</Button>
-    </CardFooter></template>
+    </CardFoot></template>
   </Card>
 </template>
 
@@ -13,7 +13,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { colorsLight } from '../../utils/style.util'
 import Button from '../Button.vue'
 import Card from '../card/Card.vue'
-import CardFooter from '../card/CardFooter.vue'
+import CardFoot from '../card/CardFoot.vue'
 
 export interface ChartData {
   labels: Array<string | number>
@@ -28,7 +28,7 @@ export interface ChartData {
   components: {
     LineChart: () => import('./LineChart.vue'),
     Button,
-    CardFooter,
+    CardFoot,
     Card,
   },
   data() {

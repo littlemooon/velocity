@@ -1,10 +1,10 @@
 <template>
   <Card>
     <BarChart class="chart" v-if="chartData" :chart-data="chartData" :options="chartOptions"></BarChart>
-    <template v-slot:footer>
-      <CardFooter>
+    <template v-slot:foot>
+      <CardFoot>
         <Button :onClick="fillData">Randomize</Button>
-      </CardFooter>
+      </CardFoot>
     </template>
   </Card>
 </template>
@@ -14,7 +14,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { colorsLight } from '../../utils/style.util'
 import Button from '../Button.vue'
 import Card from '../card/Card.vue'
-import CardFooter from '../card/CardFooter.vue'
+import CardFoot from '../card/CardFoot.vue'
 
 export interface ChartData {
   labels: Array<string | number>
@@ -30,7 +30,7 @@ export interface ChartData {
     BarChart: () => import('./BarChart.vue'),
     Button,
     Card,
-    CardFooter,
+    CardFoot,
   },
   data() {
     return { chartData: undefined }

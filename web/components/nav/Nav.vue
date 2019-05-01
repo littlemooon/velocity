@@ -1,7 +1,7 @@
 <template>
   <nav :class="{ open: isOpen, closed: !isOpen }" class="nav">
     <div>
-      <div class="nav__header">
+      <div class="nav__head">
         <div class="center">
           <Logo v-show="isOpen"/>
         </div>
@@ -9,13 +9,13 @@
           v-if="isOpen"
           :variant="buttonVariants.ICON"
           :onClick="close"
-          class="nav__header__button"
+          class="nav__head__button"
         >
           <Icon>
             <ArrowLeftIcon/>
           </Icon>
         </Button>
-        <Button v-else :variant="buttonVariants.ICON" :onClick="open" class="nav__header__button">
+        <Button v-else :variant="buttonVariants.ICON" :onClick="open" class="nav__head__button">
           <Icon>
             <MenuIcon/>
           </Icon>
@@ -42,7 +42,7 @@
         </NavItem>
       </ul>
     </div>
-    <ul class="nav__footer">
+    <ul class="nav__foot">
       <NavItem :navOpen="isOpen" to="/account">
         <template v-slot:icon>
           <SettingsIcon/>
@@ -140,18 +140,18 @@ export default class Nav extends Vue {
 }
 .nav__scroll {
   overflow-y: scroll;
-  max-height: calc(100vh - var(--header-h) - var(--nav-footer-h));
+  max-height: calc(100vh - var(--head-h) - var(--nav-foot-h));
 }
 
-.nav__header {
+.nav__head {
   display: flex;
   align-items: center;
-  height: var(--header-h);
+  height: var(--head-h);
   padding: 0 var(--s-4);
   justify-content: space-between;
   border-bottom: 1px solid var(--c-gray-3);
 }
-.nav__header__button {
+.nav__head__button {
   min-width: var(--s-5);
   width: var(--s-5);
   height: var(--s-5);
@@ -159,9 +159,9 @@ export default class Nav extends Vue {
   margin: 0;
 }
 
-.nav__footer {
+.nav__foot {
   border-top: 1px solid var(--c-gray-3);
-  height: var(--nav-footer-h);
+  height: var(--nav-foot-h);
 }
 
 @media only screen and (max-width: 480px) {
@@ -173,9 +173,6 @@ export default class Nav extends Vue {
     position: absolute;
     min-width: 100%;
     width: 100%;
-  }
-  .nav.closed .header__button {
-    position: absolute;
   }
 }
 </style>

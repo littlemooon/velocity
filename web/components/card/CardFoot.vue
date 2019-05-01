@@ -1,5 +1,5 @@
 <template>
-    <div class="card__footer">
+    <div class="card__foot">
       <Right>
         <slot></slot>
       </Right>
@@ -11,11 +11,11 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import Right from '../Right.vue'
 
 @Component({ components: { Right } })
-export default class CardFooter extends Vue {}
+export default class CardFoot extends Vue {}
 </script>
 
 <style scoped>
-.card__footer {
+.card__foot {
   background-color: var(--c-primary-0);
   padding: var(--s-4);
 }

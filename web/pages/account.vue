@@ -1,6 +1,6 @@
 <template>
   <Main :title="title">
-    <template v-slot:header>
+    <template v-slot:head>
       <Button :href="logoutUrl">Logout</Button>
     </template>
     <Grid :variant="gridVariant">

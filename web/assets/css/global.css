@@ -133,9 +133,9 @@
   --z-5: 500;
 
   /* components */
-  --header-h: 64px;
+  --head-h: 64px;
   --nav-w: 256px;
-  --nav-footer-h: 64px;
+  --nav-foot-h: 64px;
 
   --bg-color: {
     color: red;

@@ -1,11 +1,11 @@
 <template>
   <div class="card__wrapper">
     <section class="card column">
-      <slot name="header"></slot>
+      <slot name="head"></slot>
       <div class="card__content" :style="{ backgroundColor }">
         <slot></slot>
       </div>
-      <slot name="footer"></slot>
+      <slot name="foot"></slot>
     </section>
   </div>
 </template>

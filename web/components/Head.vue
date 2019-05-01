@@ -8,7 +8,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class Header extends Vue {}
+export default class Head extends Vue {}
 </script>
 
 
@@ -17,8 +17,8 @@ header {
   display: flex;
   align-items: center;
   width: 100%;
-  height: var(--header-h);
-  min-height: var(--header-h);
+  height: var(--head-h);
+  min-height: var(--head-h);
   background-color: var(--c-white);
   box-shadow: var(--bs-1);
   z-index: var(--z-2);

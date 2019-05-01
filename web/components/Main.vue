@@ -1,11 +1,11 @@
 <template>
   <div class="main__wrapper">
-    <Header>
+    <Head>
       <h1 class="main__title">{{title}}</h1>
       <Right>
-        <slot name="header"></slot>
+        <slot name="head"></slot>
       </Right>
-    </Header>
+    </Head>
     <div class="main__scroll">
       <main class="main">
         <ul v-if="notifications.length" class="main__notifications">
@@ -28,7 +28,7 @@
 import { Component, namespace, Prop, Vue } from 'nuxt-property-decorator'
 import * as account from '../store/account'
 import * as ui from '../store/ui'
-import Header from './Header.vue'
+import Head from './Head.vue'
 import Notification from './Notification.vue'
 import Right from './Right.vue'
 import Spinner from './Spinner.vue'
@@ -36,7 +36,7 @@ import Spinner from './Spinner.vue'
 const Account = namespace(account.name)
 const Ui = namespace(ui.name)
 
-@Component({ components: { Header, Right, Spinner, Notification } })
+@Component({ components: { Head, Right, Spinner, Notification } })
 export default class Main extends Vue {
   @Prop(String)
   public readonly title!: string
@@ -56,7 +56,7 @@ export default class Main extends Vue {
 .main__scroll {
   overflow-x: hidden;
   overflow-y: scroll;
-  height: calc(100vh - var(--header-h));
+  height: calc(100vh - var(--head-h));
 }
 .main__title {
   font-size: var(--f-4);
@@ -72,12 +72,6 @@ export default class Main extends Vue {
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--s-5);
-}
-.main__header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 .main__notifications {
   position: absolute;
