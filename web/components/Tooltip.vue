@@ -13,7 +13,7 @@ export default class Tooltip extends Vue {}
 
 <style scoped>
 .tooltip {
-  background-color: var(--c-primary-0);
+  background-color: var(--c-primary-faded);
   padding: var(--s-3);
   border-radius: var(--s-2);
   box-shadow: var(--bs-1);

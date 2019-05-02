@@ -51,7 +51,8 @@
   --c-gray-0: #f5f5f5;
   --c-white: #ffffff;
 
-  --c-primary-0: rgba(112, 98, 217, .1);
+  --c-primary-faded: rgba(112, 98, 217, .1);
+  --c-primary-0: rgba(112, 98, 217);
   --c-primary-1: rgba(79, 61, 210, 1);
   --c-primary-2: rgba(47, 25, 206, 1);
   --c-primary-3: rgba(32, 14, 165, 1);

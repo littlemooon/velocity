@@ -1,20 +1,30 @@
 <template>
   <Main :title="title">
-    <Grid :variant="gridVariant">
-      <nuxt-link
-        :to="'/a/' + account.id"
+    <Grid :variant="gridVariant.SMALL">
+      <div
         v-for="account in accounts.data"
-        :key="account.id"
-        class="link"
+        :key="account.providerId"
       >
         <Card>
           <CardAvatar>
             <GoogleAnalyticsLogo/>
           </CardAvatar>
           <CardTitle>{{account.name}}</CardTitle>
-          <CardSubtitle>{{account.providerId}}</CardSubtitle>
+          <Grid :variant="gridVariant.TINY" class='properties'>
+            <nuxt-link
+              :to="'/a/' + account.providerId + '/' + property.providerId"
+              v-for="property in account.properties"
+              :key="property.providerId"
+              class="link"
+            >
+              <Card clickable>
+                <CardTitle>{{property.name}}</CardTitle>
+                <CardSubtitle>{{property.providerId}}</CardSubtitle>
+              </Card>
+            </nuxt-link>
+          </Grid>
         </Card>
-      </nuxt-link>
+      </div>
     </Grid>
   </Main>
 </template>
@@ -54,7 +64,7 @@ export default class IndexPage extends Vue {
   @Auth.State public user
 
   get gridVariant() {
-    return GridVariant.SMALL
+    return GridVariant
   }
 
   public layout() {
@@ -70,5 +80,8 @@ h1 {
 }
 .link {
   width: 100%;
+}
+.properties {
+  margin: var(--s-5) 0 0;
 }
 </style>

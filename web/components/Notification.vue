@@ -1,15 +1,20 @@
 <template>
-  <Card v-if="notification" :class="classes" :backgroundColor='backgroundColor'>
+  <Card
+    v-if="notification"
+    :class="classes"
+    :backgroundColor="backgroundColor"
+    :borderColor="borderColor"
+  >
     <div class="row">
       <Icon class="notification__icon">
-        <component :is='icon'/>
+        <component :is="icon"/>
       </Icon>
       <div class="column notification__content">
         <h4>{{notification.title}}</h4>
-        <code v-if='formattedText'>{{formattedText}}</code>
+        <code v-if="formattedText">{{formattedText}}</code>
       </div>
-      <Button :variant="buttonVariant" class='notification__close' :onClick="close">
-        <Icon >
+      <Button v-if='showClose' :variant="buttonVariant" class="notification__close" :onClick="close">
+        <Icon>
           <XIcon/>
         </Icon>
       </Button>
@@ -38,6 +43,8 @@ const Ui = namespace(ui.name)
 export default class Notification extends Vue {
   @Prop({ type: Object, required: true })
   public notification?: Ui.Notification
+  @Prop({ type: Boolean })
+  public showClose?: boolean
 
   @Ui.Action public removeNotification
 
@@ -68,6 +75,17 @@ export default class Notification extends Vue {
   public close() {
     if (this.notification) {
       this.removeNotification(this.notification.id)
+    }
+  }
+
+  get borderColor() {
+    switch (this.notification && this.notification.level) {
+      case 'error':
+        return colors.red
+      case 'warn':
+        return colors.yellow
+      default:
+        return colors.green
     }
   }
 
@@ -104,15 +122,6 @@ export default class Notification extends Vue {
   text-align: left;
   margin: 0 0 var(--s-4);
   box-shadow: var(--bs-2);
-}
-.notification--error {
-  border: 2px solid var(--c-red);
-}
-.notification--warn {
-  border: 2px solid var(--c-orange);
-}
-.notification--info {
-  border: 2px solid var(--c-green);
 }
 .notification__content {
   width: 100%;

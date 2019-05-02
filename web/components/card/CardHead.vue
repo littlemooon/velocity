@@ -17,7 +17,7 @@ export default class CardHead extends Vue {
 
 <style scoped>
 .card__head {
-  background-color: var(--c-primary-0);
+  background-color: var(--c-primary-faded);
   padding: var(--s-4);
 }
 </style>

@@ -49,7 +49,7 @@ export default class NavItem extends Vue {
   padding: var(--s-4);
   background-color: var(--c-white);
   color: var(--c-black);
-  transition: 0.1s color ease, 0.2s background-color ease;
+  transition: 0.2s color ease, 0.2s background-color ease, 0.2s box-shadow ease;
   overflow: hidden;
 }
 .nav__item__link:hover {
@@ -61,7 +61,8 @@ export default class NavItem extends Vue {
 }
 .nav__item__link.nuxt-link-active {
   color: var(--c-primary-3);
-  background-color: var(--c-primary-0);
+  box-shadow: var(--bs-2);
+  background-color: var(--c-primary-faded);
 }
 .nav__item__content {
   margin: 0 0 0 var(--s-4);

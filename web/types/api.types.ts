@@ -35,6 +35,21 @@ export namespace Api {
     >
   }
 
+  export interface AccountProfile {
+    providerId: string
+    name?: string
+    currency?: string
+    timezone?: string
+    websiteUrl?: string
+    type?: string
+    permissions?: AnalyticPermissions
+    providerCreated?: Timestamp
+    providerUpdated?: Timestamp
+    eCommerceTracking?: boolean
+    enhancedECommerceTracking?: boolean
+    botFilteringEnabled?: boolean
+  }
+
   export interface AccountProperty {
     providerId: string
     name?: string
@@ -45,6 +60,7 @@ export namespace Api {
     permissions?: AnalyticPermissions
     providerCreated?: Timestamp
     providerUpdated?: Timestamp
+    profiles: AccountProfile[]
   }
 
   export interface Account {

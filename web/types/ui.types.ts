@@ -7,4 +7,9 @@ export namespace Ui {
     title: string
     text: string | Fetch.Error | Error
   }
+
+  export interface Breadcrumb {
+    to: string
+    name: string
+  }
 }

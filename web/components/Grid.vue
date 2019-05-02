@@ -8,6 +8,7 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
 export enum GridVariant {
+  TINY = 'TINY',
   SMALL = 'SMALL',
   MID = 'MID',
   BIG = 'BIG',
@@ -19,12 +20,7 @@ export default class Grid extends Vue {
   public readonly variant!: GridVariant
 
   get classes() {
-    return {
-      grid: true,
-      'grid--small': this.variant === GridVariant.SMALL,
-      'grid--mid': this.variant === GridVariant.MID,
-      'grid--big': this.variant === GridVariant.BIG,
-    }
+    return `grid grid--${this.variant.toLowerCase()}`
   }
 }
 </script>
@@ -34,8 +30,12 @@ export default class Grid extends Vue {
   display: grid;
   grid-gap: var(--s-5);
 }
+.grid--tiny {
+  grid-gap: var(--s-4);
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
 .grid--small {
- grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 .grid--mid {
   grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
@@ -44,7 +44,9 @@ export default class Grid extends Vue {
   grid-template-columns: repeat(auto-fill, minmax(860px, 1fr));
 }
 @media only screen and (max-width: 480px) {
-  .grid {
+  .grid--small,
+  .grid--mid,
+  .grid--big {
     grid-template-columns: 1fr;
   }
 }

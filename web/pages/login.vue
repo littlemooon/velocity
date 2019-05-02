@@ -33,16 +33,16 @@
       {{notification ? 'Maybe try again?' : 'Sign in with Google'}}
     </a>
   </AuthCard>
-</template>n
+</template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import * as qs from 'query-string'
 import AuthCard from '../components/AuthCard.vue'
-import ErrorBox from '../components/ErrorBox.vue'
+import Notification from '../components/Notification.vue'
 import env from '../env'
 
-@Component({ components: { AuthCard, ErrorBox } })
+@Component({ components: { AuthCard, Notification } })
 export default class LoginPage extends Vue {
   get url() {
     const redirect = this.$route.query.redirect
@@ -50,11 +50,13 @@ export default class LoginPage extends Vue {
   }
 
   get notification() {
-    return {
-      level: 'error',
-      title: 'Failed to login',
-      text: this.$route.query.error,
-    }
+    return (
+      this.$route.query.error && {
+        level: 'error',
+        title: 'Failed to login',
+        text: this.$route.query.error,
+      }
+    )
   }
 }
 </script>

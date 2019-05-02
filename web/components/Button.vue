@@ -50,6 +50,11 @@ export default class Button extends Vue {
   transition: 0.1s color ease, 0.2s background-color ease;
   vertical-align: middle;
 }
+.button:hover,
+.button:focus,
+.button:active {
+  box-shadow: var(--bs-1);
+}
 .button + .button {
   margin: 0 0 0 var(--s-3);
 }
@@ -60,7 +65,7 @@ export default class Button extends Vue {
 .button--primary:hover,
 .button--primary:focus,
 .button--primary:active {
-  background-color: var(--c-primary-3);
+  background-color: var(--c-primary-1);
 }
 .button--secondary {
   color: var(--c-white);
@@ -69,18 +74,18 @@ export default class Button extends Vue {
 .button--secondary:hover,
 .button--secondary:focus,
 .button--secondary:active {
-  background-color: var(--c-second-3);
+  background-color: var(--c-second-1);
 }
 .button--transparent {
   background-color: transparent;
 }
 .button--transparent:hover {
   color: var(--c-primary-3);
-  background-color: var(--c-primary-0);
+  background-color: var(--c-primary-faded);
 }
 .button--transparent:focus,
 .button--transparent:active {
-  background-color: var(--c-primary-0);
+  background-color: var(--c-primary-faded);
 }
 .button--icon {
   border-radius: 50%;
@@ -92,7 +97,7 @@ export default class Button extends Vue {
 }
 .button--icon:hover {
   color: var(--c-primary-3);
-  background-color: var(--c-primary-0);
+  background-color: var(--c-primary-faded);
 }
 .button--icon:focus,
 .button--icon:active {

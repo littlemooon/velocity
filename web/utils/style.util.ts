@@ -1,3 +1,28 @@
+export const primary = {
+  primaryFaded: 'rgba(112, 98, 217, .1)',
+  primary0: 'rgba(112, 98, 217)',
+  primary1: 'rgba(79, 61, 210, 1)',
+  primary2: 'rgba(47, 25, 206, 1)',
+  primary3: 'rgba(32, 14, 165, 1)',
+  primary4: 'rgba(25, 10, 128, 1)',
+}
+
+export const second = {
+  second0: 'rgba(177, 84, 213, 1)',
+  second1: 'rgba(160, 45, 205, 1)',
+  second2: 'rgba(147, 8, 201, 1)',
+  second3: 'rgba(115, 4, 158, 1)',
+  second4: 'rgba(89, 3, 123, 1)',
+}
+
+export const third = {
+  third0: 'rgba(83, 168, 209, 1)',
+  third1: 'rgba(45, 150, 201, 1)',
+  third2: 'rgba(9, 135, 196, 1)',
+  third3: 'rgba(5, 103, 150, 1)',
+  third4: 'rgba(3, 80, 117, 1)',
+}
+
 export const greys = {
   black: 'rgb(45,52,54)',
   gray3: 'rgb(99,110,114)',
@@ -41,6 +66,9 @@ export const colorsFaded = {
 }
 
 export const colors = {
+  ...primary,
+  ...second,
+  ...third,
   ...greys,
   ...colorsDark,
   ...colorsLight,

@@ -24,19 +24,19 @@
       <ul class="nav__scroll">
         <NavItem :navOpen="isOpen" exact to="/">
           <template v-slot:icon>
-            <ActivityIcon/>
+            <FolderIcon/>
           </template>
           Home
         </NavItem>
         <NavItem :navOpen="isOpen" v-if="dev" to="/dev/components">
           <template v-slot:icon>
-            <CodeIcon/>
+            <HeartIcon/>
           </template>
           Components
         </NavItem>
         <NavItem :navOpen="isOpen" v-if="dev" to="/dev/api">
           <template v-slot:icon>
-            <CodeIcon/>
+            <TerminalIcon/>
           </template>
           Api
         </NavItem>
@@ -56,11 +56,12 @@
 <script lang="ts">
 import { Component, namespace, Vue } from 'nuxt-property-decorator'
 import {
-  ActivityIcon,
   ArrowLeftIcon,
-  CodeIcon,
+  FolderIcon,
+  HeartIcon,
   MenuIcon,
   SettingsIcon,
+  TerminalIcon,
 } from 'vue-feather-icons'
 import env from '../../env'
 import * as auth from '../../store/auth'
@@ -78,9 +79,10 @@ const Ui = namespace(ui.name)
     Button,
     Logo,
     Icon,
-    ActivityIcon,
-    CodeIcon,
+    FolderIcon,
+    HeartIcon,
     SettingsIcon,
+    TerminalIcon,
     ArrowLeftIcon,
     MenuIcon,
     NavItem,
@@ -149,7 +151,6 @@ export default class Nav extends Vue {
   height: var(--head-h);
   padding: 0 var(--s-4);
   justify-content: space-between;
-  border-bottom: 1px solid var(--c-gray-3);
 }
 .nav__head__button {
   min-width: var(--s-5);
@@ -160,7 +161,6 @@ export default class Nav extends Vue {
 }
 
 .nav__foot {
-  border-top: 1px solid var(--c-gray-3);
   height: var(--nav-foot-h);
 }
 

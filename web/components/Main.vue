@@ -1,7 +1,6 @@
 <template>
   <div class="main__wrapper">
-    <Head>
-      <h1 class="main__title">{{title}}</h1>
+    <Head :title='title'>
       <Right>
         <slot name="head"></slot>
       </Right>
@@ -10,11 +9,11 @@
       <main class="main">
         <ul v-if="notifications.length" class="main__notifications">
           <li v-for="notification in notifications" :key="notification.id">
-            <Notification :notification="notification"/>
+            <Notification showClose :notification="notification"/>
           </li>
         </ul>
         <template v-if="loading">
-          <Spinner class='main__spinner' immediate/>
+          <Spinner class="main__spinner" immediate/>
         </template>
         <div :class="loading ? 'main--loading':''">
           <slot></slot>
@@ -73,6 +72,13 @@ export default class Main extends Vue {
   margin: 0 auto;
   padding: var(--s-5);
 }
+.main__breadcrumbs {
+  height: 100%;
+  white-space: nowrap;
+}
+.breadcrumb--last {
+  color: red;
+}
 .main__notifications {
   position: absolute;
   bottom: 0;
@@ -91,8 +97,7 @@ export default class Main extends Vue {
   height: var(--s-7);
   width: var(--s-7);
   top: 30%;
-  left: calc(50% - var(--s-4));
+  left: calc(50% - var(--s-6));
   z-index: var(--z-3);
-
 }
 </style>

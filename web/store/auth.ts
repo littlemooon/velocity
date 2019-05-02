@@ -44,11 +44,15 @@ export const actions: Actions<State, RootState> = {
     commit(types.USER_SET, result)
 
     if (result.error) {
-      dispatch(`${ui.name}/addNotification`, {
-        level: 'error',
-        text: 'Failed to get User',
-        error: result.error,
-      })
+      dispatch(
+        `${ui.name}/addNotification`,
+        {
+          level: 'error',
+          text: 'Failed to get User',
+          error: result.error,
+        },
+        { root: true }
+      )
     }
 
     if (result.data && result.data.email) {
